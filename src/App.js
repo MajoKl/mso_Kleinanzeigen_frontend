@@ -1,4 +1,4 @@
-import { BrowserRouter, Link, Route} from "react-router-dom";
+import { BrowserRouter, Link, Route } from "react-router-dom";
 import React from "react";
 
 //Links
@@ -17,7 +17,7 @@ function App() {
             <Route path="/start">
               <h1>Startseite</h1>
               <div>
-                <Start/>
+                <Start />
                 Willkommen auf der Seite!
               </div>
             </Route>
