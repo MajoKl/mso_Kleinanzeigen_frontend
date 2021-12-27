@@ -41,7 +41,7 @@ function Login() {
             iconPos="left"
             className="p-button-outlined p-button-rounded"
             //onClick={handleClick}
-            href="https://github.com/login/oauth/authorize?client_id=8f672e53bc6b92be977d&redirect_uri=http://localhost:8080/oauth/redirect"
+            href="https://github.com/login/oauth/authorize?client_id=e01038b01f2f337f50a8&redirect_uri=http://localhost:3000/oauth/redirect"
           />
         </>
       ) : (
