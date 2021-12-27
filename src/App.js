@@ -5,6 +5,8 @@ import "primereact/resources/themes/lara-light-indigo/theme.css"; //theme
 import "primereact/resources/primereact.min.css"; //core css
 import "primeicons/primeicons.css"; //icons
 
+import { Menubar } from "primereact/menubar";
+
 //Links
 import Start from "./start/start.jsx";
 import Login from "./login/Login.jsx";

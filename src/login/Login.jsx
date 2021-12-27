@@ -34,15 +34,15 @@ function Login() {
           {/* img */}
 
           <h1 className="">Anmelden mit</h1>
-
-          <Button
-            label="Marienschule"
-            icon=""
-            iconPos="left"
-            className="p-button-outlined p-button-rounded"
-            //onClick={handleClick}
-            href="https://github.com/login/oauth/authorize?client_id=e01038b01f2f337f50a8&redirect_uri=http://localhost:3000/oauth/redirect"
-          />
+          <a href="https://github.com/login/oauth/authorize?client_id=e01038b01f2f337f50a8&redirect_uri=http://localhost:3000/oauth/redirect">
+            <Button
+              label="Marienschule"
+              icon=""
+              iconPos="left"
+              className="p-button-outlined p-button-rounded"
+              type="button"
+            />
+          </a>
         </>
       ) : (
         <></>
