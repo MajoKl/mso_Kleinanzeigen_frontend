@@ -1,8 +1,13 @@
 import { BrowserRouter, Link, Route } from "react-router-dom";
 import React from "react";
 
+import "primereact/resources/themes/lara-light-indigo/theme.css"; //theme
+import "primereact/resources/primereact.min.css"; //core css
+import "primeicons/primeicons.css"; //icons
+
 //Links
 import Start from "./start/start.jsx";
+import Login from "./login/Login.jsx";
 
 function App() {
   return (
@@ -11,6 +16,7 @@ function App() {
         <React.Fragment>
           {/* Links: */}
           <Link to="/start">Startseite</Link>
+          <Link to="/login">LogIn</Link>
 
           {/* Routes: */}
           <div>
@@ -20,6 +26,10 @@ function App() {
                 <Start />
                 Willkommen auf der Seite!
               </div>
+            </Route>
+
+            <Route path="/login">
+              <Login />
             </Route>
           </div>
         </React.Fragment>
