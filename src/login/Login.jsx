@@ -32,7 +32,6 @@ function Login() {
         <>
           {/* headline */}
           {/* img */}
-
           <h1 className="">Anmelden mit</h1>
           <a href="https://github.com/login/oauth/authorize?client_id=e01038b01f2f337f50a8&redirect_uri=http://localhost:3000/oauth/redirect">
             <Button
