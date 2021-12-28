@@ -1,4 +1,4 @@
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { useEffect, useState } from "react";
 import React from "react";
 
@@ -6,16 +6,17 @@ import "primereact/resources/themes/lara-light-indigo/theme.css"; //theme
 import "primereact/resources/primereact.min.css"; //core css
 import "primeicons/primeicons.css"; //icons
 
+// import Sidebarr from "./navbar/Sidebarr.jsx";
+import Topbar from "./navbar/Topbar.jsx";
+
 //Links
 import Start from "./start/start.jsx";
 import Login from "./login/Login.jsx";
-// import Sidebarr from "./navbar/Sidebarr.jsx";
-import Topbar from "./navbar/Topbar.jsx";
 
 function App() {
   return (
     <div>
-      <BrowserRouter>
+      <Router>
         <React.Fragment>
           {/* Links: */}
           {/* <Link to="/">Startseite</Link>
@@ -23,9 +24,9 @@ function App() {
 
           <Topbar />
 
-          <div>
+          {/* <div>
             {/* Routes: */}
-            <Route path="/">
+          {/* <Route path="/">
               <h1>Startseite</h1>
               <div>
                 <Start />
@@ -35,9 +36,13 @@ function App() {
             <Route path="/login">
               <Login />
             </Route>
-          </div>
+          </div> */}
+          <Switch>
+            <Route path="/" exact component={Start} />
+            <Route path="/login" component={Login} />
+          </Switch>
         </React.Fragment>
-      </BrowserRouter>
+      </Router>
     </div>
   );
 }

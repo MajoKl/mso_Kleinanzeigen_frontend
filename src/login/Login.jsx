@@ -32,9 +32,7 @@ function Login() {
         <>
           {/* headline */}
           {/* img */}
-
           <h1 className="">Anmelden mit</h1>
-
           <Button
             label="Marienschule"
             icon=""
