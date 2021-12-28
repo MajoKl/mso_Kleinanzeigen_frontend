@@ -1,4 +1,5 @@
-import { BrowserRouter, Link, Route } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
+// import { useEffect, useState } from "react";
 import React from "react";
 
 import "primereact/resources/themes/lara-light-indigo/theme.css"; //theme
@@ -8,6 +9,8 @@ import "primeicons/primeicons.css"; //icons
 //Links
 import Start from "./start/start.jsx";
 import Login from "./login/Login.jsx";
+// import Sidebarr from "./navbar/Sidebarr.jsx";
+import Topbar from "./navbar/Topbar.jsx";
 
 function App() {
   return (
@@ -15,19 +18,20 @@ function App() {
       <BrowserRouter>
         <React.Fragment>
           {/* Links: */}
-          <Link to="/start">Startseite</Link>
-          <Link to="/login">LogIn</Link>
+          {/* <Link to="/">Startseite</Link>
+          <Link to="/login">LogIn</Link> */}
 
-          {/* Routes: */}
+          <Topbar />
+
           <div>
-            <Route path="/start">
+            {/* Routes: */}
+            <Route path="/">
               <h1>Startseite</h1>
               <div>
                 <Start />
                 Willkommen auf der Seite!
               </div>
             </Route>
-
             <Route path="/login">
               <Login />
             </Route>
