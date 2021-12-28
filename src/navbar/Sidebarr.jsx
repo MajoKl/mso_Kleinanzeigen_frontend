@@ -13,9 +13,10 @@ function Sidebarr() {
   return (
     <>
       <Button
-        icon="pi pi-arrow-left"
+        icon="pi pi-bars"
         onClick={() => setVisibleLeft(true)}
-        className="p-mr-2"
+        className="p-button-outlined"
+        style={{ color: "white" }}
       />
       <Sidebar
         visible={visibleLeft}
