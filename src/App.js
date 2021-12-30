@@ -6,12 +6,12 @@ import "primereact/resources/themes/lara-light-indigo/theme.css"; //theme
 import "primereact/resources/primereact.min.css"; //core css
 import "primeicons/primeicons.css"; //icons
 
-// import Sidebarr from "./navbar/Sidebarr.jsx";
-import Topbar from "./navbar/Topbar.jsx";
-
 //Links
 import Start from "./start/start.jsx";
 import Login from "./login/Login.jsx";
+import Yeee from "./Yeee.jsx";
+
+import Topbar from "./navbar/Topbar.jsx";
 
 function App() {
   return (
@@ -40,6 +40,7 @@ function App() {
           <Switch>
             <Route path="/" exact component={Start} />
             <Route path="/login" component={Login} />
+            <Route path="/yeee" component={Yeee} />
           </Switch>
         </React.Fragment>
       </Router>
