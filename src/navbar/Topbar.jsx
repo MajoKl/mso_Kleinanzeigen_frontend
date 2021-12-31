@@ -3,23 +3,25 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Topbar.scss";
 import Sidebarr from "./Sidebarr.jsx";
-
-import { InputText } from "primereact/inputtext";
+import Searchbar from "../components/Searchbar.jsx";
 
 function Topbar() {
   //   const [click, setClick] = useState(false);
   //   const [dropdown, setDropdown] = useState(false);
 
-  const [valueSearch, setValueSearch] = useState("");
+  const [searchresults, setSearchResults] = useState([]);
 
   //   const handleClick = () => setClick(!click);
   //   const closeMobileMenu = () => setClick(false);
 
-  const handleKeyDown = (event) => {
-    //make something with the Data from the Search input
-    if (event.key === "Enter") {
-      console.log("Sjdjfbjhef");
-    }
+  const handleSearchSubmit = async (term) => {
+    // const response = await nameoffileinfolderapi.get(
+    //   "/endpfad zum searchen/undso/weiter",
+    //   {
+    //     params: { query: term },
+    //   }
+    // );
+    // setSearchResults({ searchresults: response.data.results });
   };
 
   //   const onMouseEnter = () => {
@@ -41,24 +43,15 @@ function Topbar() {
   return (
     <>
       <nav className="navbar">
-        <div class="navbar-menusidebar">
+        <div className="navbar-menusidebar">
           <Sidebarr />
         </div>
-        <div>
-          <span className="p-input-icon-left">
-            <i className="pi pi-search" />
-            <InputText
-              value={valueSearch}
-              onChange={(e) => setValueSearch(e.target.value)}
-              placeholder="Search"
-              className="nav-search"
-              onKeyDown={handleKeyDown}
-            />
-          </span>
-        </div>
+
+        <Searchbar onSubmit={handleSearchSubmit} />
+
         <Link to="/" className="navbar-logo">
           MSO-Kleinanzeigen
-          {/* <i class="pi pi-apple" /> */}
+          {/* <i className="pi pi-apple" /> */}
         </Link>
 
         {/* <div className="menu-icon" onClick={handleClick}>
