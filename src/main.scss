@@ -1,0 +1,21 @@
+.container {
+  display: block;
+  max-width: auto;
+}
+h1 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 40px;
+  text-align: center;
+}
+.p-grid {
+  display: -moz-box;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 0 0;
+}
+.p-nogutter {
+  margin-right: 0;
+  margin-left: 0;
+  margin-top: 0;
+}
