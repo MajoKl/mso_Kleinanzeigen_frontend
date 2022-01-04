@@ -4,6 +4,7 @@ import { Button } from "primereact/button";
 import { Panel } from "primereact/panel";
 
 import "./Login.scss";
+import "../main.scss";
 
 function Login() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -33,45 +34,46 @@ function Login() {
     <div>
       {!loggedIn ? (
         <>
-          <div className="ui container">
-            <div className="ui segment">
-              <h1 className="headline">Anmelden</h1>
-              <Panel header="Hinweis">
-                Du kannst dich mit der Marienschule-Hompage anmelden. Melde dich
-                dort mit deinem ganz normalen Account an. Dann wirst du
-                automatisch auf diese Seite zurückgeleitet.
-              </Panel>
-              <div className="style-logo">
-                <img
-                  src="./images/MSOlogo.svg"
-                  className="logo"
-                  alt="Logo"
-                  height="200"
-                ></img>
-              </div>
-              <h3 className="info">Anmelden mit:</h3>
-              <div className="buttonn">
-                <Button
-                  className="p-button-outlined p-button-rounded p-button-warning"
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.location.href =
-                      "https://github.com/login/oauth/authorize?client_id=e01038b01f2f337f50a8&redirect_uri=http://localhost:3000/oauth/redirect";
-                  }}
-                >
-                  <img
-                    src="./images/MSOlogo.svg"
-                    alt=""
-                    width="24"
-                    height="24"
-                  />
-                  <span style={{ marginLeft: "10px" }}>
-                    Marienschule Homepage
-                  </span>
-                </Button>
-              </div>
+          {/* <div className="ui container"> */}
+          <div className="container">
+            {/* <div className="ui segment"> */}
+            <h1>Anmelden</h1>
+            <Panel header="Hinweis">
+              Du kannst dich mit der Marienschule-Hompage anmelden. Melde dich
+              dort mit deinem ganz normalen Account an. Dann wirst du
+              automatisch auf diese Seite zurückgeleitet.
+            </Panel>
+            <div className="style-logo">
+              <img
+                src="./data/images/MSOlogo.svg"
+                className="logo"
+                alt="Logo"
+                height="200"
+              ></img>
             </div>
+            <h3 className="info">Anmelden mit:</h3>
+            <div className="buttonn">
+              <Button
+                className="p-button-outlined p-button-rounded p-button-warning"
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.href =
+                    "https://github.com/login/oauth/authorize?client_id=e01038b01f2f337f50a8&redirect_uri=http://localhost:3000/oauth/redirect";
+                }}
+              >
+                <img
+                  src="./data/images/MSOlogo.svg"
+                  alt=""
+                  width="24"
+                  height="24"
+                />
+                <span style={{ marginLeft: "10px" }}>
+                  Marienschule Homepage
+                </span>
+              </Button>
+            </div>
+            {/* </div> */}
           </div>
         </>
       ) : (

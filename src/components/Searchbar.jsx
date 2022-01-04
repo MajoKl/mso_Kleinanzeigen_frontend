@@ -13,20 +13,18 @@ class Searchbar extends React.Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.onFormSubmit}>
-          <span className="p-input-icon-left">
-            <i className="pi pi-search" />
-            <InputText
-              type="text"
-              value={this.state.term}
-              onChange={(e) => this.setState({ term: e.target.value })}
-              placeholder="Search"
-              className="nav-search"
-            />
-          </span>
-        </form>
-      </div>
+      <form onSubmit={this.onFormSubmit}>
+        <span className="p-input-icon-left navbar-search-span">
+          <i className="pi pi-search" />
+          <InputText
+            type="text"
+            value={this.state.term}
+            onChange={(e) => this.setState({ term: e.target.value })}
+            placeholder="Suchen"
+            className="navbar-search-input"
+          />
+        </span>
+      </form>
     );
   }
 }

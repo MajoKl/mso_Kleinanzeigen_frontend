@@ -3,7 +3,7 @@ import { Sidebar } from "primereact/sidebar";
 import { Button } from "primereact/button";
 import { Link } from "react-router-dom";
 import { SidebarData } from "./SidebarData";
-import "./Sidebar.css";
+import "./Sidebar.scss";
 
 function Sidebarr() {
   // const [sidebar, setSidebar] = useState(false);
@@ -15,7 +15,7 @@ function Sidebarr() {
       <Button
         icon="pi pi-bars"
         onClick={() => setVisibleLeft(true)}
-        className="p-button-outlined"
+        className="p-button-outlined buttooon"
         style={{ color: "white" }}
       />
       <Sidebar

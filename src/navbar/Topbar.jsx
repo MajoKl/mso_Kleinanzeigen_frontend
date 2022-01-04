@@ -42,24 +42,28 @@ function Topbar() {
 
   return (
     <>
-      <nav className="navbar">
-        <div className="navbar-menusidebar">
+      {/* <nav className="navbar"> */}
+      <div className="p-grid navbar">
+        <span className="p-col">
           <Sidebarr />
-        </div>
+        </span>
+        <span className="p-col hallo">
+          <Searchbar onSubmit={handleSearchSubmit} />
+        </span>
+        <span className="p-col">
+          <Link to="/" className="navbar-logo-link">
+            MSOKKleinanzeigen
+            {/* <i className="pi pi-apple" /> */}
+          </Link>
+        </span>
+      </div>
 
-        <Searchbar onSubmit={handleSearchSubmit} />
-
-        <Link to="/" className="navbar-logo">
-          MSO-Kleinanzeigen
-          {/* <i className="pi pi-apple" /> */}
-        </Link>
-
-        {/* <div className="menu-icon" onClick={handleClick}>
+      {/* <div className="menu-icon" onClick={handleClick}>
           <i className={click ? "pi pi-times" : "pi pi-bars"} />
         </div> */}
 
-        {/* <ul className={click ? "nav-menu active" : "nav-menu"}> */}
-        {/* <div className="nav-item">
+      {/* <ul className={click ? "nav-menu active" : "nav-menu"}> */}
+      {/* <div className="nav-item">
           <Link to="/" className="nav-links" onClick={closeMobileMenu}>
             Home
           </Link>
@@ -69,7 +73,7 @@ function Topbar() {
             Products
           </Link>
         </div> */}
-      </nav>
+      {/* </nav> */}
     </>
   );
 }
