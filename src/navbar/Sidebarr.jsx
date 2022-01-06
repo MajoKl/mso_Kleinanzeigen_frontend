@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Sidebar } from "primereact/sidebar";
 import { Button } from "primereact/button";
-import { Link } from "react-router-dom";
+import { Avatar } from "primereact/avatar";
 import { SidebarData } from "./SidebarData";
 import "./Sidebar.scss";
 
@@ -24,27 +25,41 @@ function Sidebarr() {
         onHide={() => setVisibleLeft(false)}
         className="sidebar-menu"
       >
+        {/* Content */}
         <Link to="/" className="sidebar-logo-link">
           <img
             src="./data/images/MSOKleinanzeigenLogo.png"
             alt="MSO-Kleinanzeigen-Logo"
             height="200"
           />
-          {/* <i className="pi pi-apple" /> */}
         </Link>
-        <ul className="sidebar-menu-items">
-          <h3>Left Sidebar</h3>
-          {SidebarData.map((item, index) => {
-            return (
-              <li key={index}>
-                <Link to={item.path}>
-                  {item.icon}
-                  <span>{item.title}</span>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        <Avatar
+          label="C"
+          className="sidebar-avatar"
+          size="xlarge"
+          shape="circle"
+        />
+        <div className="sidebar-menu-items">
+          <ul>
+            {/* <h3>Left Sidebar</h3> */}
+            {SidebarData.map((item, index) => {
+              return (
+                <li key={index}>
+                  <Link to={item.path}>
+                    <i className={item.icon}></i>
+                    <span>{item.title}</span>
+                  </Link>
+                </li>
+              );
+            })}
+            <li>
+              <a href="https://www.marienschule.com">
+                <i className="pi pi-external-link"></i>
+                <span>Zur Homepage</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </Sidebar>
     </>
   );
