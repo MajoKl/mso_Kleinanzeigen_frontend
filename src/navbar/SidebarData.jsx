@@ -1,27 +1,27 @@
 export const SidebarData = [
   {
-    title: "Home",
+    title: "Meine Anzeigen",
     path: "/",
-    icon: null,
+    icon: "pi pi-tags",
   },
   {
-    title: "Login",
-    path: "/login",
-    icon: null,
+    title: "Nachrichten",
+    path: "/",
+    icon: "pi pi-comments",
   },
   {
-    title: "Neuen Artikel erstellen",
+    title: "Artikel inserieren",
     path: "/newproduct",
     icon: "pi pi-plus",
   },
   {
-    title: "-",
-    path: "/",
-    icon: null,
+    title: "",
+    path: "",
+    icon: "",
   },
   {
-    title: "-",
+    title: "Einstellungen",
     path: "/",
-    icon: null,
+    icon: "pi pi-cog",
   },
 ];
