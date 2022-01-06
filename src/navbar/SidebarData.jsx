@@ -5,23 +5,23 @@ export const SidebarData = [
     icon: null,
   },
   {
-    title: "Nächste Seite",
+    title: "Login",
     path: "/login",
     icon: null,
   },
   {
-    title: "Nächste Seite",
-    path: "/login",
+    title: "Neuen Artikel erstellen",
+    path: "/newproduct",
+    icon: "pi pi-plus",
+  },
+  {
+    title: "-",
+    path: "/",
     icon: null,
   },
   {
-    title: "Nächste Seite",
-    path: "/login",
-    icon: null,
-  },
-  {
-    title: "Nächste Seite",
-    path: "/login",
+    title: "-",
+    path: "/",
     icon: null,
   },
 ];

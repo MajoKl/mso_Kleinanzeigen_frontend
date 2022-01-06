@@ -1,0 +1,106 @@
+.newproduct {
+  padding: 20px;
+}
+.newproduct hr {
+  width: 50%;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.newproduct > h2 {
+  font-weight: bold;
+}
+.editor > .p-editor-content {
+  height: 230px;
+}
+.newproduct .field.first {
+  margin-bottom: 20px;
+}
+.newproduct .field {
+  margin: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.125);
+}
+.newproduct .p-field-radiobutton > .p-col > label {
+  margin-left: 10px;
+}
+.newproduct .field .fieldinput .block {
+  width: 50%;
+}
+.newproduct .field .fieldcategory .block {
+  width: 25%;
+  min-width: 10rem;
+}
+.newproduct .field .fieldprice {
+  margin: 0.5rem;
+  width: 24%;
+}
+.newproduct .field .fieldprice .block {
+  margin-top: 30px;
+}
+.newproduct .field .fieldprice label {
+  font-size: medium;
+  padding-left: 3px;
+}
+.newproduct .field .fieldeditor {
+  width: 70%;
+}
+.fieldupload {
+  width: 70%;
+}
+.newproduct .field .fieldbutton {
+  width: 100%;
+}
+.newproduct .field .fieldbutton .linkbutton {
+  float: right;
+  margin-bottom: 15px;
+}
+.newproduct .field .fieldbutton .submitbutton {
+  width: 100%;
+}
+.styleProgressBar {
+  width: 300px;
+  margin-left: auto;
+}
+@media screen and (max-width: 995px) {
+  .newproduct {
+    padding: 0px;
+    border-color: white;
+  }
+  .newproduct .field {
+    margin: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .newproduct hr {
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+  .editor > .p-editor-content {
+    height: 250px;
+  }
+  .newproduct .field .fieldinput .block,
+  .newproduct .field .fieldbutton .block {
+    width: 100%;
+  }
+  .newproduct .field .fieldprice {
+    width: 46%;
+  }
+  .newproduct .field .fieldeditor {
+    width: 100%;
+  }
+  .newproduct .field .fieldupload {
+    width: 100%;
+  }
+  .newproduct .field .fieldupload .p-fileupload-content {
+    height: 250px;
+  }
+
+  .styleProgressBar {
+    width: 150px;
+    margin-left: auto;
+  }
+}
