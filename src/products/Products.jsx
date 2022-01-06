@@ -4,7 +4,7 @@ import { ProductService } from "./ProductService";
 import { Rating } from "primereact/rating";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
-import "./DataViewDemo.scss";
+import "./products.scss";
 
 const Products = () => {
   const [products, setProducts] = useState(null);

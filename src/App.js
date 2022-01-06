@@ -4,12 +4,14 @@ import React from "react";
 
 import "primereact/resources/themes/lara-light-indigo/theme.css"; //theme
 import "primereact/resources/primereact.min.css"; //core css
+import "primeflex/primeflex.css"; // flex
 import "primeicons/primeicons.css"; //icons
 
 //Links
 import Start from "./start/start.jsx";
 import Login from "./login/Login.jsx";
 import Yeee from "./Yeee.jsx";
+import NewProduct from "./products/NewProducts.jsx";
 
 import Topbar from "./navbar/Topbar.jsx";
 
@@ -40,6 +42,7 @@ function App() {
           <Switch>
             <Route path="/" exact component={Start} />
             <Route path="/login" component={Login} />
+            <Route path="/newproduct" component={NewProduct} />
             <Route path="/yeee" component={Yeee} />
           </Switch>
         </React.Fragment>

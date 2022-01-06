@@ -43,14 +43,14 @@ function Topbar() {
   return (
     <>
       {/* <nav className="navbar"> */}
-      <div className="p-grid navbar">
-        <span className="p-col">
+      <div className="navbar">
+        <span className="p-coll">
           <Sidebarr />
         </span>
-        <span className="p-col hallo">
+        <span className="p-coll hallo">
           <Searchbar onSubmit={handleSearchSubmit} />
         </span>
-        <span className="p-col">
+        <span className="p-coll">
           <Link to="/" className="navbar-logo-link">
             MSOKKleinanzeigen
             {/* <i className="pi pi-apple" /> */}
