@@ -24,8 +24,16 @@ function Sidebarr() {
         onHide={() => setVisibleLeft(false)}
         className="sidebar-menu"
       >
-        <h3>Left Sidebar</h3>
+        <Link to="/" className="sidebar-logo-link">
+          <img
+            src="./data/images/MSOKleinanzeigenLogo.png"
+            alt="MSO-Kleinanzeigen-Logo"
+            height="200"
+          />
+          {/* <i className="pi pi-apple" /> */}
+        </Link>
         <ul className="sidebar-menu-items">
+          <h3>Left Sidebar</h3>
           {SidebarData.map((item, index) => {
             return (
               <li key={index}>

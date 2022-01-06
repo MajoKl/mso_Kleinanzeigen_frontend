@@ -52,7 +52,11 @@ function Topbar() {
         </span>
         <span className="p-coll">
           <Link to="/" className="navbar-logo-link">
-            MSOKKleinanzeigen
+            <img
+              src="./data/images/MSOKleinanzeigenLogo.png"
+              alt="MSO-Kleinanzeigen-Logo"
+              height="50"
+            />
             {/* <i className="pi pi-apple" /> */}
           </Link>
         </span>
