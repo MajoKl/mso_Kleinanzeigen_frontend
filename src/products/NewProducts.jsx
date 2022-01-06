@@ -99,8 +99,7 @@ function NewProducts() {
   ];
   //   const [price, setPrice] = useState(0);
   //   const [priceCategory, setPriceCategory] = useState(null);
-  //   const [description, setDescription] = useState("");
-
+  const [description, setDescription] = useState("");
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
 
@@ -120,10 +119,10 @@ function NewProducts() {
       typ: "biete",
       title: "",
       titleDetail: "",
-      category: "hf",
+      category: null,
       price: 0,
       priceCategory: null,
-      description: "fffff",
+      description: description,
     },
     validate: (data) => {
       let errors = {};
@@ -262,18 +261,22 @@ function NewProducts() {
                   id="title"
                   name="title"
                   aria-describedby="title-help"
-                  className="p-d-block block"
+                  //   className="p-d-block block"
                   // value={title}
                   //   onChange={(e) => setTitle(e.target.value)}
                   // placeholder="Titel"
-                  tooltip="Dieses Feld ist ein Pflichtfeld"
-                  tooltipOptions={{ position: "top" }}
+                  //   tooltip="Dieses Feld ist ein Pflichtfeld"
+                  //   tooltipOptions={{ position: "top" }}
                   value={formik.values.title}
                   onChange={formik.handleChange}
                   autoFocus
-                  // className={classNames({
-                  //   "p-invalid": isFormFieldValid("title"),
-                  // })}
+                  className={
+                    (classNames({
+                      "p-invalid": isFormFieldValid("title"),
+                    }),
+                    "p-d-block block")
+                    //funktioniert nicht
+                  }
                 />
                 <label
                   htmlFor="title"
@@ -292,19 +295,19 @@ function NewProducts() {
             <div className="p-field fieldinput">
               <span className="p-float-label">
                 <InputText
-                  id="title-detail"
+                  id="titleDetail"
                   aria-describedby="title-detail-help"
                   className="p-d-block block"
                   // value={titleDetail}
                   //   onChange={(e) => setTitleDetail(e.target.value)}
                   //   placeholder="Detailierter Titel"
-                  tooltip="Dieses Feld ist kein Pflichtfeld"
-                  tooltipOptions={{ position: "top" }}
+                  //   tooltip="Dieses Feld ist kein Pflichtfeld"
+                  //   tooltipOptions={{ position: "top" }}
                   value={formik.values.titleDetail}
                   onChange={formik.handleChange}
                   autoFocus
                 />
-                <label htmlFor="title-detail">Detaillierter Titel</label>
+                <label htmlFor="titleDetail">Detaillierter Titel</label>
               </span>
               <small id="title-detail-help" className="p-d-block">
                 Beschreibe dein Artikel mit kurzen Worten, um Personen
@@ -313,39 +316,39 @@ function NewProducts() {
             </div>
             {/* Category */}
             <div className="p-field fieldcategory">
-              <Tooltip target=".selecttip" position="top" />
+              {/* <Tooltip target=".selecttip" position="top" />
               <span
                 className="selecttip"
                 data-pr-tooltip="Dieses Feld ist ein Pflichtfeld"
-              >
-                <span className="p-float-label">
-                  <CascadeSelect
-                    // value={category}
-                    options={countries} //ist object array mit allen unterkategorien
-                    optionLabel={"cname"}
-                    optionGroupLabel={"name"}
-                    optionGroupChildren={["states", "cities"]}
-                    // placeholder={"Wähle eine Kategorie aus"}
-                    // onChange={(event) => setCategory(event.value)}
-                    id="category"
-                    className="block"
-                    value={formik.values.category}
-                    onChange={formik.handleChange}
-                    autoFocus
-                    // className={classNames({
-                    //   "p-invalid": isFormFieldValid("category"),
-                    // })}
-                  />
-                  <label
-                    htmlFor="category"
-                    className={classNames({
-                      "p-error": isFormFieldValid("category"),
-                    })}
-                  >
-                    Kategorie*
-                  </label>
-                </span>
+              > */}
+              <span className="p-float-label">
+                <CascadeSelect
+                  //   value={category}
+                  options={countries} //ist object array mit allen unterkategorien
+                  optionLabel={"cname"}
+                  optionGroupLabel={"name"}
+                  optionGroupChildren={["states", "cities"]}
+                  // placeholder={"Wähle eine Kategorie aus"}
+                  //   onChange={(event) => setCategory(event.value)}
+                  id="category"
+                  className="block"
+                  value={formik.values.category}
+                  onChange={formik.handleChange}
+                  autoFocus
+                  // className={classNames({
+                  //   "p-invalid": isFormFieldValid("category"),
+                  // })}
+                />
+                <label
+                  htmlFor="category"
+                  className={classNames({
+                    "p-error": isFormFieldValid("category"),
+                  })}
+                >
+                  Kategorie*
+                </label>
               </span>
+              {/* </span> */}
               {getFormErrorMessage("category")}
             </div>
             <hr />
@@ -368,8 +371,8 @@ function NewProducts() {
                   locale="de-DE"
                   //   value={price}
                   //   onValueChange={(e) => setPrice(e.value)}
-                  tooltip="Dieses Feld ist ein Pflichtfeld"
-                  tooltipOptions={{ position: "top" }}
+                  //   tooltip="Dieses Feld ist ein Pflichtfeld"
+                  //   tooltipOptions={{ position: "top" }}
                   id="price"
                   value={formik.values.price}
                   onValueChange={formik.handleChange}
@@ -389,8 +392,8 @@ function NewProducts() {
                     optionLabel="name"
                     // placeholder="Preiskategorie"
                     className="block"
-                    tooltip="Dieses Feld ist ein Pflichtfeld"
-                    tooltipOptions={{ position: "top" }}
+                    // tooltip="Dieses Feld ist ein Pflichtfeld"
+                    // tooltipOptions={{ position: "top" }}
                     id="priceCategory"
                     value={formik.values.priceCategory}
                     onChange={formik.handleChange}
@@ -416,26 +419,26 @@ function NewProducts() {
           <h2>Details</h2>
           <div className="field">
             <div className="p-field fieldeditor">
-              <Tooltip target=".editortip" position="top" />
+              {/* <Tooltip target=".editortip" position="top" />
               <span
                 className="editortip"
                 data-pr-tooltip="Dieses Feld ist ein Pflichtfeld"
-              >
-                <Editor
-                  headerTemplate={header}
-                  //   value={description}
-                  //   onTextChange={(e) => setDescription(e.htmlValue)}
-                  placeholder="Beschreibung*"
-                  className="editor"
-                  id="description"
-                  value={formik.values.description}
-                  onTextChange={formik.handleChange}
-                  autoFocus
-                  // className={classNames({
-                  //   "p-invalid": isFormFieldValid("description"),
-                  // })}
-                />
-              </span>
+              > */}
+              <Editor
+                headerTemplate={header}
+                value={description}
+                onTextChange={(e) => setDescription(e.htmlValue)}
+                placeholder="Beschreibung*"
+                className="editor"
+                id="description"
+                // value={formik.values.description}
+                // onTextChange={formik.handleChange}
+                autoFocus
+                // className={classNames({
+                //   "p-invalid": isFormFieldValid("description"),
+                // })}
+              />
+              {/* </span> */}
               {getFormErrorMessage("description")}
             </div>
             {/* Images */}
