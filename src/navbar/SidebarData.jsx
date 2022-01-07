@@ -16,7 +16,7 @@ export const SidebarData = [
   },
   {
     title: "",
-    path: "",
+    path: "#",
     icon: "",
   },
   {
