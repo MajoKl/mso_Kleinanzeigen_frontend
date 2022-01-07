@@ -180,7 +180,6 @@ function NewProducts() {
       <Button
         label="OK"
         className="p-button-text"
-        autoFocus
         onClick={() => setShowMessage(false)}
       />
     </div>
@@ -269,7 +268,6 @@ function NewProducts() {
                   //   tooltipOptions={{ position: "top" }}
                   value={formik.values.title}
                   onChange={formik.handleChange}
-                  autoFocus
                   className={
                     (classNames({
                       "p-invalid": isFormFieldValid("title"),
@@ -305,7 +303,6 @@ function NewProducts() {
                   //   tooltipOptions={{ position: "top" }}
                   value={formik.values.titleDetail}
                   onChange={formik.handleChange}
-                  autoFocus
                 />
                 <label htmlFor="titleDetail">Detaillierter Titel</label>
               </span>
@@ -334,7 +331,6 @@ function NewProducts() {
                   className="block"
                   value={formik.values.category}
                   onChange={formik.handleChange}
-                  autoFocus
                   // className={classNames({
                   //   "p-invalid": isFormFieldValid("category"),
                   // })}
@@ -376,7 +372,6 @@ function NewProducts() {
                   id="price"
                   value={formik.values.price}
                   onValueChange={formik.handleChange}
-                  autoFocus
                   // className={classNames({
                   //   "p-invalid": isFormFieldValid("price"),
                   // })}
@@ -397,7 +392,6 @@ function NewProducts() {
                     id="priceCategory"
                     value={formik.values.priceCategory}
                     onChange={formik.handleChange}
-                    autoFocus
                     // className={classNames({
                     //   "p-invalid": isFormFieldValid("priceCategory"),
                     // })}
@@ -433,7 +427,6 @@ function NewProducts() {
                 id="description"
                 // value={formik.values.description}
                 // onTextChange={formik.handleChange}
-                autoFocus
                 // className={classNames({
                 //   "p-invalid": isFormFieldValid("description"),
                 // })}
