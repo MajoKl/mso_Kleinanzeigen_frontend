@@ -59,6 +59,14 @@ function Sidebarr() {
               </a>
             </li>
           </ul>
+          <div className="sidebar-menu-links">
+            <Link to="#" className="sidebar-menu-links">
+              FAQ
+            </Link>
+            <Link to="#" className="sidebar-menu-links">
+              Fehler melden
+            </Link>
+          </div>
         </div>
       </Sidebar>
     </>
