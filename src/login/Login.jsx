@@ -58,8 +58,7 @@ function Login() {
                 type="button"
                 onClick={(e) => {
                   e.preventDefault();
-                  window.location.href =
-                    "https://github.com/login/oauth/authorize?client_id=e01038b01f2f337f50a8&redirect_uri=http://localhost:3000/oauth/redirect";
+                  window.location.href = process.env.REACT_APP_GITHUB_URL;
                 }}
               >
                 <img
