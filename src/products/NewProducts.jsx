@@ -116,7 +116,7 @@ function NewProducts() {
 
   const formik = useFormik({
     initialValues: {
-      typ: "biete",
+      typ: "biete", //aticle_type
       title: "",
       titleDetail: "",
       category: null,

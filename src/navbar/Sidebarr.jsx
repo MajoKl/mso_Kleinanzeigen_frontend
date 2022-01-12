@@ -26,19 +26,21 @@ function Sidebarr() {
         className="sidebar-menu"
       >
         {/* Content */}
-        <Link to="/" className="sidebar-logo-link">
+        <Link to="/" className="sidebar-menu-links">
           <img
             src="./data/images/MSOKleinanzeigenLogo.png"
             alt="MSO-Kleinanzeigen-Logo"
             height="200"
           />
         </Link>
-        <Avatar
-          label="C"
-          className="sidebar-avatar"
-          size="xlarge"
-          shape="circle"
-        />
+        <Link to="/me" className="sidebar-avatar-link">
+          <Avatar
+            label="C"
+            className="sidebar-avatar"
+            size="xlarge"
+            shape="circle"
+          />
+        </Link>
         <div className="sidebar-menu-items">
           <ul>
             {/* <h3>Left Sidebar</h3> */}

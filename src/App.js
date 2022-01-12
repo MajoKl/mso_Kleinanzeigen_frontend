@@ -12,6 +12,10 @@ import Start from "./start/start.jsx";
 import Login from "./login/Login.jsx";
 import Yeee from "./Yeee.jsx";
 import NewProduct from "./products/NewProducts.jsx";
+import Me from "./me/Me.jsx";
+import Edit from "./sites/Edit.jsx";
+import FAQ from "./sites/FAQ.jsx";
+import Contact from "./sites/Contact.jsx";
 
 import Topbar from "./navbar/Topbar.jsx";
 
@@ -44,6 +48,10 @@ function App() {
             <Route path="/login" component={Login} />
             <Route path="/newproduct" component={NewProduct} />
             <Route path="/yeee" component={Yeee} />
+            <Route path="/me" component={Me} />
+            <Route path="/edit" component={Edit} />
+            <Route path="/faq" component={FAQ} />
+            <Route path="/contact" component={Contact} />
           </Switch>
         </React.Fragment>
       </Router>
