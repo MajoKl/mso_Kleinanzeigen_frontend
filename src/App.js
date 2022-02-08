@@ -19,20 +19,26 @@ import Contact from "./sites/Contact.jsx";
 
 import Topbar from "./navbar/Topbar.jsx";
 
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
+const queryClient = new QueryClient();
+
 function App() {
   return (
     <div>
       <Router>
         <React.Fragment>
-          {/* Links: */}
-          {/* <Link to="/">Startseite</Link>
+          <QueryClientProvider client={queryClient}>
+            {/* Links: */}
+            {/* <Link to="/">Startseite</Link>
           <Link to="/login">LogIn</Link> */}
 
-          <Topbar />
+            <Topbar />
 
-          {/* <div>
+            {/* <div>
             {/* Routes: */}
-          {/* <Route path="/">
+            {/* <Route path="/">
               <h1>Startseite</h1>
               <div>
                 <Start />
@@ -43,16 +49,18 @@ function App() {
               <Login />
             </Route>
           </div> */}
-          <Switch>
-            <Route path="/" exact component={Start} />
-            <Route path="/login" component={Login} />
-            <Route path="/newproduct" component={NewProduct} />
-            <Route path="/yeee" component={Yeee} />
-            <Route path="/me" component={Me} />
-            <Route path="/edit" component={Edit} />
-            <Route path="/faq" component={FAQ} />
-            <Route path="/contact" component={Contact} />
-          </Switch>
+            <Switch>
+              <Route path="/" exact component={Start} />
+              <Route path="/login" component={Login} />
+              <Route path="/newproduct" component={NewProduct} />
+              <Route path="/yeee" component={Yeee} />
+              <Route path="/me" component={Me} />
+              <Route path="/edit" component={Edit} />
+              <Route path="/faq" component={FAQ} />
+              <Route path="/contact" component={Contact} />
+            </Switch>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
         </React.Fragment>
       </Router>
     </div>
