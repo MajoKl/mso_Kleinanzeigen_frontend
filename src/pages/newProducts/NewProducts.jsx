@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import "../main.scss";
+import "../../main.scss";
 import "./newproducts.scss";
 
 import { useFormik } from "formik";
@@ -16,7 +16,7 @@ import { Tooltip } from "primereact/tooltip";
 import { Dialog } from "primereact/dialog";
 import { classNames } from "primereact/utils";
 
-import Upload from "../components/UploadData.jsx";
+import Upload from "../../components/UploadData.jsx";
 
 function NewProducts() {
   //   const [typ, setTyp] = useState("biete");

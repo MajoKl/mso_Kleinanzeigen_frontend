@@ -1,12 +1,12 @@
 export const SidebarData = [
   {
     title: "Meine Anzeigen",
-    path: "/",
+    path: "/myproducts",
     icon: "pi pi-tags",
   },
   {
     title: "Nachrichten",
-    path: "/",
+    path: "/messages",
     icon: "pi pi-comments",
   },
   {
@@ -21,7 +21,7 @@ export const SidebarData = [
   },
   {
     title: "Einstellungen",
-    path: "/",
+    path: "/settings",
     icon: "pi pi-cog",
   },
 ];

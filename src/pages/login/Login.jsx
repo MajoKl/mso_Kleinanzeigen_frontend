@@ -4,7 +4,7 @@ import { Button } from "primereact/button";
 import { Panel } from "primereact/panel";
 
 import "./Login.scss";
-import "../main.scss";
+import "../../main.scss";
 
 function Login() {
   const [loggedIn, setLoggedIn] = useState(false);
