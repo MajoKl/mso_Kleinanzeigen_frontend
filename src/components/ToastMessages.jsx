@@ -6,10 +6,6 @@ import "./ToastDemo.css";
 function ToastMessages() {
   const ToastDemo = () => {
     const toast = useRef(null);
-    const toastTL = useRef(null);
-    const toastBL = useRef(null);
-    const toastBR = useRef(null);
-    const toastBC = useRef(null);
 
     const showSuccess = () => {
       toast.current.show({
