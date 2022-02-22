@@ -1,5 +1,5 @@
 import React from "react";
-import "../navbar/Topbar.scss";
+import "./navbar/Topbar.scss";
 import { InputText } from "primereact/inputtext";
 
 class Searchbar extends React.Component {

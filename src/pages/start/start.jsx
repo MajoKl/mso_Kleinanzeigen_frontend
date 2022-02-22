@@ -1,5 +1,5 @@
-import Products from "../products/Products";
-import "../main.scss";
+import Products from "../../components/products/Products";
+import "../../main.scss";
 
 function start() {
   return (

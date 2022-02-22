@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useQuery } from "react-query";
 import { Toast } from "primereact/toast";
 
-import Products from "../products/Products";
+import Products from "../../components/products/Products";
 
 function Me() {
   const getData = async () => {

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Topbar.scss";
 import Sidebarr from "./Sidebarr.jsx";
-import Searchbar from "../components/Searchbar.jsx";
+import Searchbar from "../Searchbar.jsx";
 
 function Topbar() {
   //   const [click, setClick] = useState(false);
