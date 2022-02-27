@@ -1,32 +1,33 @@
 import React from "react";
 import "./navbar/Topbar.scss";
 import { InputText } from "primereact/inputtext";
+import { useState } from "react";
 
-class Searchbar extends React.Component {
-  state = { term: "" };
+//Source: Udemy-Kurs Abschnitt 7, jedoch abgewandelt zu functional-component + Teilweise primeReact + Styling by Marius
 
-  onFormSubmit = (event) => {
+function Searchbar(props) {
+  const [term, setTerm] = useState("");
+
+  const onFormSubmit = (event) => {
     event.preventDefault();
-
-    this.props.onSubmit(this.state.term);
+    props.onSubmit(term);
   };
 
-  render() {
-    return (
-      <form onSubmit={this.onFormSubmit}>
-        <span className="p-input-icon-left navbar-search-span">
+  return (
+    <div>
+      <form onSubmit={onFormSubmit}>
+        <span className="p-input-icon-left">
           <i className="pi pi-search" />
           <InputText
             type="text"
-            value={this.state.term}
-            onChange={(e) => this.setState({ term: e.target.value })}
+            value={term}
+            onChange={(e) => setTerm(e.target.value)}
             placeholder="Suchen"
-            className="navbar-search-input"
           />
         </span>
       </form>
-    );
-  }
+    </div>
+  );
 }
 
 export default Searchbar;

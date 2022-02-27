@@ -14,7 +14,13 @@ function Topbar() {
   //   const handleClick = () => setClick(!click);
   //   const closeMobileMenu = () => setClick(false);
 
+  //Source: Udemy-Kurs Abschnitt 7, (Lektion: 94)
+  //Hier dann an Jonas anbinden
   const handleSearchSubmit = async (term) => {
+    console.log(term, "!");
+
+    // Source: Udemy-Kurs Abschnitt 8
+
     // const response = await nameoffileinfolderapi.get(
     //   "/endpfad zum searchen/undso/weiter",
     //   {
@@ -23,6 +29,7 @@ function Topbar() {
     // );
     // setSearchResults({ searchresults: response.data.results });
   };
+
   //shjwehjfhf
 
   //   const onMouseEnter = () => {
@@ -48,7 +55,7 @@ function Topbar() {
         <span className="p-coll">
           <Sidebarr />
         </span>
-        <span className="p-coll hallo">
+        <span className="p-coll">
           <Searchbar onSubmit={handleSearchSubmit} />
         </span>
         <span className="p-coll">
