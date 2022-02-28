@@ -1,8 +1,7 @@
 import React from "react";
-import Accordion from "../components/Accordion.jsx";
+import Accordion from "../components/Accordionn.jsx";
 
 function FAQ() {
-  const lol = "yeeehdhe";
   const items = [
     {
       title: "What is React?",
@@ -18,11 +17,10 @@ function FAQ() {
     },
   ];
   return (
-    <div>
+    <div className="container">
       <h1>FAQ</h1>
-      <div>Content:</div>
+      <h3>Content:</h3>
       <Accordion items={items} />
-      {/* <Accordion items={lol} /> */}
     </div>
   );
 }
