@@ -24,6 +24,6 @@ function FAQ() {
     </div>
   );
 }
-//Udemy-Kurs Abschnitt 12!! Use Accorions!
+//Udemy-Kurs Abschnitt 12!! Use Accordions!
 
 export default FAQ;

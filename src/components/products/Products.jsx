@@ -19,7 +19,7 @@ const Products = () => {
     { label: "Preis absteigend", value: "!price" },
     { label: "Preis aufsteigend", value: "price" },
   ];
-  const rows = useRef(6);
+  const rows = useRef(12);
   const datasource = useRef(null);
   const isMounted = useRef(false);
   const productService = new ProductService();
@@ -117,7 +117,7 @@ const Products = () => {
 
   const renderGridItem = (data) => {
     return (
-      <div className="p-col-12 p-md-4">
+      <div className="p-col-12 p-md-3">
         <div className="product-grid-item card">
           <div className="product-grid-item-top">
             <div>
