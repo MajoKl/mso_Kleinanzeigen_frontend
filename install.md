@@ -10,3 +10,4 @@ npm install quill
 npm install formik
 npm install react-query
 npm install @reduxjs/toolkit
+npm install react-redux

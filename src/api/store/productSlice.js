@@ -1,3 +1,4 @@
+import { getBackend } from "../api.js";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const saveLocalStorage = (state) => {
@@ -6,17 +7,18 @@ const saveLocalStorage = (state) => {
   //   localStorage.setItem("ProductState", JSON.stringify(data));
 };
 
-export const requestProducts =
-  createAsyncThunk <
-  Spotify >
-  //Hier Backend anfragen
-  ("spotify/requestSpotify", async () => await getSpotify());
+export const requestProducts = createAsyncThunk(
+  "/aaapi/me",
+  async () => await getBackend()
+);
 
 //Was soll beim Start des Programmes gespeichert werden?
 const initialState = {
   products: [
     //if getLocalStorage was drin ist, setzte das da rein, sonst das folgene als default nehmen!
   ],
+
+  user: {},
   nextId: 1,
 };
 
@@ -81,6 +83,7 @@ const productSlice = createSlice({
       (state, { payload }) => {
         //Setzt den Payload auf den State und ab gehts
         state.products = payload;
+        console.log(payload);
       }
     );
     builder.addCase(requestProducts.rejected, (state) => {
