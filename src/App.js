@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { Provider } from "react-redux";
+import store from "./api/store/store";
 
 import "primereact/resources/themes/lara-light-indigo/theme.css"; //theme
 import "primereact/resources/primereact.min.css"; //core css
@@ -34,7 +36,7 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div>
+    <Provider store={store}>
       <Router>
         <React.Fragment>
           <QueryClientProvider client={queryClient}>
@@ -61,7 +63,7 @@ function App() {
           </QueryClientProvider>
         </React.Fragment>
       </Router>
-    </div>
+    </Provider>
   );
 }
 
