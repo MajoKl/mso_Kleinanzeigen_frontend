@@ -1,5 +1,6 @@
 import { getBackend } from "../api.js";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { ProgressSpinner } from "primereact/progressspinner";
 
 const saveLocalStorage = (state) => {
   //Hier ans Backend schicken
@@ -9,7 +10,7 @@ const saveLocalStorage = (state) => {
 
 export const requestProducts = createAsyncThunk(
   "/aaapi/me",
-  async () => await getBackend()
+  async () => await getBackend("/api/me")
 );
 
 //Was soll beim Start des Programmes gespeichert werden?
@@ -18,8 +19,26 @@ const initialState = {
     //if getLocalStorage was drin ist, setzte das da rein, sonst das folgene als default nehmen!
   ],
 
-  user: {},
-  nextId: 1,
+  user: {
+    _id: "",
+    name: "",
+    grade: "",
+    role: "",
+    blocklist: [],
+    friends: [],
+    favorites: [],
+    private: false,
+    createdAt: "",
+    updatedAt: "",
+    __v: 0,
+  },
+  status: {
+    severity: "",
+    summary: "",
+    detail: "",
+    life: 0,
+    sticky: false,
+  },
 };
 
 const productSlice = createSlice({
@@ -77,20 +96,40 @@ const productSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder.addCase(
-      //Ruft Request Methode für Backend auf. Fulfilled is wenn es fertig ist
-      requestProducts.fulfilled,
-      (state, { payload }) => {
-        //Setzt den Payload auf den State und ab gehts
-        state.products = payload;
-        console.log(payload);
-      }
-    );
-    builder.addCase(requestProducts.rejected, (state) => {
-      //Throw fehler
-      state.products = null;
+    //Request Methoden für Backend
+    //Fulfilled: Without an Error done
+    builder.addCase(requestProducts.fulfilled, (state, { payload }) => {
+      //Setzt den Payload auf den State und ab gehts
+      state.user = payload;
+      state.status.severity = "";
+      console.log("LOL");
+      console.log(payload, "GEIEIEIEILELLLLLLLLLL");
     });
-    //Hier gibts noch weitere wenn der noch lädt oder so
+    //rejected: Error / denied / request failed
+    builder.addCase(requestProducts.rejected, (state) => {
+      //Errorhandling / Throw fehler
+      state.products = null;
+      state.status.severity = "error";
+      state.status.summary = "Heavy Error!";
+      state.status.detail =
+        "Request to Backend failed... Site cannot load. Please refresh";
+      state.status.life = 0;
+      state.status.sticky = true;
+
+      console.log("NICHT GEILLLL");
+    });
+    //pending: Wartend, während dem request
+    builder.addCase(requestProducts.pending, (state) => {
+      //Theorethisch könnte man irgendwo noch n spinner hinpacken aber zusammen mit dem tertären operator habe ich das mit den anderen Fällen nicht hinbekommen.
+      //Pending Handling
+      //state.status.severity = "whudhefkjbef";
+      // const intervalId = setInterval(() => null, 3000);
+      // return (
+      //   <ProgressSpinner />
+      //   // => clearInterval(intervalId);
+      // );
+      console.log("In pending");
+    });
   },
 });
 

@@ -9,8 +9,8 @@ import axios from "axios";
 //   },
 // });
 
-export async function getBackend() {
-  const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/me`);
+export async function getBackend(path) {
+  const response = await axios.get(`${process.env.REACT_APP_API_URLL}${path}`);
   return await response.data;
 }
 
