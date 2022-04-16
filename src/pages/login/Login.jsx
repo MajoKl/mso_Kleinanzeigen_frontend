@@ -8,6 +8,7 @@ import "../../main.scss";
 
 function Login() {
   const [loggedIn, setLoggedIn] = useState(false);
+  // eslint-disable-next-line
   const [user, setUser] = useState(null);
 
   useEffect(() => {

@@ -12,11 +12,14 @@ import { InputNumber } from "primereact/inputnumber";
 import { Dropdown } from "primereact/dropdown";
 import { Editor } from "primereact/editor";
 import { Button } from "primereact/button";
-import { Tooltip } from "primereact/tooltip";
+// import { Tooltip } from "primereact/tooltip";
 import { Dialog } from "primereact/dialog";
 import { classNames } from "primereact/utils";
 
 import Upload from "../../components/UploadData.jsx";
+
+// import { pushProduct } from "../../api/store/newProductSlice";
+// import { useDispatch } from "react-redux";
 
 function NewProducts() {
   //   const [typ, setTyp] = useState("biete");
@@ -102,7 +105,7 @@ function NewProducts() {
   const [description, setDescription] = useState("");
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
-
+  // const dispatch = useDispatch();
   const renderHeader = () => {
     return (
       <span className="ql-formats">
@@ -159,9 +162,17 @@ function NewProducts() {
 
       return errors;
     },
+
     onSubmit: (data) => {
       setFormData(data);
       setShowMessage(true);
+
+      //Okay also: Entweder mach ich das so über die Slice. Oder ich lass es.
+      // Weil ich sonst alles über fromik mache.Das kann man in der Zukunft nochmal ändern,
+      //   jedoch hab ich da jkein Bock drauf.Weil es funktioniert.Sooo...Jedoch kann man auch
+      //   einfach die POST Request an Jonas hier in ner Funktion schreiben.ich galueb das mache ich auch.
+      //   Is iwie einfacher Lmao.
+      // dispatch(pushProduct());
 
       formik.resetForm();
     },

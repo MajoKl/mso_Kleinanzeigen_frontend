@@ -29,6 +29,7 @@ import Contact from "./pages/Contact.jsx";
 
 //components
 import Topbar from "./components/navbar/Topbar.jsx";
+// import Footer from "./components/navbar/Footer.jsx";
 
 import Yeee from "./Yeee.jsx";
 
@@ -59,6 +60,7 @@ function App() {
 
               <Route path="/yeee" component={Yeee} />
             </Switch>
+            {/* <Footer /> */}
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </React.Fragment>

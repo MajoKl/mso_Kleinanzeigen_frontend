@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { RootState } from "../../api/store/store";
-import { ProgressSpinner } from "primereact/progressspinner";
+// import { RootState } from "../../api/store/store";
+// import { ProgressSpinner } from "primereact/progressspinner";
 
 import Products from "../../components/products/Products";
 import { requestProducts } from "../../api/store/productSlice";
 import ToastMessages from "../../components/ToastMessages";
-import { render } from "@testing-library/react";
 
 function Myproducts() {
   //Holt State aus dem Redux-Store!! Magicccc!!!

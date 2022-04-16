@@ -12,7 +12,7 @@ function Me() {
     );
     return res.json();
   };
-
+  // eslint-disable-next-line
   const { data, status } = useQuery("data", getData);
   const toast = useRef(null);
 

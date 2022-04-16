@@ -5,6 +5,7 @@ import { Rating } from "primereact/rating";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import "./products.scss";
+import ProductDetail from "../../pages/productDetail/ProductDetail";
 
 const Products = () => {
   const [products, setProducts] = useState(null);
@@ -19,7 +20,8 @@ const Products = () => {
     { label: "Preis absteigend", value: "!price" },
     { label: "Preis aufsteigend", value: "price" },
   ];
-  const rows = useRef(12);
+  const [toggleStar, setToggleStar] = useState(false);
+  const rows = useRef(22);
   const datasource = useRef(null);
   const isMounted = useRef(false);
   const productService = new ProductService();
@@ -44,6 +46,17 @@ const Products = () => {
       });
     }, 1000);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const onProductClick = () => {
+    //Ka was ich hier tue. Hier muss iwie die Product-Detail Seite aufgerufen werden.
+    console.log("Huhusdhujdh");
+    return <ProductDetail />;
+  };
+  const onStarClick = () => {
+    console.log("Als Stern markiert");
+    //Maybe dialog fenster?
+    setToggleStar(!toggleStar);
+  };
 
   const onPage = (event) => {
     setLoading(true);
@@ -116,41 +129,53 @@ const Products = () => {
   };
 
   const renderGridItem = (data) => {
+    let date = new Date(data.createdAt);
     return (
-      <div className="p-col-12 p-md-3">
-        <div className="product-grid-item card">
+      <div className="p-col-12 p-md-4">
+        <div className="product-grid-item card" onClick={onProductClick}>
           <div className="product-grid-item-top">
             <div>
               <i className="pi pi-tag product-category-icon"></i>
-              <span className="product-category">{data.category}</span>
+              <span className="product-category">{data.categories[0]}</span>
             </div>
-            <span
-              className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}
+            <div>
+              <i className="pi pi-clock product-category-icon"></i>
+              <span
+              //className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}
               //funktioniert nicht, weil nicht im Stylesheet mit drin. -> Suchen Seite PrimeReact
-            >
-              {data.inventoryStatus}
-            </span>
+              >
+                {date.getDate() +
+                  "." +
+                  (date.getMonth() + 1) +
+                  "." +
+                  date.getFullYear()}
+              </span>
+            </div>
           </div>
           <div className="product-grid-item-content">
             <img
-              src={`data/images/${data.image}`}
+              src={`data/images/${data.pictures[0]}`}
               onError={(e) =>
                 (e.target.src =
                   "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
               }
-              alt={data.name}
+              alt={data.Name}
             />
-            <div className="product-name">{data.name}</div>
-            <div className="product-description">{data.description}</div>
-            <Rating value={data.rating} readOnly cancel={false}></Rating>
+            <div className="product-name">{data.Name}</div>
+            <div className="product-description">{data.detailtName}</div>
+            {/* <Rating value={data.rating} readOnly cancel={false}></Rating> */}
           </div>
           <div className="product-grid-item-bottom">
-            <span className="product-price">${data.price}</span>
+            <span className="product-price">
+              {data.price === 0 ? "Zu Verschenken" : data.price + "€"}
+              {data.basis_fornegotioations === "Verhandlungsbasis" ? " VB" : ""}
+            </span>
             <Button
-              icon="pi pi-shopping-cart"
-              label="Add to Cart"
-              disabled={data.inventoryStatus === "OUTOFSTOCK"}
-            ></Button>
+              icon="pi pi-star"
+              //icon={toggleStar === true ? "pi pi-star-fill" : "pi pi-star"}
+              className="p-button-rounded p-button-warning"
+              onClick={onStarClick}
+            />
           </div>
         </div>
       </div>

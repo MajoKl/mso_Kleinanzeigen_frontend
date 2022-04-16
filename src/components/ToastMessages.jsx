@@ -6,7 +6,7 @@ function ToastMessages(props) {
 
   useEffect(() => {
     showToast(props.severity, props.summary, props.detail, props.life);
-  }, []);
+  }, [props]);
 
   const showToast = (severity, summary, detail, life) => {
     toast.current.show({

@@ -14,13 +14,13 @@ function UploadData() {
   const fileUploadRef = useRef(null);
   const [size, setSize] = useState(0);
 
-  const onUpload = () => {
-    toast.current.show({
-      severity: "info",
-      summary: "Success",
-      detail: "File Uploaded",
-    });
-  };
+  // const onUpload = () => {
+  //   toast.current.show({
+  //     severity: "info",
+  //     summary: "Success",
+  //     detail: "File Uploaded",
+  //   });
+  // };
 
   const onTemplateSelect = (e) => {
     // let bettersize = size.substring(0, size.length - 2);
@@ -62,21 +62,21 @@ function UploadData() {
     setTotalSize(0);
   };
 
-  const onBasicUpload = () => {
-    toast.current.show({
-      severity: "info",
-      summary: "Success",
-      detail: "File Uploaded with Basic Mode",
-    });
-  };
+  // const onBasicUpload = () => {
+  //   toast.current.show({
+  //     severity: "info",
+  //     summary: "Success",
+  //     detail: "File Uploaded with Basic Mode",
+  //   });
+  // };
 
-  const onBasicUploadAuto = () => {
-    toast.current.show({
-      severity: "info",
-      summary: "Success",
-      detail: "File Uploaded with Auto Mode",
-    });
-  };
+  // const onBasicUploadAuto = () => {
+  //   toast.current.show({
+  //     severity: "info",
+  //     summary: "Success",
+  //     detail: "File Uploaded with Auto Mode",
+  //   });
+  // };
 
   const headerTemplate = (options) => {
     const { className, chooseButton, uploadButton, cancelButton } = options;

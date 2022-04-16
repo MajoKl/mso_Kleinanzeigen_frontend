@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+// import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Topbar.scss";
 import Sidebarr from "./Sidebarr.jsx";
@@ -9,7 +9,7 @@ function Topbar() {
   //   const [click, setClick] = useState(false);
   //   const [dropdown, setDropdown] = useState(false);
 
-  const [searchresults, setSearchResults] = useState([]);
+  // const [searchresults, setSearchResults] = useState([]);
 
   //   const handleClick = () => setClick(!click);
   //   const closeMobileMenu = () => setClick(false);
