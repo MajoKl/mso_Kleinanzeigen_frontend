@@ -11,7 +11,7 @@ import ToastMessages from "../../components/ToastMessages";
 function Myproducts() {
   //Holt State aus dem Redux-Store!! Magicccc!!!
   const products = useSelector((state) => state.products);
-  // console.log(products);
+  console.log(products);
 
   const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ function Myproducts() {
     //Ka was die nächsten 2 Zeilen machen
     // const intervalId = setInterval(() => dispatch(requestProducts()), 3000);
     // return () => clearInterval(intervalId);
-  });
+  }, []);
 
   return (
     <React.Fragment>

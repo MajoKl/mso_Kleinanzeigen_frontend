@@ -1,4 +1,5 @@
-import { getBackend } from "../api.js";
+// import { getBackend } from "../api.js";
+import { getProducts } from "../api.js";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // const saveLocalStorage = (state) => {
@@ -8,9 +9,17 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 // };
 
 //Wie kann ich hier path als Parameter übergeben?
+// export const requestProducts = createAsyncThunk(
+//   "/aaapi/me",
+//   async () => await getBackend("/api/me")
+// );
+
+//Frage: Wie kann ich hier Parameter übergeben? Sodass ich im Component sagen kann hey, ich will startIndex und endIndex übergeben. Aber wie kommt das dann in die Api Anfrage rein?
 export const requestProducts = createAsyncThunk(
-  "/aaapi/me",
-  async () => await getBackend("/api/me/articles?skip=0&limit=5")
+  //So geht nicht: export const requestProducts = (start, end) = createAsyncThunk(
+  "/dwh",
+  async ({ start: startIndex, end: endIndex }) =>
+    await getProducts(startIndex, endIndex)
 );
 
 //Was soll beim Start des Programmes gespeichert werden?
@@ -84,7 +93,7 @@ const productSlice = createSlice({
     //Fulfilled: Without an Error done
     builder.addCase(requestProducts.fulfilled, (state, { payload }) => {
       //Setzt den Payload auf den State und ab gehts
-      console.log("LOL");
+      console.log("LOL Done!");
       state.products = payload;
       state.status.severity = "";
       console.log(payload);

@@ -1,6 +1,6 @@
 .container {
   display: block;
-  max-width: auto;
+  // max-width: 100%;
 }
 h1 {
   padding-top: 20px;
@@ -26,4 +26,9 @@ input {
   text-overflow: clip;
 }
 
-// Redux and React Redux installieren!!
+//Falls langweilig: Media Querys umschreiben
+@media screen and (min-width: 768px) {
+  .container {
+      max-width: auto;
+  }
+}

@@ -9,9 +9,17 @@ import axios from "axios";
 //   },
 // });
 
+//Die nächsten beiden Funktionen muss ich hinsichtlich Parametern noch umschreiben. Es geht aber auch mit mehreren Params, jedoch muss das dann in nem Oject übergeben werden!
 export async function getBackend(path) {
   const response = await axios.get(`${process.env.REACT_APP_API_URL}${path}`);
   return await response.data;
+}
+
+export async function getProducts(start, end) {
+  console.log("Übergebene Parameter: " + start + " und " + end);
+  const res = await fetch(start);
+  const d = await res.json();
+  return d.data;
 }
 
 //setLessonsss(response.data);

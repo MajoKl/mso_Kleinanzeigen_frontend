@@ -3,15 +3,22 @@
   font-weight: normal; /* evt. 400 */
 }
 
+.dataview a {
+  text-decoration: none;
+  color: currentColor;
+}
+
 .dataview .product-name {
   font-size: 1.5rem;
   font-weight: 700;
 }
 //#ffffff
 //#000000
-
+.lolrofl{
+  display: inline;
+}
 .dataview .product-description {
-  margin: 0 0 1rem 0;
+  margin: 7px 0 0 0;
 }
 
 .dataview .product-category-icon {
@@ -21,6 +28,15 @@
 
 .dataview .product-category {
   font-weight: 600;
+  vertical-align: middle;
+}
+
+.dataview .product-date-icon {
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+.dataview .product-date {
   vertical-align: middle;
 }
 
@@ -39,13 +55,23 @@
   margin-right: 2rem;
 }
 
+.dataview .product-list-item .product-name {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .dataview .product-list-item .product-list-detail {
   -moz-box-flex: 1;
   flex: 1 1 0;
 }
 
-.dataview .product-list-item .p-rating {
-  margin: 0 0 0.5rem 0;
+.dataview .product-list-item .product-list-action {
+  display: -moz-box;
+  display: flex;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  flex-direction: column;
+  align-items: center;
 }
 
 .dataview .product-list-item .product-price {
@@ -55,18 +81,12 @@
   align-self: flex-end;
 }
 
-.dataview .product-list-item .product-list-action {
-  display: -moz-box;
-  display: flex;
-  -moz-box-orient: vertical;
-  -moz-box-direction: normal;
-  flex-direction: column;
-}
-
 .dataview .product-list-item .p-button {
-  margin-bottom: 0.5rem;
+  margin-top: 5px;
 }
 
+
+// grid-system
 .dataview .product-grid-item {
   margin: 0.5em;
   border: 1px solid #dee2e6;
@@ -80,15 +100,15 @@
   justify-content: space-between;
 }
 
+.dataview .product-grid-item .product-grid-item-content {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
 .dataview .product-grid-item img {
   width: 75%;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   margin: 2rem 0;
-}
-
-.dataview .product-grid-item .product-grid-item-content {
-  text-align: center;
-  padding-bottom: 20px;
 }
 
 .dataview .product-grid-item .product-price {

@@ -16,6 +16,7 @@ import "primeicons/primeicons.css"; //icons
 import Start from "./pages/start/start.jsx";
 import Login from "./pages/login/Login.jsx";
 import NewProduct from "./pages/newProducts/NewProducts.jsx";
+import ProductDetail from "./pages/productDetail/ProductDetail.jsx";
 
 //user-pages
 import Me from "./pages/me/Me.jsx";
@@ -47,6 +48,7 @@ function App() {
               <Route path="/" exact component={Start} />
               <Route path="/login" component={Login} />
               <Route path="/newproduct" component={NewProduct} />
+              <Route path="/productDetails/:id" component={ProductDetail} />
 
               {/* user-pages */}
               <Route path="/me" component={Me} />

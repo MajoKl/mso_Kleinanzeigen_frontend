@@ -5,10 +5,10 @@ export class ProductService {
     return d.data;
   }
 
-  getProducts() {
-    return fetch("data/products.json")
-      .then((res) => res.json())
-      .then((d) => d.data);
+  async getProducts() {
+    const res = await fetch("data/products.json");
+    const d = await res.json();
+    return d.data;
   }
 
   async getProductsWithOrdersSmall() {

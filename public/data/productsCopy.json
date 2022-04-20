@@ -3,14 +3,14 @@
     "data": [
             {
         "_id": "6259e3b98a8c4953fef20363",
-        "Name": "Lambacher Schweizer 20200 Oberstufe",
+        "Name": "Tesvehetjetjstja",
         "detailtName": "Das ist ein detaillierter Name für das Produkt, ich könnte hier auch Lorem Ipsum reinschreiben. Reicht das?",
         "realName": "Testja",
         "categories": ["Bücher"],
         "count": 1,
         "basis_fornegotioations": "ZuVerschenken",
         "price": 0,
-        "discription": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.\n Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. \n Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse",
+        "discription": "",
         "owner": "62598e6679861f74d1a8696b",
         "pictures": [],
         "createdAt": "2022-04-15T21:29:29.499Z",
@@ -67,7 +67,7 @@
     },
     {
         "_id": "6259e4358a8c4953fef2042c",
-        "Name": "Auto VW Golf q28326w2 Käfer in guten Zustand VW Golf q28326w2 Käfer in guten Zustand alt aber neu 20020",
+        "Name": "Artikle3",
         "detailtName": "",
         "realName": "Artikle3",
         "categories": [],

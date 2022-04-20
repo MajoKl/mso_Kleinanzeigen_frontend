@@ -4,11 +4,14 @@ import { ProductService } from "./ProductService";
 import { Rating } from "primereact/rating";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
+import { Link } from "react-router-dom";
 import "./products.scss";
 import ProductDetail from "../../pages/productDetail/ProductDetail";
 
+import { useDispatch, useSelector } from "react-redux";
+import { requestProducts } from "../../api/store/productSlice";
 const Products = () => {
-  const [products, setProducts] = useState(null);
+  // const [products, setProducts] = useState(null);
   const [layout, setLayout] = useState("grid");
   const [loading, setLoading] = useState(true);
   const [first, setFirst] = useState(0);
@@ -26,6 +29,26 @@ const Products = () => {
   const isMounted = useRef(false);
   const productService = new ProductService();
 
+  const products = useSelector((state) => state.products);
+  console.log("Daddy: " + products);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setTimeout(() => {
+      isMounted.current = true;
+      dispatch(requestProducts({ start: "data/products.json", end: 8 }));
+      //Hier state updaten oder so!?!?!?!?
+
+      //datasource.current = data; //Hinfällig!?!?
+      //setTotalRecords(data.length); //Hinfällig?
+
+      // setProducts(datasource.current.slice(0, rows.current));
+      console.log("Im useEffekt initinal render: " + products);
+      setLoading(false);
+    }, 1000);
+  }, []);
+
   useEffect(() => {
     if (isMounted.current) {
       setTimeout(() => {
@@ -34,23 +57,22 @@ const Products = () => {
     }
   }, [loading]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    setTimeout(() => {
-      isMounted.current = true;
-      productService.getProducts().then((data) => {
-        datasource.current = data;
-        setTotalRecords(data.length);
-        setProducts(datasource.current.slice(0, rows.current));
-        console.log(products);
-        setLoading(false);
-      });
-    }, 1000);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     isMounted.current = true;
+  //     productService.getProducts().then((data) => {
+  //       datasource.current = data;
+  //       setTotalRecords(data.length);
+  //       setProducts(datasource.current.slice(0, rows.current));
+  //       console.log(products);
+  //       setLoading(false);
+  //     });
+  //   }, 1000);
+  // }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const onProductClick = () => {
+  const onProductClick = (id) => {
     //Ka was ich hier tue. Hier muss iwie die Product-Detail Seite aufgerufen werden.
-    console.log("Huhusdhujdh");
-    return <ProductDetail />;
+    console.log("Huhusdhujdh id:" + id);
   };
   const onStarClick = () => {
     console.log("Als Stern markiert");
@@ -61,21 +83,37 @@ const Products = () => {
   const onPage = (event) => {
     setLoading(true);
 
-    //imitate delay of a backend call
+    //Hier setzt der neue Daten wenn man auf die nächste Page klickt. Wie? Ka. Iwie mit dem Slice. Aber kp woher. Iwie umschreiben, sodass es für mich funktioniert.
     setTimeout(() => {
       const startIndex = event.first;
-      const endIndex = Math.min(event.first + rows.current, totalRecords - 1);
+      const endIndex = event.first + rows.current;
       console.log(startIndex, endIndex);
-      const newProducts =
-        startIndex === endIndex
-          ? datasource.current.slice(startIndex)
-          : datasource.current.slice(startIndex, endIndex);
-      console.log(startIndex, endIndex, newProducts);
+      dispatch(
+        requestProducts({ start: "data/productsCopy.json", end: 7 })
+      ).unwrap(); //Mit start und end als param
       setFirst(startIndex);
-      setProducts(newProducts);
+      //Hier state updaten oder so!?!?!?!?
+
+      console.log("Im TimeOut von onPage: " + products);
       setLoading(false);
     }, 1000);
+
+    //imitate delay of a backend call
+    // setTimeout(() => {
+    //   const startIndex = event.first;
+    //   const endIndex = event.first + rows.current;
+    //   console.log(startIndex, endIndex);
+    //   const newProducts =
+    //     startIndex === endIndex
+    //       ? datasource.current.slice(startIndex)
+    //       : datasource.current.slice(startIndex, endIndex);
+    //   console.log(startIndex, endIndex, newProducts);
+    //   setFirst(startIndex);
+    //   // setProducts(newProducts);
+    //   setLoading(false);
+    // }, 1000);
   };
+
   const onSortChange = (event) => {
     const value = event.value;
 
@@ -91,31 +129,54 @@ const Products = () => {
   };
 
   const renderListItem = (data) => {
+    let date = new Date(data.createdAt);
     return (
       <div className="p-col-12">
         <div className="product-list-item">
-          <img
-            src={`data/images/${data.image}`}
-            onError={(e) =>
-              (e.target.src =
-                "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
-            }
-            alt={data.name}
-          />
+          <Link to={`productDetails/${data._id}`}>
+            <img
+              src={`data/images/${data.pictures[0]}`}
+              onError={(e) =>
+                (e.target.src =
+                  "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
+              }
+              alt={data.Name}
+            />
+          </Link>
           <div className="product-list-detail">
-            <div className="product-name">{data.name}</div>
-            <div className="product-description">{data.description}</div>
-            <Rating value={data.rating} readOnly cancel={false}></Rating>
-            <i className="pi pi-tag product-category-icon"></i>
-            <span className="product-category">{data.category}</span>
+            <Link to={`productDetails/${data._id}`}>
+              <div>
+                <i className="pi pi-clock product-date-icon"></i>
+                <span
+                  className="product-date"
+                  //className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}
+                  //funktioniert nicht, weil nicht im Stylesheet mit drin. -> Suchen Seite PrimeReact
+                >
+                  {date.getDate() +
+                    "." +
+                    (date.getMonth() + 1) +
+                    "." +
+                    date.getFullYear()}
+                </span>
+              </div>
+              <div className="product-name">{data.Name}</div>
+              <div>
+                <i className="pi pi-tag product-category-icon"></i>
+                <span className="product-category">{data.categories[0]}</span>
+              </div>
+            </Link>
           </div>
           <div className="product-list-action">
-            <span className="product-price">${data.price}</span>
+            <span className="product-price">
+              {data.price === 0 ? "Zu Verschenken" : data.price + "€"}
+              {data.basis_fornegotioations === "Verhandlungsbasis" ? " VB" : ""}
+            </span>
             <Button
-              icon="pi pi-shopping-cart"
-              label="Add to Cart"
-              disabled={data.inventoryStatus === "OUTOFSTOCK"}
-            ></Button>
+              icon="pi pi-star"
+              //icon={toggleStar === true ? "pi pi-star-fill" : "pi pi-star"}
+              className="p-button-rounded p-button-warning"
+              onClick={onStarClick}
+            />
             <span
               className="product-badge"
               //   className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}
@@ -132,39 +193,43 @@ const Products = () => {
     let date = new Date(data.createdAt);
     return (
       <div className="p-col-12 p-md-4">
-        <div className="product-grid-item card" onClick={onProductClick}>
-          <div className="product-grid-item-top">
-            <div>
-              <i className="pi pi-tag product-category-icon"></i>
-              <span className="product-category">{data.categories[0]}</span>
+        <div className="product-grid-item card">
+          <Link to={`productDetails/${data._id}`}>
+            <div className="product-grid-item-top">
+              <div>
+                <i className="pi pi-tag product-category-icon"></i>
+                <span className="product-category">{data.categories[0]}</span>
+              </div>
+
+              <div>
+                <i className="pi pi-clock product-date-icon"></i>
+                <span
+                  className="product-date"
+                  //className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}
+                  //funktioniert nicht, weil nicht im Stylesheet mit drin. -> Suchen Seite PrimeReact
+                >
+                  {date.getDate() +
+                    "." +
+                    (date.getMonth() + 1) +
+                    "." +
+                    date.getFullYear()}
+                </span>
+              </div>
             </div>
-            <div>
-              <i className="pi pi-clock product-category-icon"></i>
-              <span
-              //className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}
-              //funktioniert nicht, weil nicht im Stylesheet mit drin. -> Suchen Seite PrimeReact
-              >
-                {date.getDate() +
-                  "." +
-                  (date.getMonth() + 1) +
-                  "." +
-                  date.getFullYear()}
-              </span>
+            <div className="product-grid-item-content">
+              <img
+                src={`data/images/${data.pictures[0]}`}
+                onError={(e) =>
+                  (e.target.src =
+                    "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
+                }
+                alt={data.Name}
+              />
+              <div className="product-name">{data.Name}</div>
+              <div className="product-description">{data.detailtName}</div>
+              {/* <Rating value={data.rating} readOnly cancel={false}></Rating> */}
             </div>
-          </div>
-          <div className="product-grid-item-content">
-            <img
-              src={`data/images/${data.pictures[0]}`}
-              onError={(e) =>
-                (e.target.src =
-                  "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
-              }
-              alt={data.Name}
-            />
-            <div className="product-name">{data.Name}</div>
-            <div className="product-description">{data.detailtName}</div>
-            {/* <Rating value={data.rating} readOnly cancel={false}></Rating> */}
-          </div>
+          </Link>
           <div className="product-grid-item-bottom">
             <span className="product-price">
               {data.price === 0 ? "Zu Verschenken" : data.price + "€"}
@@ -221,7 +286,7 @@ const Products = () => {
     <div className="dataview">
       <div className="card">
         <DataView
-          value={products}
+          value={products.products}
           layout={layout}
           header={header}
           itemTemplate={itemTemplate}
