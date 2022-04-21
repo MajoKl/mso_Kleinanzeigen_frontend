@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "./Topbar.scss";
 import Sidebarr from "./Sidebarr.jsx";
 import Searchbar from "../Searchbar.jsx";
+import { useNavigate } from "react-router-dom";
 
 function Topbar() {
   //   const [click, setClick] = useState(false);
@@ -16,8 +17,12 @@ function Topbar() {
 
   //Source: Udemy-Kurs Abschnitt 7, (Lektion: 94)
   //Hier dann an Jonas anbinden
-  const handleSearchSubmit = async (term) => {
-    console.log(term, "!");
+  const navigate = useNavigate();
+
+  const handleSearchSubmit = (term) => {
+    // <Link to={`productDetails/${data._id}`}></Link>;
+    console.log(term + "!");
+    navigate("/search/" + term);
 
     // Source: Udemy-Kurs Abschnitt 8
 

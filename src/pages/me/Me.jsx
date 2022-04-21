@@ -1,62 +1,69 @@
-import React from "react";
-import { useRef } from "react";
-import { useQuery } from "react-query";
-import { Toast } from "primereact/toast";
+import React, { useEffect } from "react";
+// import { useQuery } from "react-query";
+// import { Toast } from "primereact/toast";
+
+import { useDispatch, useSelector } from "react-redux";
+import { requestUser } from "../../api/store/userSlice";
 
 import Products from "../../components/products/Products";
+import ToastMessages from "../../components/ToastMessages";
+
+import Search from "../../pages/search/Search.jsx";
 
 function Me() {
-  const getData = async () => {
-    const res = await fetch(
-      process.env.REACT_APP_API_ME_ARTICLE + "/me/article"
-    );
-    return res.json();
-  };
-  // eslint-disable-next-line
-  const { data, status } = useQuery("data", getData);
-  const toast = useRef(null);
+  const user = useSelector((state) => state.user);
 
-  const showSuccess = () => {
-    toast.current.show({
-      severity: "success",
-      summary: "Success Message",
-      detail: "Message Content",
-      life: 3000,
-    });
-  };
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (user.user.name === "") {
+      dispatch(requestUser("/api/me"));
+    }
+  }, []); // eslint-disable-line
+
+  // const getData = async () => {
+  //   const res = await fetch(
+  //     process.env.REACT_APP_API_ME_ARTICLE + "/me/article"
+  //   );
+  //   return res.json();
+  // };
+  // eslint-disable-next-line
+  // const { data, status } = useQuery("data", getData);
+  // const toast = useRef(null);
+
+  // const showSuccess = () => {
+  //   toast.current.show({
+  //     severity: "success",
+  //     summary: "Success Message",
+  //     detail: "Message Content",
+  //     life: 3000,
+  //   });
+  // };
 
   return (
-    <div className="container">
-      <h1>Meine Seite!!</h1>
-      <button onClick={showSuccess}>hufiqw</button>
+    <React.Fragment>
+      {user.status.severity !== "" ? (
+        <ToastMessages
+          severity={user.status.severity}
+          summary={user.status.summary}
+          detail={user.status.detail}
+          life={user.status.life}
+        />
+      ) : (
+        <div className="container">
+          <h1>Seite von {user.user.name}</h1>
 
-      <div className="card">
-        <h2>Meine Produkte:</h2>
-        {status}
-        {/* {status === "error" && <div>Error fetching data</div>} */}
-        {/* next line erzeugt ein Error, weil der die ShowSuccess beim ersten mal
-        rendern aufruft. Das ist scheiße, weil der dann das Toast vor dem rest
-        rendern möchste. Das geht nicht. */}
-        {status === "loading" ? (
-          <div>huief</div> && showSuccess()
-        ) : (
-          <div>qwert</div>
-        )}
-        {/* {status === "loadinggg" ? (
-          <div>Ne alter</div>
-        ) : (
-          () => {
-            // console.log(">Yeeeee");
-            //showSuccess();
-            // return <div>he</div>;
-          }
-        )} */}
-        {/* {status === "loading" && <div>Data loading...</div>} */}
-        {status === "success" && <div>Yeah!</div>}
-        <Products />
-        <Toast ref={toast} />
-      </div>
-    </div>
+          <div className="card">
+            <h2>Meinnne Produkte:</h2>
+
+            {console.log(user)}
+            <span>{user.user.name}</span>
+            <Products searchoption="me" otheroptions="" />
+          </div>
+          <Search />
+        </div>
+      )}
+    </React.Fragment>
   );
 }
 

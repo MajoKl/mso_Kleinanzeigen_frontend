@@ -35,7 +35,7 @@ function Sidebarr() {
         </Link>
         <Link to="/me" className="sidebar-avatar-link">
           <Avatar
-            label="C"
+            icon="pi pi-user"
             className="sidebar-avatar"
             size="xlarge"
             shape="circle"

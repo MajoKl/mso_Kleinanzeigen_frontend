@@ -1,20 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
 import { DataView, DataViewLayoutOptions } from "primereact/dataview";
-import { ProductService } from "./ProductService";
-import { Rating } from "primereact/rating";
+// import { ProductService } from "./ProductService";
+// import { Rating } from "primereact/rating";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { Link } from "react-router-dom";
 import "./products.scss";
-import ProductDetail from "../../pages/productDetail/ProductDetail";
 
 import { useDispatch, useSelector } from "react-redux";
 import { requestProducts } from "../../api/store/productSlice";
-const Products = () => {
+import ToastMessages from "../../components/ToastMessages";
+import { useNavigate } from "react-router-dom";
+
+function Products(props) {
   // const [products, setProducts] = useState(null);
   const [layout, setLayout] = useState("grid");
   const [loading, setLoading] = useState(true);
   const [first, setFirst] = useState(0);
+  // eslint-disable-next-line
   const [totalRecords, setTotalRecords] = useState(0);
   const [sortKey, setSortKey] = useState(null);
   const [sortOrder, setSortOrder] = useState(null);
@@ -25,29 +28,37 @@ const Products = () => {
   ];
   const [toggleStar, setToggleStar] = useState(false);
   const rows = useRef(22);
-  const datasource = useRef(null);
+  // const datasource = useRef(null);
   const isMounted = useRef(false);
-  const productService = new ProductService();
+  // const productService = new ProductService();
 
   const products = useSelector((state) => state.products);
-  console.log("Daddy: " + products.products._id);
+  // console.log("Daddy: " + products.products._id);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     setTimeout(() => {
       isMounted.current = true;
-      dispatch(requestProducts({ start: "data/products.json", end: 8 }));
+      dispatch(
+        requestProducts(
+          "/api/" +
+            props.searchoption +
+            "/articles?skip=0&limit=" +
+            rows.current +
+            props.otheroptions
+        )
+      );
       //Hier state updaten oder so!?!?!?!?
 
       //datasource.current = data; //Hinfällig!?!?
       //setTotalRecords(data.length); //Hinfällig?
 
       // setProducts(datasource.current.slice(0, rows.current));
-      console.log("Im useEffekt initinal render: " + products);
+      console.log("Im useEffekt initinal render: " + JSON.stringify(products));
       setLoading(false);
     }, 1000);
-  }, []);
+  }, []); // eslint-disable-line
 
   useEffect(() => {
     if (isMounted.current) {
@@ -55,7 +66,7 @@ const Products = () => {
         setLoading(false);
       }, 1000);
     }
-  }, [loading]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [loading]); // eslint-disable-line
 
   // useEffect(() => {
   //   setTimeout(() => {
@@ -68,12 +79,13 @@ const Products = () => {
   //       setLoading(false);
   //     });
   //   }, 1000);
-  // }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
+  // }, []); // eslint-disable-line
+  const navigate = useNavigate();
   const onProductClick = (id) => {
-    //Ka was ich hier tue. Hier muss iwie die Product-Detail Seite aufgerufen werden.
     console.log("Huhusdhujdh id:" + id);
+    navigate("/productDetails/" + id);
   };
+
   const onStarClick = () => {
     console.log("Als Stern markiert");
     //Maybe dialog fenster?
@@ -89,8 +101,16 @@ const Products = () => {
       const endIndex = event.first + rows.current;
       console.log(startIndex, endIndex);
       dispatch(
-        requestProducts({ start: "data/productsCopy.json", end: 7 })
-      ).unwrap(); //Mit start und end als param
+        requestProducts(
+          "/api/" +
+            props.searchoption +
+            "/articles?skip=" +
+            startIndex +
+            "&limit=" +
+            endIndex +
+            props.otheroptions
+        )
+      );
       setFirst(startIndex);
       //Hier state updaten oder so!?!?!?!?
 
@@ -132,39 +152,42 @@ const Products = () => {
     let date = new Date(data.createdAt);
     return (
       <div className="p-col-12">
-        <div className="product-list-item">
-          <Link to={`productDetails/${data._id}`}>
-            <img
-              src={`data/images/${data.pictures[0]}`}
-              onError={(e) =>
-                (e.target.src =
-                  "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
-              }
-              alt={data.Name}
-            />
-          </Link>
+        <div
+          className="product-list-item"
+          onClick={() => onProductClick(data._id)}
+        >
+          {/* <Link to={`productDetails/${data._id}`}> */}
+          <img
+            src={`data/images/${data.pictures[0]}`}
+            onError={(e) =>
+              (e.target.src =
+                "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
+            }
+            alt={data.Name}
+          />
+          {/* </Link> */}
           <div className="product-list-detail">
-            <Link to={`productDetails/${data._id}`}>
-              <div>
-                <i className="pi pi-clock product-date-icon"></i>
-                <span
-                  className="product-date"
-                  //className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}
-                  //funktioniert nicht, weil nicht im Stylesheet mit drin. -> Suchen Seite PrimeReact
-                >
-                  {date.getDate() +
-                    "." +
-                    (date.getMonth() + 1) +
-                    "." +
-                    date.getFullYear()}
-                </span>
-              </div>
-              <div className="product-name">{data.Name}</div>
-              <div>
-                <i className="pi pi-tag product-category-icon"></i>
-                <span className="product-category">{data.categories[0]}</span>
-              </div>
-            </Link>
+            {/* <Link to={`productDetails/${data._id}`}> */}
+            <div>
+              <i className="pi pi-clock product-date-icon"></i>
+              <span
+                className="product-date"
+                //className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}
+                //funktioniert nicht, weil nicht im Stylesheet mit drin. -> Suchen Seite PrimeReact
+              >
+                {date.getDate() +
+                  "." +
+                  (date.getMonth() + 1) +
+                  "." +
+                  date.getFullYear()}
+              </span>
+            </div>
+            <div className="product-name">{data.Name}</div>
+            <div>
+              <i className="pi pi-tag product-category-icon"></i>
+              <span className="product-category">{data.categories[0]}</span>
+            </div>
+            {/* </Link> */}
           </div>
           <div className="product-list-action">
             <span className="product-price">
@@ -175,7 +198,7 @@ const Products = () => {
               icon="pi pi-star"
               //icon={toggleStar === true ? "pi pi-star-fill" : "pi pi-star"}
               className="p-button-rounded p-button-warning"
-              onClick={onStarClick}
+              onClick={() => onStarClick()}
             />
             <span
               className="product-badge"
@@ -193,43 +216,46 @@ const Products = () => {
     let date = new Date(data.createdAt);
     return (
       <div className="p-col-12 p-md-4">
-        <div className="product-grid-item card">
-          <Link to={`productDetails/${data._id}`}>
-            <div className="product-grid-item-top">
-              <div>
-                <i className="pi pi-tag product-category-icon"></i>
-                <span className="product-category">{data.categories[0]}</span>
-              </div>
+        <div
+          className="product-grid-item card"
+          onClick={() => onProductClick(data._id)}
+        >
+          {/* <Link to={`productDetails/${data._id}`}> */}
+          <div className="product-grid-item-top">
+            <div>
+              <i className="pi pi-tag product-category-icon"></i>
+              <span className="product-category">{data.categories[0]}</span>
+            </div>
 
-              <div>
-                <i className="pi pi-clock product-date-icon"></i>
-                <span
-                  className="product-date"
-                  //className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}
-                  //funktioniert nicht, weil nicht im Stylesheet mit drin. -> Suchen Seite PrimeReact
-                >
-                  {date.getDate() +
-                    "." +
-                    (date.getMonth() + 1) +
-                    "." +
-                    date.getFullYear()}
-                </span>
-              </div>
+            <div>
+              <i className="pi pi-clock product-date-icon"></i>
+              <span
+                className="product-date"
+                //className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}
+                //funktioniert nicht, weil nicht im Stylesheet mit drin. -> Suchen Seite PrimeReact
+              >
+                {date.getDate() +
+                  "." +
+                  (date.getMonth() + 1) +
+                  "." +
+                  date.getFullYear()}
+              </span>
             </div>
-            <div className="product-grid-item-content">
-              <img
-                src={`data/images/${data.pictures[0]}`}
-                onError={(e) =>
-                  (e.target.src =
-                    "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
-                }
-                alt={data.Name}
-              />
-              <div className="product-name">{data.Name}</div>
-              <div className="product-description">{data.detailtName}</div>
-              {/* <Rating value={data.rating} readOnly cancel={false}></Rating> */}
-            </div>
-          </Link>
+          </div>
+          <div className="product-grid-item-content">
+            <img
+              src={`data/images/${data.pictures[0]}`}
+              onError={(e) =>
+                (e.target.src =
+                  "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
+              }
+              alt={data.Name}
+            />
+            <div className="product-name">{data.Name}</div>
+            <div className="product-description">{data.detailtName}</div>
+            {/* <Rating value={data.rating} readOnly cancel={false}></Rating> */}
+          </div>
+          {/* </Link> */}
           <div className="product-grid-item-bottom">
             <span className="product-price">
               {data.price === 0 ? "Zu Verschenken" : data.price + "€"}
@@ -285,25 +311,35 @@ const Products = () => {
   return (
     <div className="dataview">
       <div className="card">
-        <DataView
-          value={products.products}
-          layout={layout}
-          header={header}
-          itemTemplate={itemTemplate}
-          lazy
-          paginator
-          paginatorPosition={"both"}
-          rows={rows.current}
-          totalRecords={totalRecords}
-          first={first}
-          onPage={onPage}
-          loading={loading}
-          sortOrder={sortOrder}
-          sortField={sortField}
-        />
+        {products.products.length === 0 ? (
+          <ToastMessages
+            severity="error"
+            summary="Heavy Error"
+            detail="Request respons an empty Array. Please refresh"
+            life="0"
+            sticky="true"
+          />
+        ) : (
+          <DataView
+            value={products.products}
+            layout={layout}
+            header={header}
+            itemTemplate={itemTemplate}
+            lazy
+            paginator
+            paginatorPosition={"both"}
+            rows={rows.current}
+            totalRecords={totalRecords}
+            first={first}
+            onPage={onPage}
+            loading={loading}
+            sortOrder={sortOrder}
+            sortField={sortField}
+          />
+        )}
       </div>
     </div>
   );
-};
+}
 
 export default Products;

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -13,7 +13,7 @@ import "primeicons/primeicons.css"; //icons
 
 //Links
 //general-pages
-import Start from "./pages/start/start.jsx";
+import Start from "./pages/start/Start.jsx";
 import Login from "./pages/login/Login.jsx";
 import NewProduct from "./pages/newProducts/NewProducts.jsx";
 import ProductDetail from "./pages/productDetail/ProductDetail.jsx";
@@ -44,26 +44,25 @@ function App() {
         <React.Fragment>
           <QueryClientProvider client={queryClient}>
             <Topbar />
-            <Switch>
+            <Routes>
               {/* general-pages */}
-              <Route path="/" exact component={Start} />
-              <Route path="/login" component={Login} />
-              <Route path="/newproduct" component={NewProduct} />
-              <Route path="/productDetails/:id" component={ProductDetail} />
-              <Route path="/search/:searchentry" component={Search} />
-
+              <Route path="/" element={<Start />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/newproduct" element={<NewProduct />} />
+              <Route path="/productDetails/:id" element={<ProductDetail />} />
+              <Route path="/search/:searchentry" element={<Search />} />
               {/* user-pages */}
-              <Route path="/me" component={Me} />
-              <Route path="/myproducts" component={MyProducts} />
-              <Route path="/messages" component={Messages} />
-              <Route path="/settings" component={Settings} />
+              <Route path="/me" element={<Me />} />
+              <Route path="/myproducts" celement={<MyProducts />} />
+              <Route path="/messages" element={<Messages />} />
+              <Route path="/settings" element={<Settings />} />
 
               {/* other */}
-              <Route path="/faq" component={FAQ} />
-              <Route path="/contact" component={Contact} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/contact" element={<Contact />} />
 
-              <Route path="/yeee" component={Yeee} />
-            </Switch>
+              <Route path="/yeee" element={<Yeee />} />
+            </Routes>
             {/* <Footer /> */}
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>

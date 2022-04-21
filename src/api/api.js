@@ -11,7 +11,19 @@ import axios from "axios";
 
 //Die nächsten beiden Funktionen muss ich hinsichtlich Parametern noch umschreiben. Es geht aber auch mit mehreren Params, jedoch muss das dann in nem Oject übergeben werden!
 export async function getBackend(path) {
-  const response = await axios.get(`${process.env.REACT_APP_API_URL}${path}`);
+  console.log(path);
+  const response = await axios.get(
+    `${process.env.REACT_APP_API_URL}${path}`,
+    { withCredentials: true },
+    {
+      headers: {
+        "Access-Control-Allow-Origin":
+          "http://kleinanzeigen_api.jonaslbgtt.live:8080",
+      },
+    }
+  );
+
+  console.log(response.data);
   return await response.data;
 }
 

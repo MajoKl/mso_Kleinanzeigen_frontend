@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { Galleria } from "primereact/galleria";
-import { Avatar } from "primereact/avatar";
 
 function Galleriaa() {
   const [images, setImages] = useState(null);
@@ -27,7 +26,7 @@ function Galleriaa() {
       setImages(response.data.data);
     }
     fetchData();
-  }, []);
+  }, []); // eslint-disable-line
 
   const itemTemplate = (item) => {
     return (

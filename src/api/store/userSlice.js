@@ -3,8 +3,17 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const requestUser = createAsyncThunk(
   "/aaaaapi/me",
-  async () => await getBackend("/api/me")
+  async (path) => await getBackend(path)
 );
+
+const setError = (state) => {
+  state.status.severity = "error";
+  state.status.summary = "Heavy Error!";
+  state.status.detail =
+    "Request to Backend failed... Site cannot load. Please refresh";
+  state.status.life = 0;
+  state.status.sticky = true;
+};
 
 const initialState = {
   user: {
@@ -44,14 +53,8 @@ const userSlice = createSlice({
     });
     //rejected: Error / denied / request failed
     builder.addCase(requestUser.rejected, (state) => {
-      state.products = null;
-      state.status.severity = "error";
-      state.status.summary = "Heavy Error!";
-      state.status.detail =
-        "Request to Backend failed... Site cannot load. Please refresh";
-      state.status.life = 0;
-      state.status.sticky = true;
-
+      state.user = null;
+      setError(state);
       console.log("ERROR BEI USER-REQUEST");
     });
     //pending: Wartend, während dem request

@@ -1,26 +1,52 @@
 import React, { useState, useEffect } from "react";
+// eslint-disable-next-line
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 import "./productDetail.scss";
 
 import { Fieldset } from "primereact/fieldset";
 
 import Galleria from "../../components/Galleriaa";
 
-function ProductDetail(props) {
+function ProductDetail() {
   const [product, setProduct] = useState("");
-  const products = useSelector((state) => state.products);
-  console.log(products.products._id);
-  useEffect(() => {
-    console.log("In UseEffekt");
-    console.log(products.products._id + " === " + props.match.params.id);
-    for (let i = 0; i < products.products.length; i++) {
-      if (products.products[i]._id === props.match.params.id) {
-        console.log("Gefunden!");
-        setProduct(products.products[i]);
+  const { id } = useParams();
+
+  // const products = useSelector((state) => state.products);
+
+  //Fehler beim neuladen der Seite. Is so naja aber schwer zu fixen
+  // useEffect(() => {
+  //   console.log("In UseEffekt");
+  //   console.log(products.products[0]._id + " === " + id);
+  //   for (let i = 0; i < products.products.length; i++) {
+  //     if (products.products[i]._id === id) {
+  //       console.log("Gefunden!");
+  //       setProduct(products.products[i]);
+  //     }
+  //   }
+  // }, [products]); // eslint-disable-line
+
+  const requestBackend = async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/me/articles?article_id=${id}`,
+      { withCredentials: true },
+      {
+        headers: {
+          "Access-Control-Allow-Origin":
+            "http://kleinanzeigen_api.jonaslbgtt.live:8080",
+        },
       }
-    }
-  }, [products.products, props.match.params.id]);
+    );
+    setProduct(response.data);
+    console.log("Lol");
+  };
   console.log(product);
+
+  useEffect(() => {
+    requestBackend();
+  }, []); // eslint-disable-line
+
   return (
     <div className="container product-container">
       <h1>Name des Artikels!</h1>
