@@ -30,7 +30,7 @@ const Products = () => {
   const productService = new ProductService();
 
   const products = useSelector((state) => state.products);
-  console.log("Daddy: " + products);
+  console.log("Daddy: " + products.products._id);
 
   const dispatch = useDispatch();
 

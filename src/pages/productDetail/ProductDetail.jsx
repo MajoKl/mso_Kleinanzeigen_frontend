@@ -9,16 +9,17 @@ import Galleria from "../../components/Galleriaa";
 function ProductDetail(props) {
   const [product, setProduct] = useState("");
   const products = useSelector((state) => state.products);
-
+  console.log(products.products._id);
   useEffect(() => {
-    console.log(props.match.params.id);
+    console.log("In UseEffekt");
+    console.log(products.products._id + " === " + props.match.params.id);
     for (let i = 0; i < products.products.length; i++) {
       if (products.products[i]._id === props.match.params.id) {
         console.log("Gefunden!");
         setProduct(products.products[i]);
       }
     }
-  });
+  }, [products.products, props.match.params.id]);
   console.log(product);
   return (
     <div className="container product-container">
@@ -26,7 +27,6 @@ function ProductDetail(props) {
       <hr />
       <div className="product-card card">
         <div className="product-card-img card">
-          Bilder
           <Galleria />
         </div>
 
@@ -44,7 +44,7 @@ function ProductDetail(props) {
           <span>{product.createtedAt}</span>
           Content
         </div>
-        <div className="card">ectra</div>
+        <div className="card">extra</div>
       </div>
     </div>
   );

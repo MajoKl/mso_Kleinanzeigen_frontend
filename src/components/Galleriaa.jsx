@@ -24,13 +24,12 @@ function Galleriaa() {
   useEffect(() => {
     async function fetchData() {
       const response = await axios("/data/photos.json");
-      setImages(response.data);
+      setImages(response.data.data);
     }
     fetchData();
   }, []);
 
   const itemTemplate = (item) => {
-    console.log("Yeeee: " + images);
     return (
       <img
         src={item.itemImageSrc}
@@ -60,8 +59,7 @@ function Galleriaa() {
   console.log(images);
   return (
     <div className="card">
-      <h3>Heee</h3>
-      <Avatar icon="pi pi-search" />
+      {console.log(images)}
       <Galleria
         value={images}
         responsiveOptions={responsiveOptions}
@@ -73,7 +71,6 @@ function Galleriaa() {
         item={itemTemplate}
         thumbnail={thumbnailTemplate}
       />
-      <span>djwidjid</span>
     </div>
   );
 }

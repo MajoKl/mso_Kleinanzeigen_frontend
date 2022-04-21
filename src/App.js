@@ -17,6 +17,7 @@ import Start from "./pages/start/start.jsx";
 import Login from "./pages/login/Login.jsx";
 import NewProduct from "./pages/newProducts/NewProducts.jsx";
 import ProductDetail from "./pages/productDetail/ProductDetail.jsx";
+import Search from "./pages/search/Search.jsx";
 
 //user-pages
 import Me from "./pages/me/Me.jsx";
@@ -49,6 +50,7 @@ function App() {
               <Route path="/login" component={Login} />
               <Route path="/newproduct" component={NewProduct} />
               <Route path="/productDetails/:id" component={ProductDetail} />
+              <Route path="/search/:searchentry" component={Search} />
 
               {/* user-pages */}
               <Route path="/me" component={Me} />
