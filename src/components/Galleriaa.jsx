@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "../pages/productDetail/productDetail.scss";
 
 import { Galleria } from "primereact/galleria";
 
@@ -57,14 +58,14 @@ function Galleriaa() {
   };
   console.log(images);
   return (
-    <div className="card">
+    <div className="galleria card">
       {console.log(images)}
       <Galleria
         value={images}
         responsiveOptions={responsiveOptions}
         numVisible={5}
+        style={{ maxWidth: "440px" }}
         circular
-        style={{ maxWidth: "640px" }}
         showItemNavigators
         showItemNavigatorsOnHover
         item={itemTemplate}

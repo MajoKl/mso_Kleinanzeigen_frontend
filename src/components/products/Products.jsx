@@ -222,6 +222,7 @@ function Products(props) {
           <div className="product-grid-item-top">
             <div>
               <i className="pi pi-tag product-category-icon"></i>
+              {console.log(data.categories[0])}
               <span className="product-category">{data.categories[0]}</span>
             </div>
 
