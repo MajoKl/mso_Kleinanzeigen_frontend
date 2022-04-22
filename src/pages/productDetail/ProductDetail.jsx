@@ -50,7 +50,7 @@ function ProductDetail() {
     {
       icon: "pi pi-tag",
       tag: "Kategorie",
-      value: product.categories,
+      value: product?.categories[0],
     },
     {
       icon: "pi pi-sort-alt",
@@ -80,7 +80,7 @@ function ProductDetail() {
     {
       icon: "pi pi-user",
       tag: "Erstellt von",
-      value: product.owner.name,
+      value: product.owner?.name,
     },
   ];
 
@@ -99,7 +99,6 @@ function ProductDetail() {
       </div>
     ) : null;
   };
-
   return (
     <div className="container product-container">
       <h1>{product.Name}</h1>
