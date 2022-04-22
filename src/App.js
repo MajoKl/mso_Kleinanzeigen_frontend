@@ -53,7 +53,7 @@ function App() {
               <Route path="/search/:searchentry" element={<Search />} />
               {/* user-pages */}
               <Route path="/me" element={<Me />} />
-              <Route path="/myproducts" celement={<MyProducts />} />
+              <Route path="/myproducts" element={<MyProducts />} />
               <Route path="/messages" element={<Messages />} />
               <Route path="/settings" element={<Settings />} />
 

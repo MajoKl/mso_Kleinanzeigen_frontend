@@ -8,8 +8,6 @@ import { requestUser } from "../../api/store/userSlice";
 import Products from "../../components/products/Products";
 import ToastMessages from "../../components/ToastMessages";
 
-import Search from "../../pages/search/Search.jsx";
-
 function Me() {
   const user = useSelector((state) => state.user);
 
@@ -54,13 +52,23 @@ function Me() {
           <h1>Seite von {user.user.name}</h1>
 
           <div className="card">
-            <h2>Meinnne Produkte:</h2>
+            <h2>Accountinformationen</h2>
+            <span>{user.user.name}</span>
+            <span>{user.user.grade}</span>
+            <span>{user.user.private}</span>
+            <span>{user.user.role}</span>
+            <span>{user.user.friends}</span>
 
             {console.log(user)}
-            <span>{user.user.name}</span>
+          </div>
+          <div className="card">
+            <h2>Deine mit Stern markierten Artikel:</h2>
             <Products searchoption="me" otheroptions="" />
           </div>
-          <Search />
+          <div className="card">
+            <h2>Deine erstellten Artikel:</h2>
+            <Products searchoption="me" otheroptions="" />
+          </div>
         </div>
       )}
     </React.Fragment>

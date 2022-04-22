@@ -29,7 +29,7 @@ function ProductDetail() {
 
   const requestBackend = async () => {
     const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/api/me/articles?article_id=${id}`,
+      `${process.env.REACT_APP_API_URL}/api/users/articles?article_id=${id}`,
       { withCredentials: true },
       {
         headers: {
@@ -38,8 +38,7 @@ function ProductDetail() {
         },
       }
     );
-    setProduct(response.data);
-    console.log("Lol");
+    setProduct(response.data[0]);
   };
   console.log(product);
 

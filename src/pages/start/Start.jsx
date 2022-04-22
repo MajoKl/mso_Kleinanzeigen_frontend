@@ -20,14 +20,13 @@ function Start() {
   return (
     <>
       <div className="container">
-        <h1>Willkommen {user.user.name}</h1>
-        <h2>Die neusten Anzeigen:</h2>
+        <h1>Willkommen zurück, {user.user.name}</h1>
+        <h2>Deine neusten Anzeigen:</h2>
         <h3>
           Hier ist platz für ein Header, der Dropdowns hat, um Kategorien
           auszuwählen.
         </h3>
         <hr />
-        <h4>Hier sind schöne Anzeigen!</h4>
         <Products searchoption="users" otheroptions="" />
       </div>
     </>

@@ -4,7 +4,6 @@ import { DataView, DataViewLayoutOptions } from "primereact/dataview";
 // import { Rating } from "primereact/rating";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
-import { Link } from "react-router-dom";
 import "./products.scss";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -55,7 +54,6 @@ function Products(props) {
       //setTotalRecords(data.length); //Hinfällig?
 
       // setProducts(datasource.current.slice(0, rows.current));
-      console.log("Im useEffekt initinal render: " + JSON.stringify(products));
       setLoading(false);
     }, 1000);
   }, []); // eslint-disable-line
