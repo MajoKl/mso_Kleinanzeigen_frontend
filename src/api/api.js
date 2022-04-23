@@ -40,8 +40,7 @@ export async function postBackend(data) {
     //   },
     // },
   );
-
-  console.log(response + "fjnh");
+  console.log(response.data + "fjnh");
   return await response.data;
 }
 

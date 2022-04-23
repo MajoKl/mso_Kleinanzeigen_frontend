@@ -28,7 +28,7 @@ const initialState = {
     summary: "",
     detail: "",
     life: 0,
-    stickyy: false,
+    sticky: false,
   },
 };
 
@@ -48,9 +48,7 @@ const newProductSlice = createSlice({
     //   }
     // },
     onChange(state, action) {
-      console.log("I'm here");
       const { value, name } = action.payload;
-      console.log(value + " lol");
       state.product[name] = value;
       // saveLocalStorage(state);
     },
@@ -84,19 +82,23 @@ const newProductSlice = createSlice({
     //Fulfilled: Erfolgreich abgeschlossen
     builder.addCase(pushProduct.fulfilled, (state, { payload }) => {
       console.log("Fulfilled NewProduct request");
-      state.product = payload;
-      state.status.severity = "";
-      console.log(payload);
+      state.product = initialState.product;
+      state.status.severity = "success";
+      state.status.summary = "Anzeige erfolgreich aufgegeben!";
+      state.status.detail =
+        "Deine Anzeige wurde erfolgreich aufgegeben. Du bist bereit für den großen Verkauf!";
+      state.status.life = 3000;
+      state.status.sticky = false;
     });
     //rejected: Error / denied / request failed
-    builder.addCase(pushProduct.rejected, (state) => {
+    builder.addCase(pushProduct.rejected, (state, { payload }) => {
+      console.log(payload);
       state.status.severity = "error";
       state.status.summary = "Heavvy Error!";
       state.status.detail =
-        "Request to Backend failed... Site cannot load. Please refresh";
+        "Request to Backend failed... Please check your inputs and try again!";
       state.status.life = 0;
       state.status.sticky = true;
-
       console.log("ERROR BEI NEWPRODUKT-REQUEST");
     });
     //pending: Wartend, während dem request
