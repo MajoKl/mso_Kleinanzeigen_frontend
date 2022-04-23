@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 // eslint-disable-next-line
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./productDetail.scss";
 
 import { Panel } from "primereact/panel";
 import { Toolbar } from "primereact/toolbar";
 import { Button } from "primereact/button";
+import { confirmDialog } from "primereact/confirmdialog";
+import { Toast } from "primereact/toast";
 
 import Galleria from "../../components/Galleriaa";
 import Infotable from "../../components/infotable/Infotable";
@@ -15,6 +17,8 @@ import Infotable from "../../components/infotable/Infotable";
 function ProductDetail() {
   const [product, setProduct] = useState("");
   const { id } = useParams();
+  const toast = useRef(null);
+  const navigate = useNavigate();
 
   // const products = useSelector((state) => state.products);
 
@@ -54,6 +58,82 @@ function ProductDetail() {
     return (
       date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear()
     );
+  };
+
+  const onDeleteClick = () => {
+    //Dialog machen, danach Request ans Backend zum Deleten
+    confirmDialog({
+      message:
+        "Bist du Dir sicher dass du die Anzeige löschen willst? \n Dieser Schritt kann nicht wieder rückgängig gemacht werden!",
+      header: "Löschen bestätigen",
+      icon: "pi pi-exclamation-triangle",
+      acceptClassName: "p-button-danger",
+      accept: onDelete,
+      reject: reject,
+    });
+  };
+  const reject = () => {
+    toast.current.show({
+      severity: "info",
+      summary: "Abgelehnt",
+      detail: "Die Anzeige wurde nicht gelöscht.",
+      life: 3000,
+    });
+  };
+  const onDelete = () => {
+    requestDelete();
+  };
+  const requestDelete = () => {
+    const config = {
+      method: "delete",
+      url: `${process.env.REACT_APP_API_URL}/api/me/articles?article=${id}`,
+      withCredentials: true,
+      headers: {
+        headers: {
+          "Access-Control-Allow-Origin":
+            "http://kleinanzeigen_api.jonaslbgtt.live:8080",
+        },
+      },
+    };
+
+    axios(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        setError(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+        toast.current.show({
+          severity: "error",
+          summary: "Error!",
+          detail:
+            "Request to Backend failed... Article can't be deleted. Please try again.",
+          life: 8000,
+        });
+      });
+  };
+  const setError = (data) => {
+    return data !== '{"deletedCount":1}'
+      ? toast.current.show({
+          severity: "error",
+          summary: "Error!",
+          detail:
+            "Request to Backend failed... Article can't be deleted. Please try again.",
+          life: 8000,
+        })
+      : (setTimeout(() => {
+          navigate("/");
+        }, 5000),
+        toast.current.show({
+          severity: "success",
+          summary: "Fertig!",
+          detail: "Die Anzeige wurde erfolgreich gelöscht.",
+          life: 4000,
+        }));
+  };
+
+  const onEditClick = () => {
+    //Auf Seite EditProduct springen
   };
 
   const InfotableData = [
@@ -98,8 +178,10 @@ function ProductDetail() {
     <React.Fragment>
       <Button
         label="Bearbeiten"
+        id="edit"
         icon="pi pi-pencil"
         className="p-button-rounded p-button-help"
+        onClick={onEditClick}
       />
     </React.Fragment>
   );
@@ -108,55 +190,60 @@ function ProductDetail() {
     <React.Fragment>
       <Button
         label="Löschen"
+        id="delete"
         icon="pi pi-trash"
         className="p-button-rounded p-button-danger"
+        onClick={onDeleteClick}
       />
     </React.Fragment>
   );
 
   return (
-    <div className="container product-container">
-      <h1>{product.Name}</h1>
-      <hr />
-      <div className="product-card card">
-        <div className="product-card-content">
-          <Galleria />
-        </div>
-
-        <div className="product-card-content card">
-          <h2 className="product-headline">Informationen</h2>
-          <div className="product-info-head">
-            <div>
-              <span>{product.Name}</span>
-            </div>
-            <div>
-              <span className="product-price">
-                {product.price === 0 ? "Zu Verschenken" : product.price + "€"}
-                {product.basis_fornegotioations === "Verhandlungsbasis"
-                  ? " VB"
-                  : ""}
-              </span>
-            </div>
+    <React.Fragment>
+      <Toast ref={toast} />
+      <div className="container product-container">
+        <h1>{product.Name}</h1>
+        <hr />
+        <div className="product-card card">
+          <div className="product-card-content">
+            <Galleria />
           </div>
-          <br />
-          <br />
-          <Panel header="Beschreibung">
-            <div
-              className="content"
-              dangerouslySetInnerHTML={{ __html: product.discription }}
-            ></div>
-          </Panel>
-          <br />
-          <br />
-          <Infotable data={InfotableData} />
-        </div>
 
-        <div className="product-card-content card">
-          <h2 className="product-headline">Aktionen</h2>
-          <Toolbar left={leftContents} right={rightContents} />
+          <div className="product-card-content card">
+            <h2 className="product-headline">Informationen</h2>
+            <div className="product-info-head">
+              <div>
+                <span>{product.Name}</span>
+              </div>
+              <div>
+                <span className="product-price">
+                  {product.price === 0 ? "Zu Verschenken" : product.price + "€"}
+                  {product.basis_fornegotioations === "Verhandlungsbasis"
+                    ? " VB"
+                    : ""}
+                </span>
+              </div>
+            </div>
+            <br />
+            <br />
+            <Panel header="Beschreibung">
+              <div
+                className="content"
+                dangerouslySetInnerHTML={{ __html: product.discription }}
+              ></div>
+            </Panel>
+            <br />
+            <br />
+            <Infotable data={InfotableData} />
+          </div>
+
+          <div className="product-card-content card">
+            <h2 className="product-headline">Aktionen</h2>
+            <Toolbar left={leftContents} right={rightContents} />
+          </div>
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 }
 
