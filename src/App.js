@@ -15,13 +15,14 @@ import "primeicons/primeicons.css"; //icons
 //general-pages
 import Start from "./pages/start/Start.jsx";
 import Login from "./pages/login/Login.jsx";
-import NewProduct from "./pages/newProducts/NewProducts.jsx";
-import ProductDetail from "./pages/productDetail/ProductDetail.jsx";
+import NewProduct from "./pages/product/newProducts/NewProducts.jsx";
+import ProductDetail from "./pages/product/productDetail/ProductDetail.jsx";
 import Search from "./pages/search/Search.jsx";
+import ProductEdit from "./pages/product/productEdit/ProductEdit.jsx";
 
 //user-pages
 import Me from "./pages/me/Me.jsx";
-import MyProducts from "./pages/myproducts/Myproducts.jsx";
+import MyProducts from "./pages/product/myproducts/Myproducts.jsx";
 import Messages from "./pages/messages/Messages.jsx";
 import Settings from "./pages/settings/Settings.jsx";
 
@@ -51,6 +52,7 @@ function App() {
               <Route path="/newproduct" element={<NewProduct />} />
               <Route path="/productDetails/:id" element={<ProductDetail />} />
               <Route path="/search/:searchentry" element={<Search />} />
+              <Route path="/product/edit/:id" element={<ProductEdit />} />
               {/* user-pages */}
               <Route path="/me" element={<Me />} />
               <Route path="/myproducts" element={<MyProducts />} />

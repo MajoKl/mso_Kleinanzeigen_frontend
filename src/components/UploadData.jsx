@@ -6,7 +6,7 @@ import { Button } from "primereact/button";
 import { Tooltip } from "primereact/tooltip";
 import { Tag } from "primereact/tag";
 
-import "../pages/newProducts/newproducts.scss";
+import "../pages/product/newProducts/newproducts.scss";
 
 function UploadData() {
   const [totalSize, setTotalSize] = useState(0);

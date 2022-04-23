@@ -11,8 +11,8 @@ import { Button } from "primereact/button";
 import { confirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
 
-import Galleria from "../../components/Galleriaa";
-import Infotable from "../../components/infotable/Infotable";
+import Galleria from "../../../components/Galleriaa";
+import Infotable from "../../../components/infotable/Infotable";
 
 function ProductDetail() {
   const [product, setProduct] = useState("");
@@ -134,6 +134,7 @@ function ProductDetail() {
 
   const onEditClick = () => {
     //Auf Seite EditProduct springen
+    navigate("/");
   };
 
   const InfotableData = [

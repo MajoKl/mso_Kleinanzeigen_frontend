@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../pages/productDetail/productDetail.scss";
+import "../pages/product/productDetail/productDetail.scss";
 
 import { Galleria } from "primereact/galleria";
 

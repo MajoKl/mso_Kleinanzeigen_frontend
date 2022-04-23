@@ -3,7 +3,7 @@ import React from "react";
 // import { RootState } from "../../api/store/store";
 // import { ProgressSpinner } from "primereact/progressspinner";
 
-import Products from "../../components/products/Products";
+import Products from "../../../components/products/Products";
 // import ToastMessages from "../../components/ToastMessages";
 
 function Myproducts() {

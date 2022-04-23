@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../../main.scss";
+import "../../../main.scss";
 import "./newproducts.scss";
 
-import { onChange, pushProduct } from "../../api/store/newProductSlice";
-import ToastMessages from "../../components/ToastMessages";
+import { onChange, pushProduct } from "../../../api/store/newProductSlice";
+import ToastMessages from "../../../components/ToastMessages";
 
 import { useFormik } from "formik";
 import { RadioButton } from "primereact/radiobutton";
@@ -16,7 +16,7 @@ import { Editor } from "primereact/editor";
 import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
 
-import Upload from "../../components/UploadData.jsx";
+import Upload from "../../../components/UploadData.jsx";
 import { useDispatch, useSelector } from "react-redux";
 
 function NewProducts() {
@@ -212,6 +212,7 @@ function NewProducts() {
           sticky={newproduct.status.sticky}
         />
       ) : null}
+
       <div className="container">
         <h1>Artikel Inserieren</h1>
         <hr />
