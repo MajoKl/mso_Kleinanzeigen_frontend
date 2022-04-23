@@ -1,9 +1,9 @@
-import { getBackend } from "../api.js";
+import { postBackend } from "../api.js";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const pushProduct = createAsyncThunk(
   "/aaapi/me",
-  async () => await getBackend("/api/me/apiiii")
+  async (data) => await postBackend(data)
 );
 // const saveLocalStorage = (state) => {
 //   const data = { product: state.product, status: state.status };
@@ -11,7 +11,18 @@ export const pushProduct = createAsyncThunk(
 // };
 
 const initialState = {
-  product: [],
+  product: {
+    Name: "",
+    detailtName: "",
+    article_type: "Ich biete",
+    categories: "",
+    count: 1,
+    ISBN: "",
+    basis_fornegotioations: [],
+    price: 0,
+    discription: "",
+    pictures: [],
+  },
   status: {
     severity: "",
     summary: "",
@@ -36,17 +47,13 @@ const newProductSlice = createSlice({
     //     state.status = data.status;
     //   }
     // },
-    // addTodo(state, action) {
-    //   const title = action.payload;
-    //   state.todos.push({
-    //     done: false,
-    //     id: state.nextId,
-    //     title: title,
-    //     working: false,
-    //   });
-    //   state.nextId += 1;
-    //   saveLocalStorage(state);
-    // },
+    onChange(state, action) {
+      console.log("I'm here");
+      const { value, name } = action.payload;
+      console.log(value + " lol");
+      state.product[name] = value;
+      // saveLocalStorage(state);
+    },
     // removeTodo(state, action) {
     //   const id = action.payload;
     //   const index = state.todos.findIndex((i) => i.id === id);
@@ -83,7 +90,6 @@ const newProductSlice = createSlice({
     });
     //rejected: Error / denied / request failed
     builder.addCase(pushProduct.rejected, (state) => {
-      state.product = null;
       state.status.severity = "error";
       state.status.summary = "Heavvy Error!";
       state.status.detail =
@@ -100,12 +106,12 @@ const newProductSlice = createSlice({
   },
 });
 
-// export const {
-//   //   addTodo,
-//   //   removeTodo,
-//   //   toggleDone,
-//   //   updateTitle,
-//   //   editWorking,
-//   //   loadFromStorage,
-// } = newProductSlice.actions;
+export const {
+  onChange,
+  // removeTodo,
+  //   toggleDone,
+  //   updateTitle,
+  //   editWorking,
+  //   loadFromStorage,
+} = newProductSlice.actions;
 export default newProductSlice.reducer;

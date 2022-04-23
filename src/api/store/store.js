@@ -2,13 +2,13 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import productReducer from "./productSlice";
 import userReducer from "./userSlice";
-// import newProductReducer from "./newProductSlice";
+import newProductReducer from "./newProductSlice";
 
 //Reducer = Reduzieren den Aufwand für ka
 export const rootReducer = combineReducers({
   products: productReducer,
   user: userReducer,
-  // newProduct: newProductReducer,
+  newProduct: newProductReducer,
 });
 
 const store = configureStore({

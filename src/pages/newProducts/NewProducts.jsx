@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import "../../main.scss";
 import "./newproducts.scss";
 
+import { onChange, pushProduct } from "../../api/store/newProductSlice";
+
 import { useFormik } from "formik";
 import { RadioButton } from "primereact/radiobutton";
 import { InputText } from "primereact/inputtext";
@@ -17,15 +19,24 @@ import { Dialog } from "primereact/dialog";
 import { classNames } from "primereact/utils";
 
 import Upload from "../../components/UploadData.jsx";
+import { useDispatch, useSelector } from "react-redux";
 
 // import { pushProduct } from "../../api/store/newProductSlice";
 // import { useDispatch } from "react-redux";
 
 function NewProducts() {
-  //   const [typ, setTyp] = useState("biete");
-  //   const [title, setTitle] = useState("");
-  //   const [titleDetail, setTitleDetail] = useState("");
-  //   const [category, setCategory] = useState(null);
+  const pricing = [
+    {
+      name: "Australia",
+    },
+    {
+      name: "lol",
+    },
+    {
+      name: "VB",
+    },
+  ];
+
   const countries = [
     {
       name: "Australia",
@@ -100,12 +111,28 @@ function NewProducts() {
       ],
     },
   ];
+
+  const dispatch = useDispatch();
+  const newproduct = useSelector((state) => state.newProduct);
+  console.log(newproduct);
+
+  const handleChange = (name, event) => {
+    let value = "";
+    name === "categories" ||
+    name === "price" ||
+    name === "discription" ||
+    name === "count" ||
+    name === "basis_fornegotioations"
+      ? (value = event)
+      : (value = event.target.value);
+    dispatch(onChange({ value, name: name }));
+  };
+
   //   const [price, setPrice] = useState(0);
   //   const [priceCategory, setPriceCategory] = useState(null);
   const [description, setDescription] = useState("");
   const [showMessage, setShowMessage] = useState(false);
   const [formData, setFormData] = useState({});
-  // const dispatch = useDispatch();
   const renderHeader = () => {
     return (
       <span className="ql-formats">
@@ -118,28 +145,22 @@ function NewProducts() {
   const header = renderHeader();
 
   const formik = useFormik({
-    initialValues: {
-      typ: "biete", //aticle_type
-      title: "",
-      titleDetail: "",
-      category: null,
-      price: 0,
-      priceCategory: null,
-      description: description,
-    },
-    validate: (data) => {
+    initialValues: {},
+    validate: (dataa) => {
+      const data = newproduct.product;
+      console.log(data);
       let errors = {};
 
-      if (!data.title) {
-        errors.title = "Titel ist notwendig.";
-      } else if (data.title.length < 10) {
-        errors.title = "Der Titel ist zu kurz. Min. 10 Zeichen.";
-      } else if (data.title.length > 30) {
-        errors.title = "Der Titel ist zu lang. Max. 30 Zeichen.";
+      if (!data.Name) {
+        errors.Name = "Titel ist notwendig.";
+      } else if (data.Name.length < 10) {
+        errors.Name = "Der Titel ist zu kurz. Min. 10 Zeichen.";
+      } else if (data.Name.length > 30) {
+        errors.Name = "Der Titel ist zu lang. Max. 30 Zeichen.";
       }
 
-      if (!data.category) {
-        errors.category = "Eine Kategorie ist notwendig.";
+      if (!data.categories) {
+        errors.categories = "Eine Kategorie ist notwendig.";
       }
 
       if (!data.price) {
@@ -150,13 +171,13 @@ function NewProducts() {
         errors.price = "Der Preis kann nicht im negativen Bereich sein.";
       }
 
-      if (!data.priceCategory) {
-        errors.priceCategory = "Preiskategorie ist notwenig.";
+      if (data.basis_fornegotioations[0] === undefined) {
+        errors.basis_fornegotioations = "Preiskategorie ist notwenig.";
       }
-      if (!data.description) {
-        errors.description = "Eine Beschreibung ist notwenig.";
-      } else if (data.description.length > 500) {
-        errors.description =
+      if (!data.discription) {
+        errors.discription = "Eine Beschreibung ist notwenig.";
+      } else if (data.discription.length > 500) {
+        errors.discription =
           "Die Beschreibung kann nicht größer als 500 Zeichen sein.";
       }
 
@@ -164,7 +185,10 @@ function NewProducts() {
     },
 
     onSubmit: (data) => {
-      setFormData(data);
+      // setFormData(data);
+
+      console.log(newproduct.product);
+      dispatch(pushProduct(newproduct.product));
       setShowMessage(true);
 
       //Okay also: Entweder mach ich das so über die Slice. Oder ich lass es.
@@ -174,16 +198,18 @@ function NewProducts() {
       //   Is iwie einfacher Lmao.
       // dispatch(pushProduct());
 
-      formik.resetForm();
+      // formik.resetForm();
     },
   });
+
   const isFormFieldValid = (name) =>
     !!(formik.touched[name] && formik.errors[name]);
+
   const getFormErrorMessage = (name) => {
     return (
-      isFormFieldValid(name) && (
-        <small className="p-error">{formik.errors[name]}</small>
-      )
+      // isFormFieldValid(name) && (
+      <small className="p-error">{formik.errors[name]}</small>
+      // )
     );
   };
   const dialogFooter = (
@@ -216,9 +242,8 @@ function NewProducts() {
           ></i>
           <h5>Registration Successful!</h5>
           <p style={{ lineHeight: 1.5, textIndent: "1rem" }}>
-            Your account is registered under name <b>{formData.name}</b> ; it'll
-            be valid next 30 days without activation. Please check{" "}
-            <b>{formData.email}</b> for activation instructions.
+            Your account is registered under name <b></b> ; it'll be valid next
+            30 days without activation. Pleas for activation instructions.
           </p>
         </div>
       </Dialog>
@@ -233,11 +258,9 @@ function NewProducts() {
                 <RadioButton
                   inputId="typ1"
                   name="typ"
-                  value="biete"
-                  //   onChange={(e) => setTyp(e.value)}
-                  //   value={formik.values.typ}
-                  onChange={formik.handleChange}
-                  checked={formik.values.typ === "biete"}
+                  value="Ich biete"
+                  onChange={(e) => handleChange("article_type", e)}
+                  checked={newproduct.product.article_type === "Ich biete"}
                 />
                 <label htmlFor="typ1">Ich biete</label>
               </div>
@@ -245,10 +268,9 @@ function NewProducts() {
                 <RadioButton
                   inputId="typ2"
                   name="typ"
-                  value="suche"
-                  //   onChange={(e) => setTyp(e.value)}
-                  onChange={formik.handleChange}
-                  checked={formik.values.typ === "suche"}
+                  value="Ich suche"
+                  onChange={(e) => handleChange("article_type", e)}
+                  checked={newproduct.product.article_type === "Ich suche"}
                 />
                 <label htmlFor="typ2">Ich suche</label>
               </div>
@@ -256,50 +278,49 @@ function NewProducts() {
                 <RadioButton
                   inputId="typ3"
                   name="typ"
-                  value="tausche"
-                  //   onChange={(e) => setTyp(e.value)}
-                  onChange={formik.handleChange}
-                  checked={formik.values.typ === "tausche"}
+                  value="Ich tausche"
+                  onChange={(e) => handleChange("article_type", e)}
+                  checked={newproduct.product.article_type === "Ich tausche"}
                 />
                 <label htmlFor="typ3">Ich tausche</label>
               </div>
             </div>
-            {/* Title */}
+            {/* Name */}
             <div className="p-field fieldinput">
               <span className="p-float-label">
                 <InputText
-                  id="title"
-                  name="title"
-                  aria-describedby="title-help"
+                  id="Name"
+                  name="Name"
+                  aria-describedby="name-help"
                   //   className="p-d-block block"
                   // value={title}
                   //   onChange={(e) => setTitle(e.target.value)}
                   // placeholder="Titel"
                   //   tooltip="Dieses Feld ist ein Pflichtfeld"
                   //   tooltipOptions={{ position: "top" }}
-                  value={formik.values.title}
-                  onChange={formik.handleChange}
+                  value={newproduct.product.Name}
+                  onChange={(e) => handleChange("Name", e)}
                   className={
                     (classNames({
-                      "p-invalid": isFormFieldValid("title"),
+                      "p-invalid": isFormFieldValid("Name"),
                     }),
                     "p-d-block block")
                     //funktioniert nicht
                   }
                 />
                 <label
-                  htmlFor="title"
+                  htmlFor="Name"
                   className={classNames({
-                    "p-error": isFormFieldValid("title"),
+                    "p-error": isFormFieldValid("Name"),
                   })}
                 >
                   Titel*
                 </label>
               </span>
-              <small id="title-help" className="p-d-block">
+              <small id="name-help" className="p-d-block">
                 Verwende einen knappen, aber verständlichen Titel
               </small>
-              {getFormErrorMessage("title")}
+              {getFormErrorMessage("Name")}
             </div>
             <div className="p-field fieldinput">
               <span className="p-float-label">
@@ -312,8 +333,8 @@ function NewProducts() {
                   //   placeholder="Detailierter Titel"
                   //   tooltip="Dieses Feld ist kein Pflichtfeld"
                   //   tooltipOptions={{ position: "top" }}
-                  value={formik.values.titleDetail}
-                  onChange={formik.handleChange}
+                  value={newproduct.product.detailtName}
+                  onChange={(e) => handleChange("detailtName", e)}
                 />
                 <label htmlFor="titleDetail">Detaillierter Titel</label>
               </span>
@@ -331,34 +352,104 @@ function NewProducts() {
               > */}
               <span className="p-float-label">
                 <CascadeSelect
-                  //   value={category}
+                  value={
+                    newproduct.product.categories
+                      ? {
+                          cname: newproduct.product.categories,
+                          code: newproduct.product.categories,
+                        }
+                      : null
+                  }
                   options={countries} //ist object array mit allen unterkategorien
+                  // style={{ minWidth: "14rem" }}
                   optionLabel={"cname"}
                   optionGroupLabel={"name"}
                   optionGroupChildren={["states", "cities"]}
                   // placeholder={"Wähle eine Kategorie aus"}
                   //   onChange={(event) => setCategory(event.value)}
-                  id="category"
+                  id="categories"
                   className="block"
-                  value={formik.values.category}
-                  onChange={formik.handleChange}
+                  onChange={(e) => handleChange("categories", e.value.cname)}
                   // className={classNames({
                   //   "p-invalid": isFormFieldValid("category"),
                   // })}
                 />
                 <label
-                  htmlFor="category"
+                  htmlFor="categories"
                   className={classNames({
-                    "p-error": isFormFieldValid("category"),
+                    "p-error": isFormFieldValid("categories"),
                   })}
                 >
                   Kategorie*
                 </label>
               </span>
               {/* </span> */}
-              {getFormErrorMessage("category")}
+              {getFormErrorMessage("categories")}
             </div>
+            <br />
+            {/* Count */}
+            <div className="p-field fieldcategory">
+              {/* <Tooltip target=".selecttip" position="top" />
+              <span
+                className="selecttip"
+                data-pr-tooltip="Dieses Feld ist ein Pflichtfeld"
+              > */}
+              <span className="p-float-label">
+                <InputNumber
+                  inputId="count"
+                  aria-describedby="count-help"
+                  value={newproduct.product.count}
+                  onChange={(e) => handleChange("count", e.value)}
+                  suffix=" Stück"
+                />
+              </span>
+              <small id="count-help" className="p-d-block">
+                Gebe gegebenenfalls eine Stückzahl an.
+              </small>
+            </div>
+
+            {/* ISBN */}
+            <div className="p-field fieldcategory">
+              <span className="p-float-label">
+                <InputText
+                  id="ISBN"
+                  name="ISBN"
+                  aria-describedby="isbn-help"
+                  //   className="p-d-block block"
+                  // value={title}
+                  //   onChange={(e) => setTitle(e.target.value)}
+                  // placeholder="Titel"
+                  //   tooltip="Dieses Feld ist ein Pflichtfeld"
+                  //   tooltipOptions={{ position: "top" }}
+                  value={newproduct.product.ISBN}
+                  onChange={(e) => handleChange("ISBN", e)}
+                  // className={
+                  //   (classNames({
+                  //     "p-invalid": isFormFieldValid("isbn"),
+                  //   }),
+                  //   "p-d-block block")
+                  //funktioniert nicht?????
+                  // }
+                />
+                <label
+                  htmlFor="ISBN"
+                  className={classNames({
+                    "p-error": isFormFieldValid("isbn"),
+                  })}
+                >
+                  ISBN
+                </label>
+              </span>
+
+              <small id="isbn-help" className="p-d-block">
+                Gebe gegebenfalls eine ISBN Nummer an. <br />
+                Dein Artikel kann besser gefunden werden.
+              </small>
+              {getFormErrorMessage("ISBN")}
+            </div>
+
             <hr />
+
             {/* Price */}
             <div className="p-grid p-fluid">
               <div className="p-field fieldprice">
@@ -381,8 +472,8 @@ function NewProducts() {
                   //   tooltip="Dieses Feld ist ein Pflichtfeld"
                   //   tooltipOptions={{ position: "top" }}
                   id="price"
-                  value={formik.values.price}
-                  onValueChange={formik.handleChange}
+                  value={newproduct.product.price}
+                  onChange={(e) => handleChange("price", e.value)}
                   // className={classNames({
                   //   "p-invalid": isFormFieldValid("price"),
                   // })}
@@ -392,31 +483,39 @@ function NewProducts() {
               <div className="p-field fieldprice">
                 <span className="p-float-label">
                   <Dropdown
-                    //   value={priceCategory}
-                    options={countries}
+                    value={
+                      // newproduct.product.basis_fornegotioations
+                      newproduct.product.basis_fornegotioations[0] !== undefined
+                        ? {
+                            name: newproduct.product.basis_fornegotioations,
+                          }
+                        : null
+                    }
+                    options={pricing}
                     //   onChange={(e) => setPriceCategory(e.value)}
                     optionLabel="name"
                     // placeholder="Preiskategorie"
                     className="block"
                     // tooltip="Dieses Feld ist ein Pflichtfeld"
                     // tooltipOptions={{ position: "top" }}
-                    id="priceCategory"
-                    value={formik.values.priceCategory}
-                    onChange={formik.handleChange}
+                    id="basis_fornegotioations"
+                    onChange={(e) =>
+                      handleChange("basis_fornegotioations", e.value.name)
+                    }
                     // className={classNames({
-                    //   "p-invalid": isFormFieldValid("priceCategory"),
+                    //   "p-invalid": isFormFieldValid("basis_fornegotioations"),
                     // })}
                   />
                   <label
-                    htmlFor="priceCategory"
+                    htmlFor="basis_fornegotioations"
                     className={classNames({
-                      "p-error": isFormFieldValid("priceCategory"),
+                      "p-error": isFormFieldValid("basis_fornegotioations"),
                     })}
                   >
                     Preiskategorie*
                   </label>
                 </span>
-                {getFormErrorMessage("priceCategory")}
+                {getFormErrorMessage("basis_fornegotioations")}
               </div>
             </div>
           </div>
@@ -431,19 +530,21 @@ function NewProducts() {
               > */}
               <Editor
                 headerTemplate={header}
-                value={description}
-                onTextChange={(e) => setDescription(e.htmlValue)}
+                value={newproduct.product.discription}
+                onTextChange={(e) => handleChange("discription", e.htmlValue)}
+                // value={description}
+                // onTextChange={(e) => setDescription(e.htmlValue)}
                 placeholder="Beschreibung*"
                 className="editor"
-                id="description"
+                id="discription"
                 // value={formik.values.description}
                 // onTextChange={formik.handleChange}
                 // className={classNames({
-                //   "p-invalid": isFormFieldValid("description"),
+                //   "p-invalid": isFormFieldValid("discription"),
                 // })}
               />
               {/* </span> */}
-              {getFormErrorMessage("description")}
+              {getFormErrorMessage("discription")}
             </div>
             {/* Images */}
             <Upload />
