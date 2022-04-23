@@ -1,22 +1,13 @@
-
-
-.product-card-img .p-galleria{
+.p-galleria{
     align-self: center;
-    
 }
-.product-card-img{
+.product-card-content{
     margin-bottom: 20px;
 }
-.product-card-conent{
-    margin-bottom: 20px;
-}
-
 .galleria {
     display: flex;
     flex-direction: column;
 }
-
-
 .product-headline{
     align-self: center;
     margin-bottom: 15px;
@@ -55,4 +46,8 @@
     margin-left: auto;
     // padding-left: 100px;
     padding-right: 20px;
+}
+
+.p-toolbar {
+    justify-content: space-evenly;
 }

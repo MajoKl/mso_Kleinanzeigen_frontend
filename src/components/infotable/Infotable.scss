@@ -1,0 +1,27 @@
+.product-infotable {
+    width: 50%;
+    align-self: center;
+}
+
+.segment {
+    display: flex;
+    gap: 1.5%;
+    // justify-content: center;
+    align-items: center;
+}
+
+.segment>div {
+    justify-content: center
+}
+
+.product-infotable i,
+.product-infotable .tag {
+    padding-left: 10px;
+    align-self: center;
+}
+
+.product-infotable .value {
+    margin-left: auto;
+    // padding-left: 100px;
+    padding-right: 20px;
+}
