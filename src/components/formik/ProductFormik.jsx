@@ -184,9 +184,9 @@ function ProductFormik(props) {
                 <RadioButton
                   inputId="typ2"
                   name="typ"
-                  value="Ich suche"
+                  value="Ich Suche"
                   onChange={(e) => handleChange("article_type", e)}
-                  checked={newproduct.product.article_type === "Ich suche"}
+                  checked={newproduct.product.article_type === "Ich Suche"}
                 />
                 <label htmlFor="typ2">Ich suche</label>
               </div>
@@ -195,7 +195,10 @@ function ProductFormik(props) {
                   inputId="typ3"
                   name="typ"
                   value="Ich tausche"
-                  onChange={(e) => handleChange("article_type", e)}
+                  onChange={(e) => {
+                    handleChange("article_type", e);
+                    handleChange("price", 0);
+                  }}
                   checked={newproduct.product.article_type === "Ich tausche"}
                 />
                 <label htmlFor="typ3">Ich tausche</label>
@@ -461,7 +464,9 @@ function ProductFormik(props) {
                     id="basis_fornegotioations"
                     onChange={(e) => {
                       handleChange("basis_fornegotioations", e.value.name);
-                      handleChange("price", 0);
+                      return e.value.name === "Zu Verschenken"
+                        ? handleChange("price", 0)
+                        : null;
                     }}
                     // className={classNames({
                     //   "p-invalid": isFormFieldValid("basis_fornegotioations"),
