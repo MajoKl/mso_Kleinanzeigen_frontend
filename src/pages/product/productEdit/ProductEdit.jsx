@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import "../../../main.scss";
 import "../newProducts/newproducts.scss";
-import { onChange, onChangeStatus } from "../../../api/store/newProductSlice";
-import ToastMessages from "../../../components/ToastMessages";
+import {
+  onChange,
+  onChangeStatus,
+  onChangeToast,
+} from "../../../api/store/newProductSlice";
+import { Toast } from "primereact/toast";
 import ProductFormik from "../../../components/formik/ProductFormik";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +17,8 @@ function ProductEdit() {
   const [product, setProduct] = useState("");
   const newproduct = useSelector((state) => state.newProduct);
   const dispatch = useDispatch();
+
+  const toast = useRef(null);
   const { id } = useParams();
   console.log(newproduct);
   console.log(product);
@@ -77,12 +83,8 @@ function ProductEdit() {
       value: product.discription,
     },
     {
-      name: "pictures",
-      value: product.pictures,
-    },
-    {
-      name: "",
-      value: newproduct.status.severity,
+      name: "_id",
+      value: product._id,
     },
   ];
 
@@ -96,7 +98,7 @@ function ProductEdit() {
     );
   };
   const setNewStatusState = () => {
-    dispatch(onChangeStatus());
+    // dispatch(onChangeStatus());
     console.log(newproduct.status);
   };
 
@@ -106,9 +108,25 @@ function ProductEdit() {
     dispatch(onChange({ value, name: name }));
   };
 
+  useEffect(() => {
+    return newproduct.toast.setToast === true
+      ? (setTimeout(() => {
+          dispatch(onChangeToast(false));
+          console.log("Auf flase");
+        }, newproduct.status.life),
+        toast.current.show({
+          severity: newproduct.status.severity,
+          summary: newproduct.status.summary,
+          detail: newproduct.status.detail,
+          life: newproduct.status.life,
+        }))
+      : null;
+  }, [newproduct.toast.setToast]); // eslint-disable-line
+
   return (
     <React.Fragment>
-      {newproduct.status.severity !== "" ? (
+      <Toast ref={toast} />
+      {/* {newproduct.toast.setToast === true ? (
         <ToastMessages
           severity={newproduct.status.severity}
           summary={newproduct.status.summary}
@@ -116,7 +134,7 @@ function ProductEdit() {
           life={newproduct.status.life}
           sticky={newproduct.status.sticky}
         />
-      ) : null}
+      ) : null} */}
 
       <div className="container">
         <h1>Artikel Bearbeiten</h1>

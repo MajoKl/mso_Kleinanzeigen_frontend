@@ -11,77 +11,137 @@
         }
     ],
     "categories": [
+    {
+      "groupName": "Schulkram",
+      "opt1": [
         {
-      "name": "Australia",
-      "code": "AU",
-      "states": [
+          "groupName": "Bücher",
+          "opt2": [
+            { "name": "Schulbücher" },
+            { "name": "Schullektüren" },
+            { "name": "Fachliteratur" }
+          ]
+        },
+        { "name": "Schreibwaren"},
+        { "name": "Schulkram"}
+      ]
+    },
+    {
+      "groupName" : "Dienstleistungen",
+      "opt1": [
         {
-          "name": "New South Wales",
-          "cities": [
-            { "cname": "Sydney", "code": "A-SY" },
-            { "cname": "Newcastle", "code": "A-NE" },
-            { "cname": "Wollongong", "code": "A-WO" }
+          "groupName": "Nachhilfe",
+          "opt2": [
+            { "name": "Unterstufe Nachhilfe" },
+            { "name": "Mittelstufe Nachhilfe" },
+            { "name": "Oberstufe Nachhilfe" }
+          ]
+        },
+        { "name": "Babysitten"},
+        { "name": "Dienstleistungen"}
+      ]
+    },
+    {
+      "groupName" : "Essen & Trinken",
+      "opt1": [
+        { "name": "Lebensmittel"},
+        { "name": "Essen&Trinken Zubehör"}
+      ]
+    },
+    {
+      "groupName" : "Mitfahrgelegenheiten/ÖPNV",
+      "opt1": [
+        { "name": "Mitfahrgelegenheiten"},
+        { "name": "ÖPNV-Tickets"},
+        { "name": "ÖPNV Sonstiges"}
+      ]
+    },
+    {
+      "groupName" : "Hobby/Freizeit",
+      "opt1": [
+        { "name": "Vereine"},
+        { "name": "Freizeitsport"},
+        { "name": "Sammeln"},
+        { "name": "Freizeitbücher"},
+        { "name": "Eventtickets"},
+        { "name": "Hobby"},
+        { "name": "Freizeit"}
+      ]
+    },
+    {
+      "groupName" : "Musik/Filme/Bücher",
+      "opt1": [
+        {
+          "groupName": "Musik",
+          "opt2": [
+            {"name": "Musikinstrumente"},
+            {"name": "Musik"}
           ]
         },
         {
-          "name": "Queensland",
-          "cities": [
-            { "cname": "Brisbane", "code": "A-BR" },
-            { "cname": "Townsville", "code": "A-TO" }
+          "groupName": "Filme",
+          "opt2": [
+            {"name": "DVD's"},
+            {"name": "Filme"}
+          ]
+        },
+        {
+          "groupName": "Bücher",
+          "opt2": [
+            {"name": "Schulbücher"},
+            {"name": "Freizeitbücher"},
+            {"name": "Comics/Zeitschriften"},
+            {"name": "Bücher"}
           ]
         }
       ]
     },
     {
-      "name": "Canada",
-      "code": "CA",
-      "states": [
-        {
-          "name": "Quebec",
-          "cities": [
-            { "cname": "Montreal", "code": "C-MO" },
-            { "cname": "Quebec City", "code": "C-QU" }
-          ]
-        },
-        {
-          "name": "Ontario",
-          "cities": [
-            { "cname": "Ottawa", "code": "C-OT" },
-            { "cname": "Toronto", "code": "C-TO" }
-          ]
-        }
+      "groupName" : "Elektronik",
+      "opt1": [
+        { "name": "Handy"},
+        { "name": "Konsolen"},
+        { "name": "PC/Notebooks"},
+        { "name": "PC-Zubehör"},
+        { "name": "Videospiele"},
+        { "name": "Elektronik"}
       ]
     },
     {
-      "name": "United States",
-      "code": "US",
-      "states": [
+      "groupName": "Wohnen",
+      "opt1": [
+        { "name": "Möbel"},
+        { "name": "Wohnzimmer"},
         {
-          "name": "California",
-          "cities": [
-            { "cname": "Los Angeles", "code": "US-LA" },
-            { "cname": "San Diego", "code": "US-SD" },
-            { "cname": "San Francisco", "code": "US-SF" }
+          "groupName": "Schlafzimmer",
+          "opt2": [
+            { "name": "Betten" },
+            { "name": "Schränke" },
+            { "name": "Nachttische" },
+            { "name": "Schreibtische" },
+            { "name": "Schlafzimmer" }
           ]
-        },
-        {
-          "name": "Florida",
-          "cities": [
-            { "cname": "Jacksonville", "code": "US-JA" },
-            { "cname": "Miami", "code": "US-MI" },
-            { "cname": "Tampa", "code": "US-TA" },
-            { "cname": "Orlando", "code": "US-OR" }
-          ]
-        },
-        {
-          "name": "Texas",
-          "cities": [
-            { "cname": "Austin", "code": "US-AU" },
-            { "cname": "Dallas", "code": "US-DA" },
-            { "cname": "Houston", "code": "US-HO" }
-          ]
-        }
+        } 
       ]
+    },
+    {
+      "groupName" : "Mode",
+      "opt1": [
+        { "name": "Damenbekleidung"},
+        { "name": "Herrenbekleidung"},
+        { "name": "Accessoires/Schmuck"},
+        { "name": "Mode"}
+      ]
+    },
+    {
+      "groupName" : "Verloren & Gefunden",
+      "opt1": [
+        { "name": "Verloren/Suche"},
+        { "name": "Gefunden"}
+      ]
+    },
+    {
+      "name" : "Sonstiges"
     }
-    ]
+  ]
 }

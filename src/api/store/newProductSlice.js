@@ -25,7 +25,7 @@ const initialState = {
     basis_fornegotioations: [],
     price: 0,
     discription: "",
-    pictures: [],
+    _id: "",
   },
   status: {
     severity: "",
@@ -33,6 +33,9 @@ const initialState = {
     detail: "",
     life: 0,
     sticky: false,
+  },
+  toast: {
+    setToast: false,
   },
 };
 
@@ -59,6 +62,15 @@ const newProductSlice = createSlice({
     onChangeStatus(state) {
       state.status = initialState;
       // saveLocalStorage(state);
+    },
+    onChangeToast(state, action) {
+      const value = action.payload;
+      state.toast.setToast = value;
+    },
+    onChangeToastMessage(state, action) {
+      const { value, name } = action.payload;
+      console.log(value, name);
+      state.status[name] = value;
     },
     // removeTodo(state, action) {
     //   const id = action.payload;
@@ -91,22 +103,23 @@ const newProductSlice = createSlice({
     builder.addCase(pushProduct.fulfilled, (state, { payload }) => {
       console.log("Fulfilled NewProduct request");
       state.product = initialState.product;
+      state.toast.setToast = true;
       state.status.severity = "success";
       state.status.summary = "Anzeige erfolgreich aufgegeben!";
       state.status.detail =
         "Deine Anzeige wurde erfolgreich aufgegeben. Du bist bereit für den großen Verkauf!";
-      state.status.life = 3000;
+      state.status.life = 4000;
       state.status.sticky = false;
     });
     //rejected: Error / denied / request failed
     builder.addCase(pushProduct.rejected, (state, { payload }) => {
       console.log(payload);
+      state.toast.setToast = true;
       state.status.severity = "error";
       state.status.summary = "Heavvy Error!";
       state.status.detail =
         "Request to Backend failed... Please check your inputs and try again!";
-      state.status.life = 0;
-      state.status.sticky = true;
+      state.status.life = 10000;
       console.log("ERROR BEI NEWPRODUKT-REQUEST");
     });
     //pending: Wartend, während dem request
@@ -144,6 +157,8 @@ const newProductSlice = createSlice({
 export const {
   onChange,
   onChangeStatus,
+  onChangeToast,
+  onChangeToastMessage,
   // removeTodo,
   //   toggleDone,
   //   updateTitle,

@@ -3,7 +3,12 @@ import "../../main.scss";
 import "../../pages/product/newProducts/newproducts.scss";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { onChange, pushProduct } from "../../api/store/newProductSlice";
+import {
+  onChange,
+  pushProduct,
+  onChangeToastMessage,
+  onChangeToast,
+} from "../../api/store/newProductSlice";
 import { putBackend } from "../../api/api";
 import { useFormik } from "formik";
 import { RadioButton } from "primereact/radiobutton";
@@ -68,20 +73,33 @@ function ProductFormik(props) {
         errors.Name = "Titel ist notwendig.";
       } else if (data.Name.length < 10) {
         errors.Name = "Der Titel ist zu kurz. Min. 10 Zeichen.";
-      } else if (data.Name.length > 30) {
-        errors.Name = "Der Titel ist zu lang. Max. 30 Zeichen.";
+      } else if (data.Name.length > 40) {
+        errors.Name = "Der Titel ist zu lang. Max. 40 Zeichen.";
       }
 
       if (!data.categories) {
         errors.categories = "Eine Kategorie ist notwendig.";
       }
 
-      if (!data.price) {
-        errors.price = "Preis ist notwenig.";
-      } else if (data.price > 1000) {
+      if (data.price > 1000) {
         errors.price = "Preis zu hoch. (Bei Fragen, spreche mit dem Support)";
       } else if (data.price < 0) {
         errors.price = "Der Preis kann nicht im negativen Bereich sein.";
+      } else if (
+        data.basis_fornegotioations === "Zu Verschenken" ||
+        data.article_type === "Ich tausche"
+      ) {
+        if (data.price !== 0) {
+          errors.price =
+            "Der Preis muss 0 sein, wenn du einen Artikel verschenken willst.";
+        }
+      } else if (data.price === 0) {
+        if (
+          data.basis_fornegotioations !== "Zu Verschenken" ||
+          data.article_type !== "Ich tausche"
+        ) {
+          errors.price = "Preis ist notwenig.";
+        }
       }
 
       if (data.basis_fornegotioations[0] === undefined) {
@@ -107,7 +125,29 @@ function ProductFormik(props) {
 
   const setPutProduct = async (data) => {
     console.log("I'm here!" + data);
-    await putBackend(data);
+    let response = "";
+    try {
+      response = await putBackend(data);
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(response);
+    dispatch(onChangeToastMessage({ value: "success", name: "severity" }));
+    dispatch(
+      onChangeToastMessage({
+        value: "Anzeige erfolgreich gespeichert!",
+        name: "summary",
+      })
+    );
+    dispatch(
+      onChangeToastMessage({
+        value:
+          "Deine Anzeige wurde erfolgreich gespeichert. Andere können deine Änderungen jetzt sehen.",
+        name: "detail",
+      })
+    );
+    dispatch(onChangeToastMessage({ value: "4000", name: "life" }));
+    dispatch(onChangeToast(true));
   };
 
   const isFormFieldValid = (name) =>
@@ -120,7 +160,7 @@ function ProductFormik(props) {
       // )
     );
   };
-
+  console.log(newproduct.product.categories);
   return (
     <React.Fragment>
       <div className="newproduct card">
@@ -219,6 +259,7 @@ function ProductFormik(props) {
                 aufmerksam zu machen.
               </small>
             </div>
+
             {/* Category */}
             <div className="p-field fieldcategory">
               {/* <Tooltip target=".selecttip" position="top" />
@@ -231,21 +272,20 @@ function ProductFormik(props) {
                   value={
                     newproduct.product.categories
                       ? {
-                          cname: newproduct.product.categories,
-                          code: newproduct.product.categories,
+                          name: newproduct.product.categories,
                         }
                       : null
                   }
                   options={categories} //ist object array mit allen unterkategorien
                   // style={{ minWidth: "14rem" }}
-                  optionLabel={"cname"}
-                  optionGroupLabel={"name"}
-                  optionGroupChildren={["states", "cities"]}
+                  optionLabel={"name"}
+                  optionGroupLabel={"groupName"}
+                  optionGroupChildren={["opt1", "opt2", "opt3"]}
                   // placeholder={"Wähle eine Kategorie aus"}
                   //   onChange={(event) => setCategory(event.value)}
                   id="categories"
                   className="block"
-                  onChange={(e) => handleChange("categories", e.value.cname)}
+                  onChange={(e) => handleChange("categories", e.value.name)}
                   // className={classNames({
                   //   "p-invalid": isFormFieldValid("category"),
                   // })}
@@ -261,6 +301,16 @@ function ProductFormik(props) {
               </span>
               {/* </span> */}
               {getFormErrorMessage("categories")}
+            </div>
+            <div>
+              {newproduct.product.categories === "Lebensmittel" ? (
+                <span className="p-error">
+                  Bitte stelle sicher, dass Du keine abgelaufenen oder
+                  schlechten Lebensmittel anbietest. <br />
+                  Schreib das Ablaufdatum bitte immer in die Beschreibung mit
+                  dazu.
+                </span>
+              ) : null}
             </div>
             <br />
             {/* Count */}
@@ -285,44 +335,52 @@ function ProductFormik(props) {
             </div>
 
             {/* ISBN */}
-            <div className="p-field fieldcategory">
-              <span className="p-float-label">
-                <InputText
-                  id="ISBN"
-                  name="ISBN"
-                  aria-describedby="isbn-help"
-                  //   className="p-d-block block"
-                  // value={title}
-                  //   onChange={(e) => setTitle(e.target.value)}
-                  // placeholder="Titel"
-                  //   tooltip="Dieses Feld ist ein Pflichtfeld"
-                  //   tooltipOptions={{ position: "top" }}
-                  value={newproduct.product.ISBN}
-                  onChange={(e) => handleChange("ISBN", e)}
-                  // className={
-                  //   (classNames({
-                  //     "p-invalid": isFormFieldValid("isbn"),
-                  //   }),
-                  //   "p-d-block block")
-                  //funktioniert nicht?????
-                  // }
-                />
-                <label
-                  htmlFor="ISBN"
-                  className={classNames({
-                    "p-error": isFormFieldValid("isbn"),
-                  })}
-                >
-                  ISBN
-                </label>
-              </span>
+            {newproduct.product.categories === "Schulbücher" ||
+            newproduct.product.categories === "Schullektüren" ||
+            newproduct.product.categories === "Fachliteratur" ||
+            newproduct.product.categories === "Freizeitbücher" ||
+            newproduct.product.categories === "Comics/Zeitschriften" ||
+            newproduct.product.categories === "Sonstiges" ||
+            newproduct.product.categories === "Bücher" ? (
+              <div className="p-field fieldcategory">
+                <span className="p-float-label">
+                  <InputText
+                    id="ISBN"
+                    name="ISBN"
+                    aria-describedby="isbn-help"
+                    //   className="p-d-block block"
+                    // value={title}
+                    //   onChange={(e) => setTitle(e.target.value)}
+                    // placeholder="Titel"
+                    //   tooltip="Dieses Feld ist ein Pflichtfeld"
+                    //   tooltipOptions={{ position: "top" }}
+                    value={newproduct.product.ISBN}
+                    onChange={(e) => handleChange("ISBN", e)}
+                    // className={
+                    //   (classNames({
+                    //     "p-invalid": isFormFieldValid("isbn"),
+                    //   }),
+                    //   "p-d-block block")
+                    //funktioniert nicht?????
+                    // }
+                  />
+                  <label
+                    htmlFor="ISBN"
+                    className={classNames({
+                      "p-error": isFormFieldValid("isbn"),
+                    })}
+                  >
+                    ISBN
+                  </label>
+                </span>
 
-              <small id="isbn-help" className="p-d-block">
-                Gebe gegebenfalls eine ISBN Nummer an. <br />
-                Dein Artikel kann besser gefunden werden.
-              </small>
-              {getFormErrorMessage("ISBN")}
-            </div>
+                <small id="isbn-help" className="p-d-block">
+                  Gebe gegebenfalls eine ISBN Nummer an. <br />
+                  Dein Artikel kann besser gefunden werden.
+                </small>
+                {getFormErrorMessage("ISBN")}
+              </div>
+            ) : null}
 
             <hr />
 
@@ -338,22 +396,45 @@ function ProductFormik(props) {
                 >
                   Preis*
                 </label>
-                <InputNumber
-                  inputId="price-help"
-                  mode="currency"
-                  currency="EUR"
-                  locale="de-DE"
-                  //   value={price}
-                  //   onValueChange={(e) => setPrice(e.value)}
-                  //   tooltip="Dieses Feld ist ein Pflichtfeld"
-                  //   tooltipOptions={{ position: "top" }}
-                  id="price"
-                  value={newproduct.product.price}
-                  onChange={(e) => handleChange("price", e.value)}
-                  // className={classNames({
-                  //   "p-invalid": isFormFieldValid("price"),
-                  // })}
-                />
+                {newproduct.product.basis_fornegotioations ===
+                  "Zu Verschenken" ||
+                newproduct.product.article_type === "Ich tausche" ? (
+                  <InputNumber
+                    disabled
+                    inputId="price-help"
+                    mode="currency"
+                    currency="EUR"
+                    locale="de-DE"
+                    //   value={price}
+                    //   onValueChange={(e) => setPrice(e.value)}
+                    //   tooltip="Dieses Feld ist ein Pflichtfeld"
+                    //   tooltipOptions={{ position: "top" }}
+                    id="price"
+                    value={newproduct.product.price}
+                    onChange={(e) => handleChange("price", e.value)}
+                    // className={classNames({
+                    //   "p-invalid": isFormFieldValid("price"),
+                    // })}
+                  />
+                ) : (
+                  <InputNumber
+                    inputId="price-help"
+                    mode="currency"
+                    currency="EUR"
+                    locale="de-DE"
+                    //   value={price}
+                    //   onValueChange={(e) => setPrice(e.value)}
+                    //   tooltip="Dieses Feld ist ein Pflichtfeld"
+                    //   tooltipOptions={{ position: "top" }}
+                    id="price"
+                    value={newproduct.product.price}
+                    onChange={(e) => handleChange("price", e.value)}
+                    // className={classNames({
+                    //   "p-invalid": isFormFieldValid("price"),
+                    // })}
+                  />
+                )}
+
                 {getFormErrorMessage("price")}
               </div>
               <div className="p-field fieldprice">
@@ -378,9 +459,10 @@ function ProductFormik(props) {
                     // tooltip="Dieses Feld ist ein Pflichtfeld"
                     // tooltipOptions={{ position: "top" }}
                     id="basis_fornegotioations"
-                    onChange={(e) =>
-                      handleChange("basis_fornegotioations", e.value.name)
-                    }
+                    onChange={(e) => {
+                      handleChange("basis_fornegotioations", e.value.name);
+                      handleChange("price", 0);
+                    }}
                     // className={classNames({
                     //   "p-invalid": isFormFieldValid("basis_fornegotioations"),
                     // })}
@@ -432,6 +514,7 @@ function ProductFormik(props) {
           <div className="field">
             {/* <div className="p-grid p-fluid"> */}
             <div className="p-field fieldbutton">
+              <span>Die Felder mit * müssen angegeben werden.</span>
               <Link to="/login" className="linkbutton">
                 <Button
                   label="Vorschau (login)"

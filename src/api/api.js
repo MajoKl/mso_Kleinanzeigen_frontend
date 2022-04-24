@@ -46,6 +46,10 @@ export async function postBackend(data) {
 
 export async function putBackend(data) {
   console.log("penim  " + JSON.stringify(data));
+
+  delete data.realName;
+  delete data.owner;
+
   const response = await axios.put(
     `${process.env.REACT_APP_API_URL}/api/me/articles`,
     data,
@@ -58,6 +62,8 @@ export async function putBackend(data) {
     // },
   );
   console.log(response.data + "fjnh");
+  localStorage.setItem("putproduct", JSON.stringify(response.data));
+
   return await response.data;
 }
 
