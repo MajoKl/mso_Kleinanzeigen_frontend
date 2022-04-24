@@ -1,8 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+// import { QueryClient, QueryClientProvider } from "react-query";
+// import { ReactQueryDevtools } from "react-query/devtools";
 import { Provider } from "react-redux";
 import store from "./api/store/store";
 
@@ -34,9 +34,9 @@ import Contact from "./pages/Contact.jsx";
 import Topbar from "./components/navbar/Topbar.jsx";
 // import Footer from "./components/navbar/Footer.jsx";
 
-import Yeee from "./Yeee.jsx";
+import PageNotFound from "./components/PageNotFound.jsx";
 
-const queryClient = new QueryClient();
+// const queryClient = new QueryClient();
 
 function App() {
   // require("halfmoon/css/halfmoon-variables.min.css");
@@ -51,32 +51,33 @@ function App() {
     <Provider store={store}>
       <Router>
         <React.Fragment>
-          <QueryClientProvider client={queryClient}>
-            <Topbar />
-            {/* <button onClick={toggleDemo}>hallo</button> */}
-            <Routes>
-              {/* general-pages */}
-              <Route path="/" element={<Start />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/newproduct" element={<NewProduct />} />
-              <Route path="/productDetails/:id" element={<ProductDetail />} />
-              <Route path="/search/:searchentry" element={<Search />} />
-              <Route path="/product/edit/:id" element={<ProductEdit />} />
-              {/* user-pages */}
-              <Route path="/me" element={<Me />} />
-              <Route path="/myproducts" element={<MyProducts />} />
-              <Route path="/messages" element={<Messages />} />
-              <Route path="/settings" element={<Settings />} />
+          {/* <QueryClientProvider client={queryClient}> */}
+          <Topbar />
+          {/* <button onClick={toggleDemo}>hallo</button> */}
+          <Routes>
+            {/* general-pages */}
+            <Route path="/" element={<Start />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/newproduct" element={<NewProduct />} />
+            <Route path="/productDetails/:id" element={<ProductDetail />} />
+            <Route path="/search/:searchentry" element={<Search />} />
+            <Route path="/product/edit/:id" element={<ProductEdit />} />
+            {/* user-pages */}
+            <Route path="/me" element={<Me />} />
+            <Route path="/myproducts" element={<MyProducts />} />
+            <Route path="/messages" element={<Messages />} />
+            <Route path="/settings" element={<Settings />} />
 
-              {/* other */}
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/contact" element={<Contact />} />
+            {/* other */}
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/contact" element={<Contact />} />
 
-              <Route path="/yeee" element={<Yeee />} />
-            </Routes>
-            {/* <Footer /> */}
-            <ReactQueryDevtools initialIsOpen={false} />
-          </QueryClientProvider>
+            <Route path="/404" element={<PageNotFound />} />
+            <Route path="*" element={<Navigate to="/404" replace />} />
+          </Routes>
+          {/* <Footer /> */}
+          {/* <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider> */}
         </React.Fragment>
       </Router>
     </Provider>
