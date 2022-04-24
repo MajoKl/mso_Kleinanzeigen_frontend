@@ -5,6 +5,10 @@ export const pushProduct = createAsyncThunk(
   "/aaapi/me",
   async (data) => await postBackend(data)
 );
+// export const putProduct = createAsyncThunk(
+//   "/aaapi/me",
+//   async (data) => await putBackend(data)
+// );
 // const saveLocalStorage = (state) => {
 //   const data = { product: state.product, status: state.status };
 //   localStorage.setItem("newproductState", JSON.stringify(data));
@@ -105,6 +109,31 @@ const newProductSlice = createSlice({
     builder.addCase(pushProduct.pending, (state) => {
       console.log("NewProduct request pending");
     });
+
+    //   builder.addCase(putProduct.fulfilled, (state, { payload }) => {
+    //     console.log("Fulfilled putProduct request");
+    //     state.product = initialState.product;
+    //     state.status.severity = "success";
+    //     state.status.summary = "Anzeige erfolgreich aufgegeben!";
+    //     state.status.detail =
+    //       "Deine Anzeige wurde erfolgreich aufgegeben. Du bist bereit für den großen Verkauf!";
+    //     state.status.life = 3000;
+    //     state.status.sticky = false;
+    //   });
+    //   builder.addCase(putProduct.rejected, (state, { payload }) => {
+    //     console.log(payload);
+    //     state.status.severity = "error";
+    //     state.status.summary = "Heavvy Error!";
+    //     state.status.detail =
+    //       "Request to Backend failed... Please check your inputs and try again!";
+    //     state.status.life = 0;
+    //     state.status.sticky = true;
+    //     console.log("ERROR BEI PUTPRODUCT-REQUEST");
+    //   });
+    //   //pending: Wartend, während dem request
+    //   builder.addCase(putProduct.pending, (state) => {
+    //     console.log("PutProduct request pending");
+    //   });
   },
 });
 

@@ -134,7 +134,7 @@ function ProductDetail() {
 
   const onEditClick = () => {
     //Auf Seite EditProduct springen
-    navigate("/");
+    navigate("/product/edit/" + id);
   };
 
   const InfotableData = [
