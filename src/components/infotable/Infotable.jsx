@@ -1,4 +1,5 @@
 import React from "react";
+import "./Infotable.scss";
 
 function Infotable(props) {
   const renderItem = (i) => {

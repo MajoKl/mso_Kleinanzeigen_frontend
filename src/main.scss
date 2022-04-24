@@ -1,20 +1,24 @@
+body{
+font-family: -apple-system,
+BlinkMacSystemFont,
+"Segoe UI",
+Roboto,
+Helvetica,
+Arial,
+sans-serif,
+"Apple Color Emoji",
+"Segoe UI Emoji",
+"Segoe UI Symbol";
+}
 .container {
   display: block;
-  // max-width: 100%;
 }
 h1 {
   padding-top: 20px;
   padding-bottom: 20px;
   font-size: 40px;
   text-align: center;
-}
-h2 {
-}
-h3 {
-}
-h4 {
-}
-h5 {
+  margin-top: 0;
 }
 .linkbutton {
   text-decoration: none;

@@ -1,5 +1,5 @@
 .product-infotable {
-    width: 50%;
+    width: 70%;
     align-self: center;
 }
 
@@ -24,4 +24,15 @@
     margin-left: auto;
     // padding-left: 100px;
     padding-right: 20px;
+}
+
+@media screen and (max-width: 990px) {
+    .product-infotable {
+        width: 90%;
+    }
+}
+@media screen and (max-width: 500px) {
+    .product-infotable {
+        width: 98%;
+    }
 }

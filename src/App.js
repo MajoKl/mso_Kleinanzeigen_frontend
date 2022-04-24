@@ -39,12 +39,21 @@ import Yeee from "./Yeee.jsx";
 const queryClient = new QueryClient();
 
 function App() {
+  // require("halfmoon/css/halfmoon-variables.min.css");
+  // require("halfmoon/css/halfmoon.min.css");
+  // const halfmoon = require("halfmoon");
+  // halfmoon.onDOMContentLoaded();
+
+  // const toggleDemo = () => {
+  //   halfmoon.toggleDarkMode();
+  // };
   return (
     <Provider store={store}>
       <Router>
         <React.Fragment>
           <QueryClientProvider client={queryClient}>
             <Topbar />
+            {/* <button onClick={toggleDemo}>hallo</button> */}
             <Routes>
               {/* general-pages */}
               <Route path="/" element={<Start />} />

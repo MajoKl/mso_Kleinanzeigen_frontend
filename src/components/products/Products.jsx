@@ -5,6 +5,7 @@ import { DataView, DataViewLayoutOptions } from "primereact/dataview";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import "./products.scss";
+import "../../main.scss";
 
 import { useDispatch, useSelector } from "react-redux";
 import { requestProducts } from "../../api/store/productSlice";

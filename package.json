@@ -12,6 +12,7 @@
     "classnames": "^2.3.1",
     "dotenv": "^11.0.0",
     "formik": "^2.2.9",
+    "halfmoon": "^1.1.1",
     "history": "^5.3.0",
     "js-cookie": "^3.0.1",
     "local-cors-proxy": "^1.1.0",

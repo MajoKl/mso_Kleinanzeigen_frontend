@@ -25,12 +25,14 @@ function Start() {
       {user.status.summary !== "success" ? null : (
         <div className="container">
           <h1>Willkommen zurück, {user.user.name}</h1>
+          <hr />
+          <br />
           <h2>Deine neusten Anzeigen:</h2>
-          <h3>
+          {/* <h3>
             Hier ist platz für ein Header, der Dropdowns hat, um Kategorien
             auszuwählen.
-          </h3>
-          <hr />
+          </h3> */}
+
           <Products searchoption="users" otheroptions="" />
         </div>
       )}
