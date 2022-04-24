@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import "../../../main.scss";
 import "../newProducts/newproducts.scss";
-import { onChange } from "../../../api/store/newProductSlice";
+import { onChange, onChangeStatus } from "../../../api/store/newProductSlice";
 import ToastMessages from "../../../components/ToastMessages";
 import ProductFormik from "../../../components/formik/ProductFormik";
 
@@ -36,7 +36,7 @@ function ProductEdit() {
   };
 
   useEffect(() => {
-    return product !== "" ? setNewProductState() : null;
+    return product !== "" ? (setNewProductState(), setNewStatusState()) : null;
   }, [product]); // eslint-disable-line
 
   const additionalData = [
@@ -80,6 +80,10 @@ function ProductEdit() {
       name: "pictures",
       value: product.pictures,
     },
+    {
+      name: "",
+      value: newproduct.status.severity,
+    },
   ];
 
   const setNewProductState = () => {
@@ -90,6 +94,10 @@ function ProductEdit() {
       //   return ;
       //       }
     );
+  };
+  const setNewStatusState = () => {
+    dispatch(onChangeStatus());
+    console.log(newproduct.status);
   };
 
   const handleChange = (name, event) => {

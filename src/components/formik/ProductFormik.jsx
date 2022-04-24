@@ -99,7 +99,7 @@ function ProductFormik(props) {
 
     onSubmit: () => {
       console.log(newproduct.product);
-      return props.type === "put"
+      return props.type !== "put"
         ? dispatch(pushProduct(newproduct.product))
         : setPutProduct(newproduct.product);
     },

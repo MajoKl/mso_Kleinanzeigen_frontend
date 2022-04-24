@@ -46,6 +46,23 @@ export async function postBackend(data) {
 
 export async function putBackend(data) {
   console.log("penim  " + JSON.stringify(data));
+  const response = await axios.put(
+    `${process.env.REACT_APP_API_URL}/api/me/articles`,
+    data,
+    { withCredentials: true }
+    // {
+    //   headers: {
+    //     "Access-Control-Allow-Origin":
+    //       "http://kleinanzeigen_api.jonaslbgtt.live:8080",
+    //   },
+    // },
+  );
+  console.log(response.data + "fjnh");
+  return await response.data;
+}
+
+export async function postFavorites(data) {
+  console.log("penim  " + JSON.stringify(data));
   const response = await axios.post(
     `${process.env.REACT_APP_API_URL}/api/me/articles`,
     data,

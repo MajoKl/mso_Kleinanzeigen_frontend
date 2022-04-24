@@ -87,6 +87,7 @@ function Products(props) {
   const onStarClick = () => {
     console.log("Als Stern markiert");
     //Maybe dialog fenster?
+
     setToggleStar(!toggleStar);
   };
 

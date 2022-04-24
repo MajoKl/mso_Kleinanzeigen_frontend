@@ -56,6 +56,10 @@ const newProductSlice = createSlice({
       state.product[name] = value;
       // saveLocalStorage(state);
     },
+    onChangeStatus(state) {
+      state.status = initialState;
+      // saveLocalStorage(state);
+    },
     // removeTodo(state, action) {
     //   const id = action.payload;
     //   const index = state.todos.findIndex((i) => i.id === id);
@@ -139,6 +143,7 @@ const newProductSlice = createSlice({
 
 export const {
   onChange,
+  onChangeStatus,
   // removeTodo,
   //   toggleDone,
   //   updateTitle,
