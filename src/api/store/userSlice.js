@@ -48,12 +48,13 @@ const userSlice = createSlice({
     builder.addCase(requestUser.fulfilled, (state, { payload }) => {
       console.log("Fulfilled User request");
       state.user = payload;
-      state.status.severity = "";
+      state.status.summary = "success";
       console.log(payload);
     });
     //rejected: Error / denied / request failed
     builder.addCase(requestUser.rejected, (state) => {
-      state.user = null;
+      // state.user = null;
+      state.user.role = "unauthorized";
       setError(state);
       console.log("ERROR BEI USER-REQUEST");
     });
