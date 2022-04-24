@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import "./productDetail.scss";
+import { requestUser } from "../../../api/store/userSlice";
 
 import { Panel } from "primereact/panel";
 import { Toolbar } from "primereact/toolbar";
@@ -15,10 +16,13 @@ import Galleria from "../../../components/Galleriaa";
 import Infotable from "../../../components/infotable/Infotable";
 
 function ProductDetail() {
+  const username = useSelector((state) => state.user.user.name);
   const [product, setProduct] = useState("");
   const { id } = useParams();
   const toast = useRef(null);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log(username);
 
   // const products = useSelector((state) => state.products);
 
@@ -51,6 +55,9 @@ function ProductDetail() {
 
   useEffect(() => {
     requestBackend();
+    if (username === "") {
+      dispatch(requestUser("/api/me"));
+    }
   }, []); // eslint-disable-line
 
   const setDate = (data) => {
@@ -133,7 +140,6 @@ function ProductDetail() {
   };
 
   const onEditClick = () => {
-    //Auf Seite EditProduct springen
     navigate("/product/edit/" + id);
   };
 
@@ -237,11 +243,16 @@ function ProductDetail() {
             <br />
             <Infotable data={InfotableData} />
           </div>
-
-          <div className="product-card-content card">
-            <h2 className="product-headline">Aktionen</h2>
-            <Toolbar left={leftContents} right={rightContents} />
-          </div>
+          {/* {console.log(username + product.owner.name)} */}
+          {product !== ""
+            ? (console.log(username + product.owner.name),
+              username === product.owner.name ? (
+                <div className="product-card-content card">
+                  <h2 className="product-headline">Aktionen</h2>
+                  <Toolbar left={leftContents} right={rightContents} />
+                </div>
+              ) : null)
+            : null}
         </div>
       </div>
     </React.Fragment>
