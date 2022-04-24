@@ -1,6 +1,8 @@
 // import React, { useEffect } from "react";
 // import axios from "axios";
 
+import PageBuilding from "../components/PageBuilding";
+
 // var axios = require("axios");
 
 function Contact() {
@@ -23,7 +25,11 @@ function Contact() {
   //     });
   // }, []);
 
-  return <div>Contact us!</div>;
+  return (
+    <div>
+      <PageBuilding name="Contact" />
+    </div>
+  );
 }
 
 export default Contact;

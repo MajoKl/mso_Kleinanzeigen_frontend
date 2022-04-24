@@ -40,9 +40,9 @@ function Login() {
             {/* <div className="ui segment"> */}
             <h1>Anmelden</h1>
             <Panel header="Hinweis">
-              Du kannst dich mit der Marienschule-Hompage anmelden. Melde dich
-              dort mit deinem ganz normalen Account an. Dann wirst du
-              automatisch auf diese Seite zurückgeleitet.
+              Bitte logge dich ein. Du kannst dich mit der Marienschule-Hompage
+              anmelden. Melde dich dort mit deinem ganz normalen Account an.
+              Dann wirst du automatisch auf diese Seite zurückgeleitet.
             </Panel>
             <div className="style-logo">
               <img

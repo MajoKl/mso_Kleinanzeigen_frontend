@@ -3,11 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import "../../../main.scss";
 import "../newProducts/newproducts.scss";
-import {
-  onChange,
-  onChangeStatus,
-  onChangeToast,
-} from "../../../api/store/newProductSlice";
+import { onChange, onChangeToast } from "../../../api/store/newProductSlice";
 import { Toast } from "primereact/toast";
 import ProductFormik from "../../../components/formik/ProductFormik";
 

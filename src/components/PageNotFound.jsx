@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Messages } from "primereact/messages";
+import "../main.scss";
 
 function PageNotFound() {
   const msgs = useRef(null);
@@ -22,8 +23,20 @@ function PageNotFound() {
       <br />
       <br />
       <Messages ref={msgs} />
-      <h1>Page not Found</h1>
-      <h2 style={{ textAlign: "center" }}>404 Error</h2>
+      <div className="e404">
+        <div>
+          <img src="../../data/images/shockedcat.jpeg" alt="ups gefunden!" />
+        </div>
+        <div>
+          <h1>Ups... gefunden!</h1>
+          <h2 style={{ textAlign: "center" }}>
+            Diese Seite scheint es nicht zu geben.
+          </h2>
+          <h4 style={{ textAlign: "center" }}>
+            Aber schön, dass Du vorbeigeschaut hast. :)
+          </h4>
+        </div>
+      </div>
     </React.Fragment>
   );
 }

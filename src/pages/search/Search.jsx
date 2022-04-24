@@ -1,4 +1,5 @@
 import React from "react";
+import PageBuilding from "../../components/PageBuilding";
 // import React, { useState, useEffect, useRef } from "react";
 // import { useParams } from "react-router-dom";
 // import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +26,11 @@ function Search() {
   //   console.log("Im useEffekt initinal render: " + JSON.stringify(products));
   // }, []); // eslint-disable-line
 
-  return <div>Search</div>;
+  return (
+    <div>
+      <PageBuilding name="Search" />
+    </div>
+  );
 }
 
 export default Search;

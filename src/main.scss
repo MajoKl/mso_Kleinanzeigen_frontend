@@ -30,6 +30,22 @@ input {
   text-overflow: clip;
 }
 
+.e404 {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.e404 img{
+  width: 100%;
+  text-align: center;
+  border: 30px;
+  border-width: 3px;
+  border-radius: 20px;
+  border-color: #ffe7e6;
+  border-style: solid;
+}
+
+
 //Falls langweilig: Media Querys umschreiben
 @media screen and (min-width: 768px) {
   .container {
