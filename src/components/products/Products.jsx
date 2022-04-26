@@ -11,7 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { requestProducts } from "../../api/store/productSlice";
 import ToastMessages from "../../components/ToastMessages";
 import { useNavigate } from "react-router-dom";
-import { postFavorites } from "../../api/api";
+import { deleteFavorites, postFavorites } from "../../api/api";
+import { addFavoriteorRemoveToUser } from "../../api/store/userSlice";
 
 function Products(props) {
   // const [products, setProducts] = useState(null);
@@ -27,7 +28,6 @@ function Products(props) {
     { label: "Preis absteigend", value: "!price" },
     { label: "Preis aufsteigend", value: "price" },
   ];
-  const [toggleStar, setToggleStar] = useState(false);
   const rows = useRef(32);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(rows);
@@ -36,6 +36,7 @@ function Products(props) {
   // const productService = new ProductService();
 
   const products = useSelector((state) => state.products);
+  const user = useSelector((state) => state.user);
   // console.log("Daddy: " + JSON.stringify(products));
 
   const dispatch = useDispatch();
@@ -102,43 +103,19 @@ function Products(props) {
   };
 
   const onStarClick = (id) => {
-    console.log("Als Stern markiert");
     //Maybe dialog fenster?
-    postFavorites(id);
-    setToggleStar(!toggleStar);
-  };
-  const mapFavorites = (favorites, currentid) => {
-    console.log("1");
-    for (let index = 0; index <= favorites.length; index++) {
-      console.log("2");
-      const element = favorites[index];
-      if (element === currentid) {
-        console.log("3");
-        return (
-          console.log("4"),
-          (
-            <Button
-              icon="pi pi-star-fill"
-              // icon={toggleStar === true ? "pi pi-star-fill" : "pi pi-star"}
-              className="p-button-rounded p-button-warning"
-              onClick={() => onStarClick(currentid)}
-            />
-          )
-        );
-      }
+    const isstar = props.user.user.favorites.includes(id);
+    // postFavorites({ id: id, method: isstar === true ? "delete" : "post" });
+    try {
+      isstar === true ? deleteFavorites(id) : postFavorites(id);
+
+      dispatch(addFavoriteorRemoveToUser(id));
+
+      console.log("Als Stern markiert");
+      console.log(user);
+    } catch (error) {
+      console.log(error.message);
     }
-    console.log("5");
-    return (
-      console.log("6"),
-      (
-        <Button
-          icon="pi pi-star"
-          // icon={toggleStar === true ? "pi pi-star-fill" : "pi pi-star"}
-          className="p-button-rounded p-button-warning"
-          onClick={() => onStarClick(currentid)}
-        />
-      )
-    );
   };
 
   const onPage = (event) => {
@@ -241,16 +218,58 @@ function Products(props) {
             {/* </Link> */}
           </div>
           <div className="product-list-action">
+            {data.article_type === "Ich Suche" ? (
+              <span
+                style={{
+                  verticalAlign: "middle",
+                  color: "#e24c4c",
+                  marginBottom: "10px",
+                }}
+              >
+                Ich suche
+              </span>
+            ) : data.article_type === "Ich tausche" ? (
+              <span
+                style={{
+                  verticalAlign: "middle",
+                  color: "#1E90FF",
+                  marginBottom: "10px",
+                }}
+              >
+                Ich tausche
+              </span>
+            ) : null}
             <span
               onClick={() => onProductClick(data._id)}
               className="product-price"
             >
-              {data.price === 0 ? "Zu Verschenken" : data.price + "€"}
-              {data.basis_fornegotioations === "Verhandlungsbasis" ? " VB" : ""}
+              <span
+                onClick={() => onProductClick(data._id)}
+                className="product-price"
+              >
+                {data.basis_fornegotioations === "Zu Verschenken"
+                  ? "Zu Verschenken"
+                  : data.article_type === "Ich tausche"
+                  ? "Zum tauschen"
+                  : data.price !== 0
+                  ? data.price + "€"
+                  : ""}
+                {data.basis_fornegotioations === "Verhandlungsbasis" &&
+                data.price !== 0
+                  ? " VB"
+                  : ""}
+              </span>
             </span>
-            {props.user.user.favorites.map((favorites) =>
-              mapFavorites(favorites, data._id)
-            )}
+            <Button
+              icon={
+                props.user.user.favorites.includes(data._id)
+                  ? "pi pi-star-fill"
+                  : "pi pi-star"
+              }
+              // icon={toggleStar === true ? "pi pi-star-fill" : "pi pi-star"}
+              className="p-button-rounded p-button-warning"
+              onClick={() => onStarClick(data._id)}
+            />
             <span
               className="product-badge"
               //   className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}
@@ -339,8 +358,11 @@ function Products(props) {
                 : ""}
             </span>
             <Button
-              // icon="pi pi-star"
-              icon={toggleStar === true ? "pi pi-star-fill" : "pi pi-star"}
+              icon={
+                props.user.user.favorites.includes(data._id)
+                  ? "pi pi-star-fill"
+                  : "pi pi-star"
+              }
               className="p-button-rounded p-button-warning"
               onClick={() => onStarClick(data._id)}
             />

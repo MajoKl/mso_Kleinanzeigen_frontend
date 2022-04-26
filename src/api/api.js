@@ -67,21 +67,41 @@ export async function putBackend(data) {
   return await response.data;
 }
 
-export async function postFavorites(data) {
-  console.log("penim  " + data);
+export async function postFavorites(id) {
+  console.log("penim  " + JSON.stringify(id));
   const response = await axios.post(
-    `${process.env.REACT_APP_API_URL}/api/me/articles`,
-    data,
+    `${process.env.REACT_APP_API_URL}/api/me/favorites?favorites=${id}`,
+    null,
     { withCredentials: true }
     // {
     //   headers: {
     //     "Access-Control-Allow-Origin":
     //       "http://kleinanzeigen_api.jonaslbgtt.live:8080",
     //   },
-    // },
+    // }
   );
   console.log(response.data + "fjnh");
   return await response.data;
+}
+
+export async function deleteFavorites(id) {
+  console.log("penim  " + JSON.stringify(id));
+  try {
+    const response = await axios.delete(
+      `${process.env.REACT_APP_API_URL}/api/me/favorites?favorites=${id}`,
+      { withCredentials: true }
+      // {
+      //   headers: {
+      //     "Access-Control-Allow-Origin":
+      //       "http://kleinanzeigen_api.jonaslbgtt.live:8080",
+      //   },
+      // }
+    );
+    console.log(response.data + "fjnh");
+    return await response.data;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // export async function getProducts(start, end) {
