@@ -24,7 +24,20 @@ export const requestProducts = createAsyncThunk(
 
 //Was soll beim Start des Programmes gespeichert werden?
 const initialState = {
-  products: {},
+  products: {
+    products: {
+      Name: "",
+      detailtName: "",
+      article_type: "",
+      categories: "",
+      count: 1,
+      ISBN: "",
+      basis_fornegotioations: [],
+      price: 0,
+      discription: "",
+      _id: "",
+    },
+  },
   status: {
     severity: "",
     summary: "",

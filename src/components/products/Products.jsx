@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { requestProducts } from "../../api/store/productSlice";
 import ToastMessages from "../../components/ToastMessages";
 import { useNavigate } from "react-router-dom";
+import { postFavorites } from "../../api/api";
 
 function Products(props) {
   // const [products, setProducts] = useState(null);
@@ -27,13 +28,15 @@ function Products(props) {
     { label: "Preis aufsteigend", value: "price" },
   ];
   const [toggleStar, setToggleStar] = useState(false);
-  const rows = useRef(22);
+  const rows = useRef(32);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(rows);
   // const datasource = useRef(null);
   const isMounted = useRef(false);
   // const productService = new ProductService();
 
   const products = useSelector((state) => state.products);
-  // console.log("Daddy: " + products.products._id);
+  // console.log("Daddy: " + JSON.stringify(products));
 
   const dispatch = useDispatch();
 
@@ -44,20 +47,33 @@ function Products(props) {
         requestProducts(
           "/api/" +
             props.searchoption +
-            "/articles?skip=0&limit=" +
+            "?skip=0&limit=" +
             rows.current +
             props.otheroptions
         )
       );
       //Hier state updaten oder so!?!?!?!?
-
       //datasource.current = data; //Hinfällig!?!?
       //setTotalRecords(data.length); //Hinfällig?
 
       // setProducts(datasource.current.slice(0, rows.current));
       setLoading(false);
     }, 1000);
+    // makeProducts();
   }, []); // eslint-disable-line
+
+  // const makeProducts = () => {
+  //   setTotalRecords(products.length);
+  //   //products auf Products setzen. So viele wie es in maxProducts drin steht.
+  //   for (
+  //     let index = startIndex;
+  //     index < endIndex && index < products.length;
+  //     index++
+  //   ) {
+  //     const element = products[index];
+  //     // setProducts(element);
+  //   }
+  // };
 
   useEffect(() => {
     if (isMounted.current) {
@@ -85,11 +101,44 @@ function Products(props) {
     navigate("/productDetails/" + id);
   };
 
-  const onStarClick = () => {
+  const onStarClick = (id) => {
     console.log("Als Stern markiert");
     //Maybe dialog fenster?
-
+    postFavorites(id);
     setToggleStar(!toggleStar);
+  };
+  const mapFavorites = (favorites, currentid) => {
+    console.log("1");
+    for (let index = 0; index <= favorites.length; index++) {
+      console.log("2");
+      const element = favorites[index];
+      if (element === currentid) {
+        console.log("3");
+        return (
+          console.log("4"),
+          (
+            <Button
+              icon="pi pi-star-fill"
+              // icon={toggleStar === true ? "pi pi-star-fill" : "pi pi-star"}
+              className="p-button-rounded p-button-warning"
+              onClick={() => onStarClick(currentid)}
+            />
+          )
+        );
+      }
+    }
+    console.log("5");
+    return (
+      console.log("6"),
+      (
+        <Button
+          icon="pi pi-star"
+          // icon={toggleStar === true ? "pi pi-star-fill" : "pi pi-star"}
+          className="p-button-rounded p-button-warning"
+          onClick={() => onStarClick(currentid)}
+        />
+      )
+    );
   };
 
   const onPage = (event) => {
@@ -97,20 +146,21 @@ function Products(props) {
 
     //Hier setzt der neue Daten wenn man auf die nächste Page klickt. Wie? Ka. Iwie mit dem Slice. Aber kp woher. Iwie umschreiben, sodass es für mich funktioniert.
     setTimeout(() => {
-      const startIndex = event.first;
-      const endIndex = event.first + rows.current;
+      setStartIndex(event.first);
+      setEndIndex(event.first + rows.current);
       console.log(startIndex, endIndex);
       dispatch(
         requestProducts(
           "/api/" +
             props.searchoption +
-            "/articles?skip=" +
+            "?skip=" +
             startIndex +
             "&limit=" +
             endIndex +
             props.otheroptions
         )
       );
+      // makeProducts();
       setFirst(startIndex);
       //Hier state updaten oder so!?!?!?!?
 
@@ -152,12 +202,10 @@ function Products(props) {
     let date = new Date(data.createdAt);
     return (
       <div className="p-col-12">
-        <div
-          className="product-list-item"
-          onClick={() => onProductClick(data._id)}
-        >
+        <div className="product-list-item">
           {/* <Link to={`productDetails/${data._id}`}> */}
           <img
+            onClick={() => onProductClick(data._id)}
             src={`data/images/${data.pictures[0]}`}
             onError={(e) =>
               (e.target.src =
@@ -166,7 +214,10 @@ function Products(props) {
             alt={data.Name}
           />
           {/* </Link> */}
-          <div className="product-list-detail">
+          <div
+            className="product-list-detail"
+            onClick={() => onProductClick(data._id)}
+          >
             {/* <Link to={`productDetails/${data._id}`}> */}
             <div>
               <i className="pi pi-clock product-date-icon"></i>
@@ -190,16 +241,16 @@ function Products(props) {
             {/* </Link> */}
           </div>
           <div className="product-list-action">
-            <span className="product-price">
+            <span
+              onClick={() => onProductClick(data._id)}
+              className="product-price"
+            >
               {data.price === 0 ? "Zu Verschenken" : data.price + "€"}
               {data.basis_fornegotioations === "Verhandlungsbasis" ? " VB" : ""}
             </span>
-            <Button
-              icon="pi pi-star"
-              //icon={toggleStar === true ? "pi pi-star-fill" : "pi pi-star"}
-              className="p-button-rounded p-button-warning"
-              onClick={() => onStarClick()}
-            />
+            {props.user.user.favorites.map((favorites) =>
+              mapFavorites(favorites, data._id)
+            )}
             <span
               className="product-badge"
               //   className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}
@@ -216,12 +267,12 @@ function Products(props) {
     let date = new Date(data.createdAt);
     return (
       <div className="p-col-12 p-md-4">
-        <div
-          className="product-grid-item card"
-          onClick={() => onProductClick(data._id)}
-        >
+        <div className="product-grid-item card">
           {/* <Link to={`productDetails/${data._id}`}> */}
-          <div className="product-grid-item-top">
+          <div
+            onClick={() => onProductClick(data._id)}
+            className="product-grid-item-top"
+          >
             <div>
               <i className="pi pi-tag product-category-icon"></i>
               <span className="product-category">{data.categories[0]}</span>
@@ -242,7 +293,10 @@ function Products(props) {
               </span>
             </div>
           </div>
-          <div className="product-grid-item-content">
+          <div
+            onClick={() => onProductClick(data._id)}
+            className="product-grid-item-content"
+          >
             <img
               src={`data/images/${data.pictures[0]}`}
               onError={(e) =>
@@ -251,21 +305,44 @@ function Products(props) {
               }
               alt={data.Name}
             />
+            <div>
+              {data.article_type === "Ich Suche" ? (
+                <span style={{ verticalAlign: "middle", color: "#e24c4c" }}>
+                  Ich suche
+                </span>
+              ) : data.article_type === "Ich tausche" ? (
+                <span style={{ verticalAlign: "middle", color: "#1E90FF" }}>
+                  Ich tausche
+                </span>
+              ) : null}
+            </div>
             <div className="product-name">{data.Name}</div>
             <div className="product-description">{data.detailtName}</div>
             {/* <Rating value={data.rating} readOnly cancel={false}></Rating> */}
           </div>
           {/* </Link> */}
           <div className="product-grid-item-bottom">
-            <span className="product-price">
-              {data.price === 0 ? "Zu Verschenken" : data.price + "€"}
-              {data.basis_fornegotioations === "Verhandlungsbasis" ? " VB" : ""}
+            <span
+              onClick={() => onProductClick(data._id)}
+              className="product-price"
+            >
+              {data.basis_fornegotioations === "Zu Verschenken"
+                ? "Zu Verschenken"
+                : data.article_type === "Ich tausche"
+                ? "Zum tauschen"
+                : data.price !== 0
+                ? data.price + "€"
+                : ""}
+              {data.basis_fornegotioations === "Verhandlungsbasis" &&
+              data.price !== 0
+                ? " VB"
+                : ""}
             </span>
             <Button
-              icon="pi pi-star"
-              //icon={toggleStar === true ? "pi pi-star-fill" : "pi pi-star"}
+              // icon="pi pi-star"
+              icon={toggleStar === true ? "pi pi-star-fill" : "pi pi-star"}
               className="p-button-rounded p-button-warning"
-              onClick={onStarClick}
+              onClick={() => onStarClick(data._id)}
             />
           </div>
         </div>

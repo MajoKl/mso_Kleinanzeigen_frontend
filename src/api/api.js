@@ -68,7 +68,7 @@ export async function putBackend(data) {
 }
 
 export async function postFavorites(data) {
-  console.log("penim  " + JSON.stringify(data));
+  console.log("penim  " + data);
   const response = await axios.post(
     `${process.env.REACT_APP_API_URL}/api/me/articles`,
     data,

@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 
 // import { QueryClient, QueryClientProvider } from "react-query";
 // import { ReactQueryDevtools } from "react-query/devtools";
@@ -35,6 +40,7 @@ import Topbar from "./components/navbar/Topbar.jsx";
 // import Footer from "./components/navbar/Footer.jsx";
 
 import PageNotFound from "./components/PageNotFound.jsx";
+import CheckLogin from "./components/CheckLogin";
 
 // const queryClient = new QueryClient();
 
@@ -51,6 +57,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <React.Fragment>
+          <CheckLogin />
           {/* <QueryClientProvider client={queryClient}> */}
           <Topbar />
           {/* <button onClick={toggleDemo}>hallo</button> */}

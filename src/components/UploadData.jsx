@@ -39,7 +39,7 @@ function UploadData() {
     setTotalSize(_totalSize);
   };
 
-  const onTemplateUpload = (e) => {
+const onTemplateUpload = (e) => {
     let _totalSize = 0;
     // e.files.forEach((file) => {
     //   _totalSize += file.size || 0;
