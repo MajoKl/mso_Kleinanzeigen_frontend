@@ -47,6 +47,9 @@ const initialState = {
     life: 0,
     sticky: false,
   },
+  productsInfo: {
+    count: 0,
+  },
 };
 
 const productSlice = createSlice({

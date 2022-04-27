@@ -105,6 +105,25 @@ export async function deleteFavorites(id) {
   }
 }
 
+export async function getInfoProduct() {
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/articles/info`,
+      { withCredentials: true }
+      // {
+      //   headers: {
+      //     "Access-Control-Allow-Origin":
+      //       "http://kleinanzeigen_api.jonaslbgtt.live:8080",
+      //   },
+      // }
+    );
+    console.log(JSON.stringify(response.data.count) + " info");
+    return await response.data.count;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // export async function getProducts(start, end) {
 //   console.log("Übergebene Parameter: " + start + " und " + end);
 //   const res = await fetch(start);

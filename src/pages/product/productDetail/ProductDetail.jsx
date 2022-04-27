@@ -217,7 +217,7 @@ function ProductDetail() {
           <div className="product-card-content">
             <Galleria />
           </div>
-          {console.log(product.name)}
+          {console.log(product.Name)}
           <div className="product-card-content card">
             <h2 className="product-headline">Informationen</h2>
             <div className="product-info-head">

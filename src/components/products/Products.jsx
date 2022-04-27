@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "../../main.scss";
 import "./products.scss";
 //Api_&_Store
+import axios from "axios";
 import { deleteFavorites, postFavorites } from "../../api/api";
 import { requestProducts } from "../../api/store/productSlice";
 import { addFavoriteorRemoveToUser } from "../../api/store/userSlice";
@@ -30,9 +31,7 @@ function Products(props) {
     { label: "Preis absteigend", value: "!price" },
     { label: "Preis aufsteigend", value: "price" },
   ];
-  const rows = useRef(32);
-  const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setEndIndex] = useState(rows);
+  const rows = useRef(21);
   // const datasource = useRef(null);
   const isMounted = useRef(false);
   // const productService = new ProductService();
@@ -40,11 +39,15 @@ function Products(props) {
   const products = useSelector((state) => state.products);
   const user = useSelector((state) => state.user);
   // console.log("Daddy: " + JSON.stringify(products));
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     setTimeout(() => {
+      try {
+        getInfoProduct();
+      } catch (error) {
+        console.log(error);
+      }
       isMounted.current = true;
       dispatch(
         requestProducts(
@@ -55,6 +58,7 @@ function Products(props) {
             props.otheroptions
         )
       );
+
       //Hier state updaten oder so!?!?!?!?
       //datasource.current = data; //Hinfällig!?!?
       //setTotalRecords(data.length); //Hinfällig?
@@ -64,6 +68,20 @@ function Products(props) {
     }, 1000);
     // makeProducts();
   }, []); // eslint-disable-line
+
+  const getInfoProduct = async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/articles/info`,
+      { withCredentials: true }
+      // {
+      //   headers: {
+      //     "Access-Control-Allow-Origin":
+      //       "http://kleinanzeigen_api.jonaslbgtt.live:8080",
+      //   },
+      // }
+    );
+    setTotalRecords(response.data.count);
+  };
 
   // const makeProducts = () => {
   //   setTotalRecords(products.length);
@@ -125,8 +143,8 @@ function Products(props) {
 
     //Hier setzt der neue Daten wenn man auf die nächste Page klickt. Wie? Ka. Iwie mit dem Slice. Aber kp woher. Iwie umschreiben, sodass es für mich funktioniert.
     setTimeout(() => {
-      setStartIndex(event.first);
-      setEndIndex(event.first + rows.current);
+      const startIndex = event.first;
+      const endIndex = event.first + rows.current;
       console.log(startIndex, endIndex);
       dispatch(
         requestProducts(
