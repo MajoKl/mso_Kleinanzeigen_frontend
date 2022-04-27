@@ -1,6 +1,8 @@
+//Redux
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+//Api
 import { getBackend } from "../api.js";
 // import { getProducts } from "../api.js";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // const saveLocalStorage = (state) => {
 //   //Hier ans Backend schicken

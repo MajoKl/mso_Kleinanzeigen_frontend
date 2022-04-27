@@ -1,13 +1,17 @@
+//React
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+//Stylesheets
 import "../../../main.scss";
 import "../newProducts/newproducts.scss";
+//Api_&_Store
+import axios from "axios";
 import { onChange, onChangeToast } from "../../../api/store/newProductSlice";
+//Primereact
 import { Toast } from "primereact/toast";
+//Components
 import ProductFormik from "../../../components/formik/ProductFormik";
-
-import { useDispatch, useSelector } from "react-redux";
 
 function ProductEdit() {
   const [product, setProduct] = useState("");

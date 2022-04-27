@@ -1,6 +1,8 @@
+//React
 // import React, { useEffect } from "react";
+//Api_&Store
 // import axios from "axios";
-
+//Components
 import PageBuilding from "../components/PageBuilding";
 
 // var axios = require("axios");

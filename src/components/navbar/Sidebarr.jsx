@@ -1,10 +1,15 @@
+//React
 import { useState } from "react";
 import { Link } from "react-router-dom";
+//Stylesheets
+import "./Sidebar.scss";
+//Api_&_Store
+import { SidebarData } from "./SidebarData";
+//Primereact
 import { Sidebar } from "primereact/sidebar";
 import { Button } from "primereact/button";
 import { Avatar } from "primereact/avatar";
-import { SidebarData } from "./SidebarData";
-import "./Sidebar.scss";
+//Components
 
 function Sidebarr() {
   // const [sidebar, setSidebar] = useState(false);

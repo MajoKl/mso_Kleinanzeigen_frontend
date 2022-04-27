@@ -1,10 +1,14 @@
+//React
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { Button } from "primereact/button";
-import { Panel } from "primereact/panel";
-
+//Stylesheets
 import "./Login.scss";
 import "../../main.scss";
+//Api_&_Store
+import axios from "axios";
+//Primereact
+import { Button } from "primereact/button";
+import { Panel } from "primereact/panel";
+//Components
 
 function Login() {
   const [loggedIn, setLoggedIn] = useState(false);

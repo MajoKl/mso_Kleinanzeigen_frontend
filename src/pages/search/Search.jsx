@@ -1,9 +1,14 @@
-import React from "react";
-import PageBuilding from "../../components/PageBuilding";
+//React
 // import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 // import { useParams } from "react-router-dom";
 // import { useDispatch, useSelector } from "react-redux";
+//Stylesheets
+//Api_&_Store
 // import { requestProducts } from "../../api/store/productSlice";
+//Primereact
+//Components
+import PageBuilding from "../../components/PageBuilding";
 
 function Search() {
   // const { searchentry } = useParams();

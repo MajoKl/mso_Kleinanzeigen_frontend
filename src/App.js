@@ -1,3 +1,4 @@
+//React
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -6,11 +7,10 @@ import {
   Navigate,
 } from "react-router-dom";
 
-// import { QueryClient, QueryClientProvider } from "react-query";
-// import { ReactQueryDevtools } from "react-query/devtools";
+//Api_&_Store
 import { Provider } from "react-redux";
 import store from "./api/store/store";
-
+//Primeract
 import "primereact/resources/themes/lara-light-indigo/theme.css"; //theme
 import "primereact/resources/primereact.min.css"; //core css
 import "primeflex/primeflex.css"; // flex
@@ -37,30 +37,16 @@ import Contact from "./pages/Contact.jsx";
 
 //components
 import Topbar from "./components/navbar/Topbar.jsx";
-// import Footer from "./components/navbar/Footer.jsx";
-
 import PageNotFound from "./components/PageNotFound.jsx";
 import CheckLogin from "./components/CheckLogin";
 
-// const queryClient = new QueryClient();
-
 function App() {
-  // require("halfmoon/css/halfmoon-variables.min.css");
-  // require("halfmoon/css/halfmoon.min.css");
-  // const halfmoon = require("halfmoon");
-  // halfmoon.onDOMContentLoaded();
-
-  // const toggleDemo = () => {
-  //   halfmoon.toggleDarkMode();
-  // };
   return (
     <Provider store={store}>
       <Router>
         <React.Fragment>
           <CheckLogin />
-          {/* <QueryClientProvider client={queryClient}> */}
           <Topbar />
-          {/* <button onClick={toggleDemo}>hallo</button> */}
           <Routes>
             {/* general-pages */}
             <Route path="/" element={<Start />} />
@@ -83,8 +69,6 @@ function App() {
             <Route path="*" element={<Navigate to="/404" replace />} />
           </Routes>
           {/* <Footer /> */}
-          {/* <ReactQueryDevtools initialIsOpen={false} />
-          </QueryClientProvider> */}
         </React.Fragment>
       </Router>
     </Provider>

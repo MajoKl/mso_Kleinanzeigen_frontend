@@ -1,17 +1,19 @@
+// React
 import React, { useState, useEffect, useRef } from "react";
-// eslint-disable-next-line
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+//Stylesheets
 import "./productDetail.scss";
+//Api_&_Store
+import axios from "axios";
 import { requestUser } from "../../../api/store/userSlice";
-
+//Primereact
 import { Panel } from "primereact/panel";
 import { Toolbar } from "primereact/toolbar";
 import { Button } from "primereact/button";
 import { confirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
-
+//Components
 import Galleria from "../../../components/Galleriaa";
 import Infotable from "../../../components/infotable/Infotable";
 

@@ -1,6 +1,11 @@
+//React
 import React, { useEffect, useRef } from "react";
-import { Messages } from "primereact/messages";
+//Stylesheets
 import "../main.scss";
+//Api_&_Store
+//Primereact
+import { Messages } from "primereact/messages";
+//Components
 
 function PageNotFound() {
   const msgs = useRef(null);

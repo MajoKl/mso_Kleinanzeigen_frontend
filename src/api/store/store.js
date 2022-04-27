@@ -1,5 +1,6 @@
+//Redux
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-
+//Slices
 import productReducer from "./productSlice";
 import userReducer from "./userSlice";
 import newProductReducer from "./newProductSlice";

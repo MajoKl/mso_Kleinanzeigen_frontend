@@ -1,5 +1,7 @@
-import { postBackend } from "../api.js";
+//Redux
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+//Api
+import { postBackend } from "../api.js";
 
 export const pushProduct = createAsyncThunk(
   "/aaapi/me",

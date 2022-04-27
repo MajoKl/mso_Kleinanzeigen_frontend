@@ -1,5 +1,10 @@
+//React
 import React from "react";
+//Stylesheets
 import "./Infotable.scss";
+//Api_&_Store
+//Primereact
+//Components
 
 function Infotable(props) {
   const renderItem = (i) => {

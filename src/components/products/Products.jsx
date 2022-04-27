@@ -1,18 +1,20 @@
-import React, { useState, useEffect, useRef } from "react";
-import { DataView, DataViewLayoutOptions } from "primereact/dataview";
-// import { ProductService } from "./ProductService";
-// import { Rating } from "primereact/rating";
-import { Button } from "primereact/button";
-import { Dropdown } from "primereact/dropdown";
-import "./products.scss";
-import "../../main.scss";
-
-import { useDispatch, useSelector } from "react-redux";
-import { requestProducts } from "../../api/store/productSlice";
-import ToastMessages from "../../components/ToastMessages";
+//React
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+//Stylesheets
+import "../../main.scss";
+import "./products.scss";
+//Api_&_Store
 import { deleteFavorites, postFavorites } from "../../api/api";
+import { requestProducts } from "../../api/store/productSlice";
 import { addFavoriteorRemoveToUser } from "../../api/store/userSlice";
+//Primereact
+import { Button } from "primereact/button";
+import { DataView, DataViewLayoutOptions } from "primereact/dataview";
+import { Dropdown } from "primereact/dropdown";
+//Components
+import ToastMessages from "../../components/ToastMessages";
 
 function Products(props) {
   // const [products, setProducts] = useState(null);

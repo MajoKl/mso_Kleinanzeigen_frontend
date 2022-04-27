@@ -1,13 +1,15 @@
+//React
 import React, { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+//Stylesheets
 import "../../../main.scss";
 import "./newproducts.scss";
-
-import { Toast } from "primereact/toast";
-import ProductFormik from "../../../components/formik/ProductFormik";
-
-import { useDispatch, useSelector } from "react-redux";
-
+//Api_&_Store
 import { onChangeToast } from "../../../api/store/newProductSlice";
+//Primereact
+import { Toast } from "primereact/toast";
+//Components
+import ProductFormik from "../../../components/formik/ProductFormik";
 
 function NewProducts() {
   const newproduct = useSelector((state) => state.newProduct);

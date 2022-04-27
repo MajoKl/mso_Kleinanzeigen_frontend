@@ -1,12 +1,14 @@
+//React
 import React, { useRef, useState } from "react";
+//Stylesheets
+import "../pages/product/newProducts/newproducts.scss";
+//Primeract
 import { Toast } from "primereact/toast";
 import { FileUpload } from "primereact/fileupload";
 import { ProgressBar } from "primereact/progressbar";
 import { Button } from "primereact/button";
 import { Tooltip } from "primereact/tooltip";
 import { Tag } from "primereact/tag";
-
-import "../pages/product/newProducts/newproducts.scss";
 
 function UploadData() {
   const [totalSize, setTotalSize] = useState(0);
@@ -39,7 +41,7 @@ function UploadData() {
     setTotalSize(_totalSize);
   };
 
-const onTemplateUpload = (e) => {
+  const onTemplateUpload = (e) => {
     let _totalSize = 0;
     // e.files.forEach((file) => {
     //   _totalSize += file.size || 0;

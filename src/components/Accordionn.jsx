@@ -1,5 +1,10 @@
+//React
 import React from "react";
+//Stylesheets
+//Api_&_Store
+//Primereact
 import { Accordion, AccordionTab } from "primereact/accordion";
+//Components
 
 //Udemy Abschnitt 12, sehr abgeändert + PrimeReact Accordion
 //Aus Udemy Kurs fast wieder alles weg, mit PrimeReact war es leichter als mit Semantic UI, was Grider genutzt hat

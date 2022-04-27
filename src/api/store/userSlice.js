@@ -1,5 +1,7 @@
-import { getBackend } from "../api.js";
+//Redux
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+//Api
+import { getBackend } from "../api.js";
 
 export const requestUser = createAsyncThunk(
   "/aaaaapi/me",

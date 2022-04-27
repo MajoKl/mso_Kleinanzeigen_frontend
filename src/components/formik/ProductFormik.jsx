@@ -1,15 +1,20 @@
+//React
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+//Stylesheets
 import "../../main.scss";
 import "../../pages/product/newProducts/newproducts.scss";
+//Api_&_Store
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { putBackend } from "../../api/api";
 import {
   onChange,
   pushProduct,
   onChangeToastMessage,
   onChangeToast,
 } from "../../api/store/newProductSlice";
-import { putBackend } from "../../api/api";
+//Primereact
 import { useFormik } from "formik";
 import { RadioButton } from "primereact/radiobutton";
 import { InputText } from "primereact/inputtext";
@@ -19,9 +24,8 @@ import { Dropdown } from "primereact/dropdown";
 import { Editor } from "primereact/editor";
 import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
-
+//Components
 import Upload from "../UploadData.jsx";
-import { useDispatch } from "react-redux";
 
 function ProductFormik(props) {
   const [pricing, setPricing] = useState([]);

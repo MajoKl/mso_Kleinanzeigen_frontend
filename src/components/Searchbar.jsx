@@ -1,7 +1,11 @@
-import React from "react";
+//React
+import React, { useState } from "react";
+//Stylesheets
 import "./navbar/Topbar.scss";
+//Api_&_Store
+//Primereact
 import { InputText } from "primereact/inputtext";
-import { useState } from "react";
+//Components
 
 //Source: Udemy-Kurs Abschnitt 7, jedoch abgewandelt zu functional-component + Teilweise primeReact + Styling by Marius
 

@@ -1,8 +1,12 @@
+//React
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+//Stylesheets
 import "../pages/product/productDetail/productDetail.scss";
-
+//Api_&_Store
+import axios from "axios";
+//Primereact
 import { Galleria } from "primereact/galleria";
+//Components
 
 function Galleriaa() {
   const [images, setImages] = useState(null);
