@@ -1,5 +1,6 @@
 //React
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 //Stylesheets
 import "../../../main.scss";
@@ -15,6 +16,7 @@ function NewProducts() {
   const newproduct = useSelector((state) => state.newProduct);
   const toast = useRef(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   console.log(newproduct.toast.setToast);
 
   useEffect(() => {
@@ -22,6 +24,7 @@ function NewProducts() {
       ? (setTimeout(() => {
           dispatch(onChangeToast(false));
           console.log("Auf flase");
+          navigate("/");
         }, newproduct.status.life),
         toast.current.show({
           severity: newproduct.status.severity,

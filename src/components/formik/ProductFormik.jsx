@@ -156,7 +156,7 @@ function ProductFormik(props) {
     dispatch(onChangeToast(true));
     setTimeout(() => {
       navigate("/");
-    }, 5000);
+    }, 2500);
   };
 
   const isFormFieldValid = (name) =>
