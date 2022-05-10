@@ -1,5 +1,6 @@
 //React
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 //Stylesheets
@@ -31,6 +32,7 @@ function ProductFormik(props) {
   const [pricing, setPricing] = useState([]);
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const newproduct = props.data;
 
   useEffect(() => {
@@ -152,6 +154,9 @@ function ProductFormik(props) {
     );
     dispatch(onChangeToastMessage({ value: "4000", name: "life" }));
     dispatch(onChangeToast(true));
+    setTimeout(() => {
+      navigate("/");
+    }, 5000);
   };
 
   const isFormFieldValid = (name) =>
@@ -524,7 +529,7 @@ function ProductFormik(props) {
             {/* <div className="p-grid p-fluid"> */}
             <div className="p-field fieldbutton">
               <span>Die Felder mit * müssen angegeben werden.</span>
-              <Link to="/login" className="linkbutton">
+              <Link to="/messages" className="linkbutton">
                 <Button
                   label="Vorschau (login)"
                   className="p-button-outlined p-button-success"

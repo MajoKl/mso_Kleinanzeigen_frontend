@@ -206,7 +206,7 @@ function Products(props) {
             src={`data/images/${data.pictures[0]}`}
             onError={(e) =>
               (e.target.src =
-                "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
+                "../../../data/images/MSOKleinanzeigenLogoGrey.png")
             }
             alt={data.Name}
           />
@@ -340,7 +340,7 @@ function Products(props) {
               src={`data/images/${data.pictures[0]}`}
               onError={(e) =>
                 (e.target.src =
-                  "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
+                  "../../../data/images/MSOKleinanzeigenLogoGrey.png")
               }
               alt={data.Name}
             />

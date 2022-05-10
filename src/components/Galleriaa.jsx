@@ -38,8 +38,7 @@ function Galleriaa() {
       <img
         src={item.itemImageSrc}
         onError={(e) =>
-          (e.target.src =
-            "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
+          (e.target.src = "../../data/images/MSOKleinanzeigenLogoGrey.png")
         }
         alt={item.alt}
         style={{ width: "100%", display: "block" }}
@@ -52,11 +51,10 @@ function Galleriaa() {
       <img
         src={item.thumbnailImageSrc}
         onError={(e) =>
-          (e.target.src =
-            "https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png")
+          (e.target.src = "../../data/images/MSOKleinanzeigenLogoGrey.png")
         }
         alt={item.alt}
-        style={{ display: "block" }}
+        style={{ width: "100%", display: "block" }}
       />
     );
   };

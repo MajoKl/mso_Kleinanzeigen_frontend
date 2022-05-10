@@ -8,7 +8,7 @@ import "./Infotable.scss";
 
 function Infotable(props) {
   const renderItem = (i) => {
-    return i.icon ? (
+    return i.value ? (
       <div className="ui segment" key={i.tag}>
         <div>
           <i className={i.icon} />

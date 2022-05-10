@@ -46,6 +46,9 @@ function UploadData() {
     // e.files.forEach((file) => {
     //   _totalSize += file.size || 0;
     // });
+    setTimeout(() => {
+      //api call
+    }, 2000);
 
     setTotalSize(_totalSize);
     toast.current.show({

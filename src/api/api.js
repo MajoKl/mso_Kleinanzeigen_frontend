@@ -51,17 +51,21 @@ export async function putBackend(data) {
   delete data.realName;
   delete data.owner;
 
-  const response = await axios.put(
-    `${process.env.REACT_APP_API_URL}/api/me/articles`,
-    data,
-    { withCredentials: true }
-    // {
-    //   headers: {
-    //     "Access-Control-Allow-Origin":
-    //       "http://kleinanzeigen_api.jonaslbgtt.live:8080",
-    //   },
-    // },
-  );
+  const response = await axios
+    .put(
+      `${process.env.REACT_APP_API_URL}/api/me/articles`,
+      data,
+      { withCredentials: true }
+      // {
+      //   headers: {
+      //     "Access-Control-Allow-Origin":
+      //       "http://kleinanzeigen_api.jonaslbgtt.live:8080",
+      //   },
+      // },
+    )
+    .catch(function (error) {
+      console.log(error);
+    });
   console.log(response.data + "fjnh");
   localStorage.setItem("putproduct", JSON.stringify(response.data));
 
