@@ -17,13 +17,11 @@ function NewProducts() {
   const toast = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(newproduct.toast.setToast);
 
   useEffect(() => {
     return newproduct.toast.setToast === true
       ? (setTimeout(() => {
           dispatch(onChangeToast(false));
-          console.log("Auf flase");
           navigate("/");
         }, newproduct.status.life),
         toast.current.show({
@@ -38,21 +36,6 @@ function NewProducts() {
   return (
     <React.Fragment>
       <Toast ref={toast} />
-      {/* {console.log(newproduct.toast.setToast)}
-      {newproduct.toast.setToast === true
-        ? (setTimeout(() => {
-            dispatch(onChangeToast(false));
-          }, 4000),
-          (
-            <ToastMessages
-              severity={newproduct.status.severity}
-              summary={newproduct.status.summary}
-              detail={newproduct.status.detail}
-              life={newproduct.status.life}
-            />
-          ))
-        : console.log("lol")} */}
-
       <div className="container">
         <h1>Artikel Inserieren</h1>
         <hr />

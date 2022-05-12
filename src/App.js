@@ -10,6 +10,7 @@ import {
 //Api_&_Store
 import { Provider } from "react-redux";
 import store from "./api/store/store";
+
 //Primeract
 import "primereact/resources/themes/lara-light-indigo/theme.css"; //theme
 import "primereact/resources/primereact.min.css"; //core css

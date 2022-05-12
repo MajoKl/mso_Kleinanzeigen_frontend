@@ -8,10 +8,6 @@ import { requestUser } from "../../../api/store/userSlice";
 //Components
 import Products from "../../../components/products/Products";
 
-// import { RootState } from "../../api/store/store";
-// import { ProgressSpinner } from "primereact/progressspinner";
-// import ToastMessages from "../../components/ToastMessages";
-
 function Myproducts() {
   const user = useSelector((state) => state.user);
 
@@ -24,19 +20,10 @@ function Myproducts() {
   }, []); // eslint-disable-line
   return (
     <React.Fragment>
-      {/* {products.status.severity !== "" ? (
-        <ToastMessages
-          severity={products.status.severity}
-          summary={products.status.summary}
-          detail={products.status.detail}
-          life={products.status.life}
-        /> */}
-      {/* ) : ( */}
       <div className="container">
         <h1>Meine Produkte</h1>
         <Products searchoption="me/articles" otheroptions="" user={user} />
       </div>
-      {/* )} */}
     </React.Fragment>
   );
 }

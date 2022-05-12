@@ -16,6 +16,7 @@ function Me() {
 
   const dispatch = useDispatch();
 
+  //Request UserData from Redux
   useEffect(() => {
     if (user.user.name === "") {
       dispatch(requestUser("/api/me"));
@@ -33,7 +34,6 @@ function Me() {
       icon: "pi pi-user",
       tag: "Name",
       value: user.user.name,
-      // value: product.categories !== undefined ? product.categories[0] : null,
     },
     {
       icon: "graduation cap icon",
@@ -81,24 +81,6 @@ function Me() {
       value: String(user.user.friends.length),
     },
   ];
-  // const getData = async () => {
-  //   const res = await fetch(
-  //     process.env.REACT_APP_API_ME_ARTICLE + "/me/article"
-  //   );
-  //   return res.json();
-  // };
-  // eslint-disable-next-line
-  // const { data, status } = useQuery("data", getData);
-  // const toast = useRef(null);
-
-  // const showSuccess = () => {
-  //   toast.current.show({
-  //     severity: "success",
-  //     summary: "Success Message",
-  //     detail: "Message Content",
-  //     life: 3000,
-  //   });
-  // };
 
   return (
     <React.Fragment>
@@ -116,7 +98,6 @@ function Me() {
           <div className="card me-card">
             <h2>Accountinformationen</h2>
             <Infotable data={InfotableData} />
-            {console.log(user)}
           </div>
           <div className="card me-card">
             <h2>Deine mit Stern markierten Artikel</h2>

@@ -1,6 +1,8 @@
 // import React from "react";
 // import "./Footer.scss";
 
+//Footer wird noch erstellt.
+
 // function Footer() {
 //   return (
 //     <div className="footer">

@@ -1,20 +1,30 @@
 //React
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 //Stylesheets
 import "./Sidebar.scss";
 //Api_&_Store
-import { SidebarData } from "./SidebarData";
+import axios from "axios";
 //Primereact
 import { Sidebar } from "primereact/sidebar";
 import { Button } from "primereact/button";
 import { Avatar } from "primereact/avatar";
 //Components
 
+//Quelle: https://www.primefaces.org/primereact/sidebar/
 function Sidebarr() {
-  // const [sidebar, setSidebar] = useState(false);
   const [visibleLeft, setVisibleLeft] = useState(false);
-  // const showSidebar = () => setSidebar(!sidebar);
+  const [content, setContent] = useState([]);
+
+  useEffect(() => {
+    console.log("im use");
+    async function fetchData() {
+      const response = await axios("/data/SidebarData.json");
+      console.log(response);
+      setContent(response.data.data);
+    }
+    fetchData();
+  }, []); // eslint-disable-line
 
   return (
     <>
@@ -48,8 +58,7 @@ function Sidebarr() {
         </Link>
         <div className="sidebar-menu-items">
           <ul>
-            {/* <h3>Left Sidebar</h3> */}
-            {SidebarData.map((item, index) => {
+            {content.map((item, index) => {
               return (
                 <li key={index}>
                   <Link to={item.path}>
@@ -81,18 +90,3 @@ function Sidebarr() {
 }
 
 export default Sidebarr;
-
-// {
-//   <Button icon=""></Button>
-//         <Button
-//           className="facebook p-p-0"
-//           type="button"
-//           onClick={(e) => {
-//             e.preventDefault();
-//             window.location.href = "http://google.com";
-//           }}
-//         >
-//           <i className="pi pi-facebook p-px-2"></i>
-//           <span className="p-px-3">Facebook</span>
-//         </Button>
-// }

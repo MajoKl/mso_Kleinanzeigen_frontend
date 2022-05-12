@@ -24,21 +24,6 @@ function ProductDetail() {
   const toast = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(username);
-
-  // const products = useSelector((state) => state.products);
-
-  //Fehler beim neuladen der Seite. Is so naja aber schwer zu fixen
-  // useEffect(() => {
-  //   console.log("In UseEffekt");
-  //   console.log(products.products[0]._id + " === " + id);
-  //   for (let i = 0; i < products.products.length; i++) {
-  //     if (products.products[i]._id === id) {
-  //       console.log("Gefunden!");
-  //       setProduct(products.products[i]);
-  //     }
-  //   }
-  // }, [products]); // eslint-disable-line
 
   const requestBackend = async () => {
     const response = await axios.get(
@@ -53,7 +38,6 @@ function ProductDetail() {
     );
     setProduct(response.data[0]);
   };
-  console.log(product);
 
   useEffect(() => {
     requestBackend();
@@ -70,7 +54,7 @@ function ProductDetail() {
   };
 
   const onDeleteClick = () => {
-    //Dialog machen, danach Request ans Backend zum Deleten
+    //https://www.primefaces.org/primereact/confirmdialog/
     confirmDialog({
       message:
         "Bist du Dir sicher dass du die Anzeige löschen willst? \n Dieser Schritt kann nicht wieder rückgängig gemacht werden!",
@@ -107,11 +91,9 @@ function ProductDetail() {
 
     axios(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
         setError(JSON.stringify(response.data));
       })
       .catch(function (error) {
-        console.log(error);
         toast.current.show({
           severity: "error",
           summary: "Error!",
@@ -217,7 +199,6 @@ function ProductDetail() {
           <div className="product-card-content">
             <Galleria />
           </div>
-          {console.log(product.Name)}
           <div className="product-card-content card">
             <h2 className="product-headline">Informationen</h2>
             <div className="product-info-head">
@@ -245,16 +226,15 @@ function ProductDetail() {
             <br />
             <Infotable data={InfotableData} />
           </div>
-          {/* {console.log(username + product.owner.name)} */}
-          {product !== ""
-            ? (console.log(username + product.owner.name),
-              username === product.owner.name ? (
-                <div className="product-card-content card">
-                  <h2 className="product-headline">Aktionen</h2>
-                  <Toolbar left={leftContents} right={rightContents} />
-                </div>
-              ) : null)
-            : null}
+          {product !== "" ? (
+            username === product.owner.name ? (
+              <div className="product-card-content card">
+                <h2 className="product-headline">Aktionen</h2>
+                {/* Quelle: https://www.primefaces.org/primereact/toolbar/ */}
+                <Toolbar left={leftContents} right={rightContents} />
+              </div>
+            ) : null
+          ) : null}
         </div>
       </div>
     </React.Fragment>

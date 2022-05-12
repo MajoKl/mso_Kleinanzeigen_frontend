@@ -12,7 +12,6 @@ import Products from "../../components/products/Products";
 
 function Start() {
   const user = useSelector((state) => state.user);
-  // const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,9 +19,6 @@ function Start() {
       dispatch(requestUser("/api/me"));
     }
   }, []); // eslint-disable-line
-  // useEffect(() => {
-  //   return user.user.role === "unauthorized" ? navigate("/login") : null;
-  // }, [user.user.role]); // eslint-disable-line
 
   return (
     <React.Fragment>

@@ -6,6 +6,7 @@ import "./Infotable.scss";
 //Primereact
 //Components
 
+//Quelle: https://semantic-ui.com/collections/table.html
 function Infotable(props) {
   const renderItem = (i) => {
     return i.value ? (

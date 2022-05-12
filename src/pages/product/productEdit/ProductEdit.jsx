@@ -20,8 +20,6 @@ function ProductEdit() {
 
   const toast = useRef(null);
   const { id } = useParams();
-  console.log(newproduct);
-  console.log(product);
 
   useEffect(() => {
     requestBackend();
@@ -42,7 +40,7 @@ function ProductEdit() {
   };
 
   useEffect(() => {
-    return product !== "" ? (setNewProductState(), setNewStatusState()) : null;
+    return product !== "" ? setNewProductState() : null;
   }, [product]); // eslint-disable-line
 
   const additionalData = [
@@ -89,17 +87,7 @@ function ProductEdit() {
   ];
 
   const setNewProductState = () => {
-    additionalData.map(
-      (i) => handleChange(i.name, i.value)
-      // {
-      //   console.log(i.name + " - " + i.value);
-      //   return ;
-      //       }
-    );
-  };
-  const setNewStatusState = () => {
-    // dispatch(onChangeStatus());
-    console.log(newproduct.status);
+    additionalData.map((i) => handleChange(i.name, i.value));
   };
 
   const handleChange = (name, event) => {
@@ -112,7 +100,6 @@ function ProductEdit() {
     return newproduct.toast.setToast === true
       ? (setTimeout(() => {
           dispatch(onChangeToast(false));
-          console.log("Auf flase");
         }, newproduct.status.life),
         toast.current.show({
           severity: newproduct.status.severity,
@@ -126,16 +113,6 @@ function ProductEdit() {
   return (
     <React.Fragment>
       <Toast ref={toast} />
-      {/* {newproduct.toast.setToast === true ? (
-        <ToastMessages
-          severity={newproduct.status.severity}
-          summary={newproduct.status.summary}
-          detail={newproduct.status.detail}
-          life={newproduct.status.life}
-          sticky={newproduct.status.sticky}
-        />
-      ) : null} */}
-
       <div className="container">
         <h1>Artikel Bearbeiten</h1>
         <hr />

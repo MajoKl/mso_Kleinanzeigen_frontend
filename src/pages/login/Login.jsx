@@ -1,5 +1,5 @@
 //React
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 //Stylesheets
 import "./Login.scss";
 import "../../main.scss";
@@ -15,6 +15,7 @@ function Login() {
   // eslint-disable-next-line
   const [user, setUser] = useState(null);
 
+  //OAuth, Quelle: Vortrag Julius Hardt und https://auth0.com/blog/complete-guide-to-react-user-authentication/
   useEffect(() => {
     const token = new URLSearchParams(window.location.search).get(
       "access_token"
@@ -38,10 +39,8 @@ function Login() {
   return (
     <div>
       {!loggedIn ? (
-        <>
-          {/* <div className="ui container"> */}
+        <React.Fragment>
           <div className="container">
-            {/* <div className="ui segment"> */}
             <h1>Anmelden</h1>
             <Panel header="Hinweis">
               Bitte logge dich ein. Du kannst dich mit der Marienschule-Hompage
@@ -77,9 +76,8 @@ function Login() {
                 </span>
               </Button>
             </div>
-            {/* </div> */}
           </div>
-        </>
+        </React.Fragment>
       ) : (
         <></>
       )}

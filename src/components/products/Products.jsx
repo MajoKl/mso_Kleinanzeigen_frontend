@@ -17,12 +17,11 @@ import { Dropdown } from "primereact/dropdown";
 //Components
 import ToastMessages from "../../components/ToastMessages";
 
+//Quelle: https://www.primefaces.org/primereact/dataview/ stark abgeändert, aber Grundkonzept gleich
 function Products(props) {
-  // const [products, setProducts] = useState(null);
   const [layout, setLayout] = useState("grid");
   const [loading, setLoading] = useState(true);
   const [first, setFirst] = useState(0);
-  // eslint-disable-next-line
   const [totalRecords, setTotalRecords] = useState(0);
   const [sortKey, setSortKey] = useState(null);
   const [sortOrder, setSortOrder] = useState(null);
@@ -32,22 +31,17 @@ function Products(props) {
     { label: "Preis aufsteigend", value: "price" },
   ];
   const rows = useRef(21);
-  // const datasource = useRef(null);
   const isMounted = useRef(false);
-  // const productService = new ProductService();
 
   const products = useSelector((state) => state.products);
-  const user = useSelector((state) => state.user);
-  // console.log("Daddy: " + JSON.stringify(products));
+  const user = useSelector((state) => state.user); // eslint-disable-line
   const dispatch = useDispatch();
 
   useEffect(() => {
     setTimeout(() => {
       try {
         getInfoProduct();
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
       isMounted.current = true;
       dispatch(
         requestProducts(
@@ -58,15 +52,8 @@ function Products(props) {
             props.otheroptions
         )
       );
-
-      //Hier state updaten oder so!?!?!?!?
-      //datasource.current = data; //Hinfällig!?!?
-      //setTotalRecords(data.length); //Hinfällig?
-
-      // setProducts(datasource.current.slice(0, rows.current));
       setLoading(false);
     }, 1000);
-    // makeProducts();
   }, []); // eslint-disable-line
 
   const getInfoProduct = async () => {
@@ -83,19 +70,6 @@ function Products(props) {
     setTotalRecords(response.data.count);
   };
 
-  // const makeProducts = () => {
-  //   setTotalRecords(products.length);
-  //   //products auf Products setzen. So viele wie es in maxProducts drin steht.
-  //   for (
-  //     let index = startIndex;
-  //     index < endIndex && index < products.length;
-  //     index++
-  //   ) {
-  //     const element = products[index];
-  //     // setProducts(element);
-  //   }
-  // };
-
   useEffect(() => {
     if (isMounted.current) {
       setTimeout(() => {
@@ -104,48 +78,26 @@ function Products(props) {
     }
   }, [loading]); // eslint-disable-line
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     isMounted.current = true;
-  //     productService.getProducts().then((data) => {
-  //       datasource.current = data;
-  //       setTotalRecords(data.length);
-  //       setProducts(datasource.current.slice(0, rows.current));
-  //       console.log(products);
-  //       setLoading(false);
-  //     });
-  //   }, 1000);
-  // }, []); // eslint-disable-line
   const navigate = useNavigate();
   const onProductClick = (id) => {
-    console.log("Huhusdhujdh id:" + id);
     navigate("/productDetails/" + id);
   };
 
   const onStarClick = (id) => {
-    //Maybe dialog fenster?
     const isstar = props.user.user.favorites.includes(id);
-    // postFavorites({ id: id, method: isstar === true ? "delete" : "post" });
     try {
       isstar === true ? deleteFavorites(id) : postFavorites(id);
-
       dispatch(addFavoriteorRemoveToUser(id));
-
-      console.log("Als Stern markiert");
-      console.log(user);
-    } catch (error) {
-      console.log(error.message);
-    }
+    } catch (error) {}
   };
 
   const onPage = (event) => {
     setLoading(true);
 
-    //Hier setzt der neue Daten wenn man auf die nächste Page klickt. Wie? Ka. Iwie mit dem Slice. Aber kp woher. Iwie umschreiben, sodass es für mich funktioniert.
+    //Setzen der neuen Daten wenn man auf die nächste Page klickt.
     setTimeout(() => {
       const startIndex = event.first;
       const endIndex = event.first + rows.current;
-      console.log(startIndex, endIndex);
       dispatch(
         requestProducts(
           "/api/" +
@@ -157,28 +109,9 @@ function Products(props) {
             props.otheroptions
         )
       );
-      // makeProducts();
       setFirst(startIndex);
-      //Hier state updaten oder so!?!?!?!?
-
-      console.log("Im TimeOut von onPage: " + products);
       setLoading(false);
     }, 1000);
-
-    //imitate delay of a backend call
-    // setTimeout(() => {
-    //   const startIndex = event.first;
-    //   const endIndex = event.first + rows.current;
-    //   console.log(startIndex, endIndex);
-    //   const newProducts =
-    //     startIndex === endIndex
-    //       ? datasource.current.slice(startIndex)
-    //       : datasource.current.slice(startIndex, endIndex);
-    //   console.log(startIndex, endIndex, newProducts);
-    //   setFirst(startIndex);
-    //   // setProducts(newProducts);
-    //   setLoading(false);
-    // }, 1000);
   };
 
   const onSortChange = (event) => {
@@ -200,7 +133,6 @@ function Products(props) {
     return (
       <div className="p-col-12">
         <div className="product-list-item">
-          {/* <Link to={`productDetails/${data._id}`}> */}
           <img
             onClick={() => onProductClick(data._id)}
             src={`data/images/${data.pictures[0]}`}
@@ -215,14 +147,9 @@ function Products(props) {
             className="product-list-detail"
             onClick={() => onProductClick(data._id)}
           >
-            {/* <Link to={`productDetails/${data._id}`}> */}
             <div>
               <i className="pi pi-clock product-date-icon"></i>
-              <span
-                className="product-date"
-                //className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}
-                //funktioniert nicht, weil nicht im Stylesheet mit drin. -> Suchen Seite PrimeReact
-              >
+              <span className="product-date">
                 {date.getDate() +
                   "." +
                   (date.getMonth() + 1) +
@@ -286,16 +213,10 @@ function Products(props) {
                   ? "pi pi-star-fill"
                   : "pi pi-star"
               }
-              // icon={toggleStar === true ? "pi pi-star-fill" : "pi pi-star"}
               className="p-button-rounded p-button-warning"
               onClick={() => onStarClick(data._id)}
             />
-            <span
-              className="product-badge"
-              //   className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}
-            >
-              {data.inventoryStatus}
-            </span>
+            <span className="product-badge">{data.inventoryStatus}</span>
           </div>
         </div>
       </div>
@@ -307,7 +228,6 @@ function Products(props) {
     return (
       <div className="p-col-12 p-md-4">
         <div className="product-grid-item card">
-          {/* <Link to={`productDetails/${data._id}`}> */}
           <div
             onClick={() => onProductClick(data._id)}
             className="product-grid-item-top"
@@ -319,11 +239,7 @@ function Products(props) {
 
             <div>
               <i className="pi pi-clock product-date-icon"></i>
-              <span
-                className="product-date"
-                //className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}
-                //funktioniert nicht, weil nicht im Stylesheet mit drin. -> Suchen Seite PrimeReact
-              >
+              <span className="product-date">
                 {date.getDate() +
                   "." +
                   (date.getMonth() + 1) +
@@ -357,7 +273,6 @@ function Products(props) {
             </div>
             <div className="product-name">{data.Name}</div>
             <div className="product-description">{data.detailtName}</div>
-            {/* <Rating value={data.rating} readOnly cancel={false}></Rating> */}
           </div>
           {/* </Link> */}
           <div className="product-grid-item-bottom">

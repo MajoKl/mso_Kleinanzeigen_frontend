@@ -8,6 +8,7 @@ import axios from "axios";
 import { Galleria } from "primereact/galleria";
 //Components
 
+//Quelle: https://www.primefaces.org/primereact/galleria/
 function Galleriaa() {
   const [images, setImages] = useState(null);
 

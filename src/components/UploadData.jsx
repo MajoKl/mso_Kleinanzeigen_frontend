@@ -10,42 +10,25 @@ import { Button } from "primereact/button";
 import { Tooltip } from "primereact/tooltip";
 import { Tag } from "primereact/tag";
 
+//Quelle: https://www.primefaces.org/primereact/fileupload/ größtenteils gleich, etwas abgeändert
 function UploadData() {
   const [totalSize, setTotalSize] = useState(0);
   const toast = useRef(null);
   const fileUploadRef = useRef(null);
   const [size, setSize] = useState(0);
 
-  // const onUpload = () => {
-  //   toast.current.show({
-  //     severity: "info",
-  //     summary: "Success",
-  //     detail: "File Uploaded",
-  //   });
-  // };
-
   const onTemplateSelect = (e) => {
-    // let bettersize = size.substring(0, size.length - 2);
-
     let _totalSize = totalSize;
-    // console.log("let totalsize: " + _totalSize);
     const no = () => {
       _totalSize += size;
-      //   console.log("aftrer: " + _totalSize);
     };
     no(e.files);
-    // e.files.forEach((file) => {
-    //   _totalSize += file.size;
-    // });
 
     setTotalSize(_totalSize);
   };
 
   const onTemplateUpload = (e) => {
     let _totalSize = 0;
-    // e.files.forEach((file) => {
-    //   _totalSize += file.size || 0;
-    // });
     setTimeout(() => {
       //api call
     }, 2000);
@@ -66,22 +49,6 @@ function UploadData() {
   const onTemplateClear = () => {
     setTotalSize(0);
   };
-
-  // const onBasicUpload = () => {
-  //   toast.current.show({
-  //     severity: "info",
-  //     summary: "Success",
-  //     detail: "File Uploaded with Basic Mode",
-  //   });
-  // };
-
-  // const onBasicUploadAuto = () => {
-  //   toast.current.show({
-  //     severity: "info",
-  //     summary: "Success",
-  //     detail: "File Uploaded with Auto Mode",
-  //   });
-  // };
 
   const headerTemplate = (options) => {
     const { className, chooseButton, uploadButton, cancelButton } = options;
@@ -199,7 +166,7 @@ function UploadData() {
         <FileUpload
           ref={fileUploadRef}
           name="upload"
-          url="https://primefaces.org/primereact/showcase/upload.php" //hier werden die Fotos hingeschickt
+          url="" //hier werden die Fotos hingeschickt
           multiple
           accept="image/*"
           maxFileSize={10000000}

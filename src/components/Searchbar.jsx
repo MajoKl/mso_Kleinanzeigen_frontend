@@ -7,8 +7,7 @@ import "./navbar/Topbar.scss";
 import { InputText } from "primereact/inputtext";
 //Components
 
-//Source: Udemy-Kurs Abschnitt 7, jedoch abgewandelt zu functional-component + Teilweise primeReact + Styling by Marius
-
+//Source: Udemy-Kurs Abschnitt 7, jedoch abgewandelt zu functional-component + Teilweise primeReact
 function Searchbar(props) {
   const [term, setTerm] = useState("");
 

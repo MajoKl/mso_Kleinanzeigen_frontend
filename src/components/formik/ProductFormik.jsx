@@ -28,6 +28,7 @@ import { classNames } from "primereact/utils";
 //Components
 import Upload from "../UploadData.jsx";
 
+//Quelle: https://www.primefaces.org/primereact/formik/ abgeändert
 function ProductFormik(props) {
   const [pricing, setPricing] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -36,9 +37,9 @@ function ProductFormik(props) {
   const newproduct = props.data;
 
   useEffect(() => {
+    // Quelle: Udemy-Kurs Abschnitt 8
     async function fetchAdditionalData() {
       const response = await axios("/data/newProductData.json");
-      console.log(response);
       setPricing(response.data.pricing);
       setCategories(response.data.categories);
     }
@@ -72,7 +73,6 @@ function ProductFormik(props) {
     initialValues: {},
     validate: () => {
       const data = newproduct.product;
-      console.log(data);
       let errors = {};
 
       if (!data.Name) {
@@ -163,11 +163,7 @@ function ProductFormik(props) {
     !!(formik.touched[name] && formik.errors[name]);
 
   const getFormErrorMessage = (name) => {
-    return (
-      // isFormFieldValid(name) && (
-      <small className="p-error">{formik.errors[name]}</small>
-      // )
-    );
+    return <small className="p-error">{formik.errors[name]}</small>;
   };
   console.log(newproduct.product.categories);
   return (
@@ -220,12 +216,6 @@ function ProductFormik(props) {
                   id="Name"
                   name="Name"
                   aria-describedby="name-help"
-                  //   className="p-d-block block"
-                  // value={title}
-                  //   onChange={(e) => setTitle(e.target.value)}
-                  // placeholder="Titel"
-                  //   tooltip="Dieses Feld ist ein Pflichtfeld"
-                  //   tooltipOptions={{ position: "top" }}
                   value={newproduct.product.Name}
                   onChange={(e) => handleChange("Name", e)}
                   className={
@@ -233,7 +223,6 @@ function ProductFormik(props) {
                       "p-invalid": isFormFieldValid("Name"),
                     }),
                     "p-d-block block")
-                    //funktioniert nicht
                   }
                 />
                 <label
@@ -256,11 +245,6 @@ function ProductFormik(props) {
                   id="titleDetail"
                   aria-describedby="title-detail-help"
                   className="p-d-block block"
-                  // value={titleDetail}
-                  //   onChange={(e) => setTitleDetail(e.target.value)}
-                  //   placeholder="Detailierter Titel"
-                  //   tooltip="Dieses Feld ist kein Pflichtfeld"
-                  //   tooltipOptions={{ position: "top" }}
                   value={newproduct.product.detailtName}
                   onChange={(e) => handleChange("detailtName", e)}
                 />
@@ -274,11 +258,6 @@ function ProductFormik(props) {
 
             {/* Category */}
             <div className="p-field fieldcategory">
-              {/* <Tooltip target=".selecttip" position="top" />
-              <span
-                className="selecttip"
-                data-pr-tooltip="Dieses Feld ist ein Pflichtfeld"
-              > */}
               <span className="p-float-label">
                 <CascadeSelect
                   value={
@@ -288,19 +267,13 @@ function ProductFormik(props) {
                         }
                       : null
                   }
-                  options={categories} //ist object array mit allen unterkategorien
-                  // style={{ minWidth: "14rem" }}
+                  options={categories} //ist ein object array mit allen unterkategorien
                   optionLabel={"name"}
                   optionGroupLabel={"groupName"}
                   optionGroupChildren={["opt1", "opt2", "opt3"]}
-                  // placeholder={"Wähle eine Kategorie aus"}
-                  //   onChange={(event) => setCategory(event.value)}
                   id="categories"
                   className="block"
                   onChange={(e) => handleChange("categories", e.value.name)}
-                  // className={classNames({
-                  //   "p-invalid": isFormFieldValid("category"),
-                  // })}
                 />
                 <label
                   htmlFor="categories"
@@ -327,11 +300,6 @@ function ProductFormik(props) {
             <br />
             {/* Count */}
             <div className="p-field fieldcategory">
-              {/* <Tooltip target=".selecttip" position="top" />
-              <span
-                className="selecttip"
-                data-pr-tooltip="Dieses Feld ist ein Pflichtfeld"
-              > */}
               <span className="p-float-label">
                 <InputNumber
                   inputId="count"
@@ -360,21 +328,8 @@ function ProductFormik(props) {
                     id="ISBN"
                     name="ISBN"
                     aria-describedby="isbn-help"
-                    //   className="p-d-block block"
-                    // value={title}
-                    //   onChange={(e) => setTitle(e.target.value)}
-                    // placeholder="Titel"
-                    //   tooltip="Dieses Feld ist ein Pflichtfeld"
-                    //   tooltipOptions={{ position: "top" }}
                     value={newproduct.product.ISBN}
                     onChange={(e) => handleChange("ISBN", e)}
-                    // className={
-                    //   (classNames({
-                    //     "p-invalid": isFormFieldValid("isbn"),
-                    //   }),
-                    //   "p-d-block block")
-                    //funktioniert nicht?????
-                    // }
                   />
                   <label
                     htmlFor="ISBN"
@@ -417,16 +372,9 @@ function ProductFormik(props) {
                     mode="currency"
                     currency="EUR"
                     locale="de-DE"
-                    //   value={price}
-                    //   onValueChange={(e) => setPrice(e.value)}
-                    //   tooltip="Dieses Feld ist ein Pflichtfeld"
-                    //   tooltipOptions={{ position: "top" }}
                     id="price"
                     value={newproduct.product.price}
                     onChange={(e) => handleChange("price", e.value)}
-                    // className={classNames({
-                    //   "p-invalid": isFormFieldValid("price"),
-                    // })}
                   />
                 ) : (
                   <InputNumber
@@ -434,16 +382,9 @@ function ProductFormik(props) {
                     mode="currency"
                     currency="EUR"
                     locale="de-DE"
-                    //   value={price}
-                    //   onValueChange={(e) => setPrice(e.value)}
-                    //   tooltip="Dieses Feld ist ein Pflichtfeld"
-                    //   tooltipOptions={{ position: "top" }}
                     id="price"
                     value={newproduct.product.price}
                     onChange={(e) => handleChange("price", e.value)}
-                    // className={classNames({
-                    //   "p-invalid": isFormFieldValid("price"),
-                    // })}
                   />
                 )}
 
@@ -451,11 +392,8 @@ function ProductFormik(props) {
               </div>
               <div className="p-field fieldprice">
                 <span className="p-float-label">
-                  {/* {console.log(newproduct.product.basis_fornegotioations)}
-                    {console.log(newproduct.product.basis_fornegotioations[0])} */}
                   <Dropdown
                     value={
-                      // newproduct.product.basis_fornegotioations
                       newproduct.product?.basis_fornegotioations[0] !==
                       undefined
                         ? {
@@ -464,12 +402,8 @@ function ProductFormik(props) {
                         : null
                     }
                     options={pricing}
-                    //   onChange={(e) => setPriceCategory(e.value)}
                     optionLabel="name"
-                    // placeholder="Preiskategorie"
                     className="block"
-                    // tooltip="Dieses Feld ist ein Pflichtfeld"
-                    // tooltipOptions={{ position: "top" }}
                     id="basis_fornegotioations"
                     onChange={(e) => {
                       handleChange("basis_fornegotioations", e.value.name);
@@ -477,9 +411,6 @@ function ProductFormik(props) {
                         ? handleChange("price", 0)
                         : null;
                     }}
-                    // className={classNames({
-                    //   "p-invalid": isFormFieldValid("basis_fornegotioations"),
-                    // })}
                   />
                   <label
                     htmlFor="basis_fornegotioations"
@@ -498,35 +429,23 @@ function ProductFormik(props) {
           <h2>Details</h2>
           <div className="field">
             <div className="p-field fieldeditor">
-              {/* <Tooltip target=".editortip" position="top" />
-              <span
-                className="editortip"
-                data-pr-tooltip="Dieses Feld ist ein Pflichtfeld"
-              > */}
               <Editor
                 headerTemplate={header}
                 value={newproduct.product.discription}
                 onTextChange={(e) => handleChange("discription", e.htmlValue)}
-                // value={description}
-                // onTextChange={(e) => setDescription(e.htmlValue)}
                 placeholder="Beschreibung*"
                 className="editor"
                 id="discription"
-                // value={formik.values.description}
-                // onTextChange={formik.handleChange}
-                // className={classNames({
-                //   "p-invalid": isFormFieldValid("discription"),
-                // })}
               />
               {/* </span> */}
               {getFormErrorMessage("discription")}
             </div>
             {/* Images */}
+            {/* Quelle: https://www.primefaces.org/primereact/fileupload/ */}
             <Upload />
             {/* End */}
           </div>
           <div className="field">
-            {/* <div className="p-grid p-fluid"> */}
             <div className="p-field fieldbutton">
               <span>Die Felder mit * müssen angegeben werden.</span>
               <Link to="/messages" className="linkbutton">
