@@ -32,10 +32,11 @@ function Products(props) {
   ];
   const rows = useRef(21);
   const isMounted = useRef(false);
-
   const products = useSelector((state) => state.products);
   const user = useSelector((state) => state.user); // eslint-disable-line
   const dispatch = useDispatch();
+  console.log(products);
+  console.log(products.products);
 
   useEffect(() => {
     setTimeout(() => {
@@ -345,7 +346,7 @@ function Products(props) {
   return (
     <div className="dataview">
       <div className="card">
-        {products.products.length === 0 ? (
+        {products.products.length === 0 || products.product === undefined ? (
           <ToastMessages
             severity="error"
             summary="Heavy Error"
