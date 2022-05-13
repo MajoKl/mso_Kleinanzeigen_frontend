@@ -8,6 +8,7 @@ export const pushProduct = createAsyncThunk(
   async (data) => await postBackend(data)
 );
 
+//Quelle: https://github.com/kuehnert/2021-informatik-pk + https://react-redux.js.org/ + https://redux-toolkit.js.org/introduction/getting-started
 const initialState = {
   product: {
     Name: "",

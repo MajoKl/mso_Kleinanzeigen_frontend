@@ -5,10 +5,11 @@ import { getBackend } from "../api.js";
 // import { getProducts } from "../api.js";
 
 export const requestProducts = createAsyncThunk(
-  "/api/me/articles/undso",
+  "/api/me/articles/",
   async (path) => await getBackend(path)
 );
 
+//Quelle: https://github.com/kuehnert/2021-informatik-pk + https://react-redux.js.org/ + https://redux-toolkit.js.org/introduction/getting-started
 const initialState = {
   products: {
     products: {

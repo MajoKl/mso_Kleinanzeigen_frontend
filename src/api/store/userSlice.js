@@ -8,6 +8,7 @@ export const requestUser = createAsyncThunk(
   async (path) => await getBackend(path)
 );
 
+//Quelle: https://github.com/kuehnert/2021-informatik-pk + https://react-redux.js.org/ + https://redux-toolkit.js.org/introduction/getting-started
 const setError = (state) => {
   state.status.severity = "error";
   state.status.summary = "Heavy Error!";

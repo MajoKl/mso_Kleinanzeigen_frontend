@@ -10,6 +10,7 @@ import axios from "axios";
 //   },
 // });
 
+//Quelle: https://axios-http.com/docs/intro + Postman Dokumentation API-Requests vom Backend
 export async function getBackend(path) {
   const response = await axios.get(
     `${process.env.REACT_APP_API_URL}${path}`,
@@ -113,30 +114,3 @@ export async function getInfoProduct() {
     console.log(error);
   }
 }
-
-// export async function getProducts(start, end) {
-//   const res = await fetch(start);
-//   const d = await res.json();
-//   return d.data;
-// }
-
-//setLessonsss(response.data);
-
-//     const response = await createRequest('services/spotify/state');
-//   return await response.json();
-
-// export default async function createRequest(
-//   url: string,
-//   method = 'GET',
-//   body: object | null = null
-// ): Promise<Response> {
-//   return await fetch(`/api/${url}`, {
-//     method,
-//     credentials: 'include',
-//     redirect: 'manual',
-//     headers: {
-//       'content-type': 'application/json',
-//     },
-//     body: body ? JSON.stringify(body) : null,
-//   });
-// }
