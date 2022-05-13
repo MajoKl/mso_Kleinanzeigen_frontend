@@ -17,10 +17,8 @@ function Sidebarr() {
   const [content, setContent] = useState([]);
 
   useEffect(() => {
-    console.log("im use");
     async function fetchData() {
       const response = await axios("/data/SidebarData.json");
-      console.log(response);
       setContent(response.data.data);
     }
     fetchData();

@@ -15,7 +15,6 @@ function Topbar() {
   const navigate = useNavigate();
 
   const handleSearchSubmit = (term) => {
-    console.log(term + "!");
     navigate("/search/" + term);
   };
 

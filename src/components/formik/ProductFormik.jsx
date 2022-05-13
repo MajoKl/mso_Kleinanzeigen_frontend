@@ -122,7 +122,6 @@ function ProductFormik(props) {
     },
 
     onSubmit: () => {
-      console.log(newproduct.product);
       return props.type !== "put"
         ? dispatch(pushProduct(newproduct.product))
         : setPutProduct(newproduct.product);
@@ -130,7 +129,6 @@ function ProductFormik(props) {
   });
 
   const setPutProduct = async (data) => {
-    console.log("I'm here!" + data);
     let response = "";
     try {
       response = await putBackend(data);
@@ -165,7 +163,6 @@ function ProductFormik(props) {
   const getFormErrorMessage = (name) => {
     return <small className="p-error">{formik.errors[name]}</small>;
   };
-  console.log(newproduct.product.categories);
   return (
     <React.Fragment>
       <div className="newproduct card">

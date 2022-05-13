@@ -45,10 +45,6 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     addFavoriteorRemoveToUser(state, data) {
-      const c = console.log;
-
-      c("sike: " + data.payload);
-
       if (!state.user.favorites.includes(data.payload)) {
         state.user.favorites.push(data.payload);
       } else {
@@ -65,7 +61,6 @@ const userSlice = createSlice({
       console.log("Fulfilled User request");
       state.user = payload;
       state.status.summary = "success";
-      console.log(payload);
     });
     //rejected: Error / denied / request failed
     builder.addCase(requestUser.rejected, (state) => {
@@ -76,6 +71,7 @@ const userSlice = createSlice({
     });
     //pending: Wartend, während dem request
     builder.addCase(requestUser.pending, (state) => {
+      //pending handling
       console.log("User request pending");
     });
   },

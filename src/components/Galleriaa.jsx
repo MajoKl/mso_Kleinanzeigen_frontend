@@ -59,10 +59,8 @@ function Galleriaa() {
       />
     );
   };
-  console.log(images);
   return (
     <div className="galleria card">
-      {console.log(images)}
       <Galleria
         value={images}
         responsiveOptions={responsiveOptions}

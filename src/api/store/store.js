@@ -5,7 +5,7 @@ import productReducer from "./productSlice";
 import userReducer from "./userSlice";
 import newProductReducer from "./newProductSlice";
 
-//Reducer = Reduzieren den Aufwand für ka
+//Reducer
 export const rootReducer = combineReducers({
   products: productReducer,
   user: userReducer,

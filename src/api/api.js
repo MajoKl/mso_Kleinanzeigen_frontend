@@ -10,9 +10,7 @@ import axios from "axios";
 //   },
 // });
 
-//Die nächsten beiden Funktionen muss ich hinsichtlich Parametern noch umschreiben. Es geht aber auch mit mehreren Params, jedoch muss das dann in nem Oject übergeben werden!
 export async function getBackend(path) {
-  console.log(path);
   const response = await axios.get(
     `${process.env.REACT_APP_API_URL}${path}`,
     { withCredentials: true },
@@ -23,13 +21,10 @@ export async function getBackend(path) {
       },
     }
   );
-
-  console.log(response.data);
   return await response.data;
 }
 
 export async function postBackend(data) {
-  console.log("penim  " + JSON.stringify(data));
   const response = await axios.post(
     `${process.env.REACT_APP_API_URL}/api/me/articles`,
     data,
@@ -41,13 +36,10 @@ export async function postBackend(data) {
     //   },
     // },
   );
-  console.log(response.data + "fjnh");
   return await response.data;
 }
 
 export async function putBackend(data) {
-  console.log("penim  " + JSON.stringify(data));
-
   delete data.realName;
   delete data.owner;
 
@@ -66,14 +58,12 @@ export async function putBackend(data) {
     .catch(function (error) {
       console.log(error);
     });
-  console.log(response.data + "fjnh");
   localStorage.setItem("putproduct", JSON.stringify(response.data));
 
   return await response.data;
 }
 
 export async function postFavorites(id) {
-  console.log("penim  " + JSON.stringify(id));
   const response = await axios.post(
     `${process.env.REACT_APP_API_URL}/api/me/favorites?favorites=${id}`,
     null,
@@ -85,12 +75,10 @@ export async function postFavorites(id) {
     //   },
     // }
   );
-  console.log(response.data + "fjnh");
   return await response.data;
 }
 
 export async function deleteFavorites(id) {
-  console.log("penim  " + JSON.stringify(id));
   try {
     const response = await axios.delete(
       `${process.env.REACT_APP_API_URL}/api/me/favorites?favorites=${id}`,
@@ -102,7 +90,6 @@ export async function deleteFavorites(id) {
       //   },
       // }
     );
-    console.log(response.data + "fjnh");
     return await response.data;
   } catch (error) {
     console.log(error);
@@ -121,7 +108,6 @@ export async function getInfoProduct() {
       //   },
       // }
     );
-    console.log(JSON.stringify(response.data.count) + " info");
     return await response.data.count;
   } catch (error) {
     console.log(error);
@@ -129,7 +115,6 @@ export async function getInfoProduct() {
 }
 
 // export async function getProducts(start, end) {
-//   console.log("Übergebene Parameter: " + start + " und " + end);
 //   const res = await fetch(start);
 //   const d = await res.json();
 //   return d.data;
