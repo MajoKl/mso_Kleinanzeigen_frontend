@@ -1,0 +1,147 @@
+{
+    "pricing": [
+        {
+            "name": "Festpreis"
+        },
+        {
+            "name": "Verhandlungsbasis"
+        },
+        {
+            "name": "Zu Verschenken"
+        }
+    ],
+    "categories": [
+    {
+      "groupName": "Schulkram",
+      "opt1": [
+        {
+          "groupName": "Bücher",
+          "opt2": [
+            { "name": "Schulbücher" },
+            { "name": "Schullektüren" },
+            { "name": "Fachliteratur" }
+          ]
+        },
+        { "name": "Schreibwaren"},
+        { "name": "Schulkram"}
+      ]
+    },
+    {
+      "groupName" : "Dienstleistungen",
+      "opt1": [
+        {
+          "groupName": "Nachhilfe",
+          "opt2": [
+            { "name": "Unterstufe Nachhilfe" },
+            { "name": "Mittelstufe Nachhilfe" },
+            { "name": "Oberstufe Nachhilfe" }
+          ]
+        },
+        { "name": "Babysitten"},
+        { "name": "Dienstleistungen"}
+      ]
+    },
+    {
+      "groupName" : "Essen & Trinken",
+      "opt1": [
+        { "name": "Lebensmittel"},
+        { "name": "Essen&Trinken Zubehör"}
+      ]
+    },
+    {
+      "groupName" : "Mitfahrgelegenheiten/ÖPNV",
+      "opt1": [
+        { "name": "Mitfahrgelegenheiten"},
+        { "name": "ÖPNV-Tickets"},
+        { "name": "ÖPNV Sonstiges"}
+      ]
+    },
+    {
+      "groupName" : "Hobby/Freizeit",
+      "opt1": [
+        { "name": "Vereine"},
+        { "name": "Freizeitsport"},
+        { "name": "Sammeln"},
+        { "name": "Freizeitbücher"},
+        { "name": "Eventtickets"},
+        { "name": "Hobby"},
+        { "name": "Freizeit"}
+      ]
+    },
+    {
+      "groupName" : "Musik/Filme/Bücher",
+      "opt1": [
+        {
+          "groupName": "Musik",
+          "opt2": [
+            {"name": "Musikinstrumente"},
+            {"name": "Musik"}
+          ]
+        },
+        {
+          "groupName": "Filme",
+          "opt2": [
+            {"name": "DVD's"},
+            {"name": "Filme"}
+          ]
+        },
+        {
+          "groupName": "Bücher",
+          "opt2": [
+            {"name": "Schulbücher"},
+            {"name": "Freizeitbücher"},
+            {"name": "Comics/Zeitschriften"},
+            {"name": "Bücher"}
+          ]
+        }
+      ]
+    },
+    {
+      "groupName" : "Elektronik",
+      "opt1": [
+        { "name": "Handy"},
+        { "name": "Konsolen"},
+        { "name": "PC/Notebooks"},
+        { "name": "PC-Zubehör"},
+        { "name": "Videospiele"},
+        { "name": "Elektronik"}
+      ]
+    },
+    {
+      "groupName": "Wohnen",
+      "opt1": [
+        { "name": "Möbel"},
+        { "name": "Wohnzimmer"},
+        {
+          "groupName": "Schlafzimmer",
+          "opt2": [
+            { "name": "Betten" },
+            { "name": "Schränke" },
+            { "name": "Nachttische" },
+            { "name": "Schreibtische" },
+            { "name": "Schlafzimmer" }
+          ]
+        } 
+      ]
+    },
+    {
+      "groupName" : "Mode",
+      "opt1": [
+        { "name": "Damenbekleidung"},
+        { "name": "Herrenbekleidung"},
+        { "name": "Accessoires/Schmuck"},
+        { "name": "Mode"}
+      ]
+    },
+    {
+      "groupName" : "Verloren & Gefunden",
+      "opt1": [
+        { "name": "Verloren/Suche"},
+        { "name": "Gefunden"}
+      ]
+    },
+    {
+      "name" : "Sonstiges"
+    }
+  ]
+}
