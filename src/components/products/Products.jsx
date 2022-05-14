@@ -346,7 +346,7 @@ function Products(props) {
   return (
     <div className="dataview">
       <div className="card">
-        {products.products.length === 0 || products.product === undefined ? (
+        {products.products.length === 0 ? (
           <ToastMessages
             severity="error"
             summary="Heavy Error"
