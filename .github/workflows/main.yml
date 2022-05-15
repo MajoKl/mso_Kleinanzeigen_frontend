@@ -26,4 +26,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: 21jon/mso_kleinanzeigen_frontend:latest,21jon/mso_kleinanzeigen:${{github.sha}}
+          tags: 21jon/mso_kleinanzeigen_frontend:latest,21jon/mso_kleinanzeigen_frontend:${{github.sha}}
