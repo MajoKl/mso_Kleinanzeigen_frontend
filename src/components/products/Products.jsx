@@ -35,8 +35,6 @@ function Products(props) {
   const products = useSelector((state) => state.products);
   const user = useSelector((state) => state.user); // eslint-disable-line
   const dispatch = useDispatch();
-  console.log(products);
-  console.log(products.products);
 
   useEffect(() => {
     setTimeout(() => {
@@ -347,13 +345,16 @@ function Products(props) {
     <div className="dataview">
       <div className="card">
         {products.products.length === 0 ? (
-          <ToastMessages
-            severity="error"
-            summary="Heavy Error"
-            detail="Request respons an empty Array. Please refresh"
-            life="0"
-            sticky="true"
-          />
+          ((
+            <ToastMessages
+              severity="error"
+              summary="Heavy Error"
+              detail="Request respons an empty Array. Please refresh"
+              life="0"
+              sticky="true"
+            />
+          ),
+          (<span>Hier sind noch keine Daten vorhanden.</span>))
         ) : (
           <DataView
             value={products.products}

@@ -1,7 +1,7 @@
 //React
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 //Stylesheets
 import "../../main.scss";
@@ -445,12 +445,12 @@ function ProductFormik(props) {
           <div className="field">
             <div className="p-field fieldbutton">
               <span>Die Felder mit * müssen angegeben werden.</span>
-              <Link to="/messages" className="linkbutton">
+              {/* <Link to="/messages" className="linkbutton">
                 <Button
                   label="Vorschau (login)"
                   className="p-button-outlined p-button-success"
                 />
-              </Link>
+              </Link> */}
             </div>
 
             <div className="p-field fieldbutton">
