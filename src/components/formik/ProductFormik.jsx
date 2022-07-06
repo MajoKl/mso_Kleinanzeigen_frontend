@@ -172,6 +172,7 @@ function ProductFormik(props) {
           <div className="field first">
             {/* Typ */}
             <div className="p-field-radiobutton p-grid">
+              {/* Hallo */}
               <div className="p-col">
                 <RadioButton
                   inputId="typ1"
