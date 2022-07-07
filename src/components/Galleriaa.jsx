@@ -1,16 +1,28 @@
 //React
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 //Stylesheets
 import "../pages/product/productDetail/productDetail.scss";
 //Api_&_Store
 import axios from "axios";
 //Primereact
 import { Galleria } from "primereact/galleria";
+import { legacy_createStore } from "redux";
 //Components
 
 //Quelle: https://www.primefaces.org/primereact/galleria/
-function Galleriaa() {
-  const [images, setImages] = useState(null);
+function Galleriaa({ images }) {
+  const [imagesss, setImages] = useState(null);
+  // const images = useSelector((state) => state.products.products);
+  // const images = null; //props.pics;
+  console.log(images);
+  useEffect(() => {
+    images === undefined
+      ? console.log("")
+      : images.length === 0
+      ? (images = "Hallo")
+      : console.log("fdasle" + images);
+  }); // eslint-disable-line
 
   const responsiveOptions = [
     {
@@ -35,6 +47,7 @@ function Galleriaa() {
   }, []); // eslint-disable-line
 
   const itemTemplate = (item) => {
+    console.log(item);
     return (
       <img
         src={item.itemImageSrc}
@@ -62,7 +75,7 @@ function Galleriaa() {
   return (
     <div className="galleria card">
       <Galleria
-        value={images}
+        value={imagesss}
         responsiveOptions={responsiveOptions}
         numVisible={5}
         style={{ maxWidth: "440px" }}

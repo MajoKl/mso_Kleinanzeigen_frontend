@@ -36,7 +36,9 @@ function ProductDetail() {
         },
       }
     );
-    setProduct(response.data[0]);
+    setTimeout(() => {
+      setProduct(response.data[0]);
+    }, 2000);
   };
 
   useEffect(() => {
@@ -197,7 +199,12 @@ function ProductDetail() {
         <hr />
         <div className="product-card card">
           <div className="product-card-content">
-            <Galleria />
+            {console.log(product._id)}
+            {product._id !== "" ? (
+              <Galleria images={product.pictures} />
+            ) : (
+              "lol"
+            )}
           </div>
           <div className="product-card-content card">
             <h2 className="product-headline">Informationen</h2>

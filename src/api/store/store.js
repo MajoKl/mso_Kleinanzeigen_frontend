@@ -4,6 +4,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import productReducer from "./productSlice";
 import userReducer from "./userSlice";
 import newProductReducer from "./newProductSlice";
+
 //Quelle: https://github.com/kuehnert/2021-informatik-pk
 
 //Reducer
@@ -16,6 +17,10 @@ export const rootReducer = combineReducers({
 const store = configureStore({
   devTools: process.env.NODE_ENV !== "production",
   reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export default store;

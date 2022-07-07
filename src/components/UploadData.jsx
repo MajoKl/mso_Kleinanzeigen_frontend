@@ -1,5 +1,10 @@
 //React
-import React, { useRef, useState } from "react";
+import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { onPic } from "../api/store/newProductSlice";
+
 //Stylesheets
 import "../pages/product/newProducts/newproducts.scss";
 //Primeract
@@ -15,7 +20,11 @@ function UploadData() {
   const [totalSize, setTotalSize] = useState(0);
   const toast = useRef(null);
   const fileUploadRef = useRef(null);
+  const fileUploadRichtig = useSelector((state) => state.newProduct.pic);
+  console.log("nic:" + fileUploadRichtig);
+  // dispatch(onChangeToastMessage({ value: "success", name: "severity" }));
   const [size, setSize] = useState(0);
+  const dispatch = useDispatch();
 
   const onTemplateSelect = (e) => {
     let _totalSize = totalSize;
@@ -27,19 +36,43 @@ function UploadData() {
     setTotalSize(_totalSize);
   };
 
-  const onTemplateUpload = (e) => {
-    let _totalSize = 0;
-    setTimeout(() => {
-      //api call
-    }, 2000);
+  const myupload = ({ files }) => {
+    const filreee = new FileReader();
+    const [file] = files;
 
-    setTotalSize(_totalSize);
-    toast.current.show({
-      severity: "info",
-      summary: "Success",
-      detail: "File Uploaded",
-    });
+    filreee.onload = (e) => {
+      let formdata = new FormData();
+
+      formdata.append("pic", e.target.result);
+      dispatch(onPic({ value: { data: formdata, name: file.name } }));
+    };
+
+    filreee.readAsDataURL(file);
   };
+
+  const onTemplateUpload = (e) => {};
+  // let _totalSize = 0;
+  //       try {
+  //         const response = await axios.post(
+  //           "api/pictures/upload?article_id=&name=",
+  //           fileUploadRef,
+  //           {
+  //             headers: {
+  //               "Content-Type": "multipart/form-data",
+  //             },
+  //           }
+  //         );
+  //         console.log(response);
+  //       } catch (error) {
+  //         console.log("In catch");
+  //       }
+
+  //     setTotalSize(_totalSize);
+  //     toast.current.show({
+  //       severity: "info",
+  //       summary: "Success",
+  //       detail: "File Uploaded",
+  //     });
 
   const onTemplateRemove = (file, callback) => {
     setTotalSize(totalSize - file.size);
@@ -166,8 +199,7 @@ function UploadData() {
         <FileUpload
           ref={fileUploadRef}
           name="upload"
-          url="" //hier werden die Fotos hingeschickt
-          multiple
+          //hier werden die Fotos hingeschickt
           accept="image/*"
           maxFileSize={10000000}
           onUpload={onTemplateUpload}
@@ -180,6 +212,8 @@ function UploadData() {
           chooseOptions={chooseOptions}
           uploadOptions={uploadOptions}
           cancelOptions={cancelOptions}
+          uploadHandler={myupload}
+          customUpload={true}
           className="fieldupload"
         />
       </span>
