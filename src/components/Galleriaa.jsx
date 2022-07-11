@@ -11,50 +11,57 @@ import { legacy_createStore } from "redux";
 //Components
 
 //Quelle: https://www.primefaces.org/primereact/galleria/
-function Galleriaa({ images }) {
+function Galleriaa({ images, articleID }) {
   const [imagesss, setImages] = useState(null);
   // const images = useSelector((state) => state.products.products);
   // const images = null; //props.pics;
   console.log(images);
-  useEffect(() => {
-    images === undefined
-      ? console.log("")
-      : images.length === 0
-      ? (images = "Hallo")
-      : console.log("fdasle" + images);
-  }); // eslint-disable-line
 
-  const responsiveOptions = [
-    {
-      breakpoint: "1024px",
-      numVisible: 5,
-    },
-    {
-      breakpoint: "768px",
-      numVisible: 3,
-    },
-    {
-      breakpoint: "560px",
-      numVisible: 1,
-    },
-  ];
-  useEffect(() => {
-    async function fetchData() {
-      const response = await axios("/data/photos.json");
-      setImages(response.data.data);
-    }
-    fetchData();
-  }, []); // eslint-disable-line
+  //   async function getImagesApi() {
+  //   const response = await axios.get(
+  //   `${process.env.REACT_APP_API_URL}/api/ArticlePhotos/${articleID}/${images.name[2]}`,
+  //   { withCredentials: true },
+  //   {
+  //     headers: {
+  //       "Access-Control-Allow-Origin":
+  //         "http://kleinanzeigen_api.jonaslbgtt.live:8080",
+  //     },
+  //   }
+  // );
+  // return await response.data;
+  // }
+
+  // const responsiveOptions = [
+  //   {
+  //     breakpoint: "1024px",
+  //     numVisible: 5,
+  //   },
+  //   {
+  //     breakpoint: "768px",
+  //     numVisible: 3,
+  //   },
+  //   {
+  //     breakpoint: "560px",
+  //     numVisible: 1,
+  //   },
+  // ];
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const response = await axios("/data/photos.json");
+  //     setImages(response.data.data);
+  //   }
+  //   fetchData();
+  // }, []); // eslint-disable-line
 
   const itemTemplate = (item) => {
     console.log(item);
     return (
       <img
-        src={item.itemImageSrc}
+        src={`${process.env.REACT_APP_API_URL}/api/ArticlePhotos/${articleID}/${item.name}`}
         onError={(e) =>
           (e.target.src = "../../data/images/MSOKleinanzeigenLogoGrey.png")
         }
-        alt={item.alt}
+        alt={item.name}
         style={{ width: "100%", display: "block" }}
       />
     );
@@ -63,11 +70,11 @@ function Galleriaa({ images }) {
   const thumbnailTemplate = (item) => {
     return (
       <img
-        src={item.thumbnailImageSrc}
+        src={`${process.env.REACT_APP_API_URL}/api/ArticlePhotos/${articleID}/${item.name}`}
         onError={(e) =>
           (e.target.src = "../../data/images/MSOKleinanzeigenLogoGrey.png")
         }
-        alt={item.alt}
+        alt={item.name}
         style={{ width: "100%", display: "block" }}
       />
     );
@@ -75,8 +82,8 @@ function Galleriaa({ images }) {
   return (
     <div className="galleria card">
       <Galleria
-        value={imagesss}
-        responsiveOptions={responsiveOptions}
+        value={images}
+        // responsiveOptions={responsiveOptions}
         numVisible={5}
         style={{ maxWidth: "440px" }}
         circular

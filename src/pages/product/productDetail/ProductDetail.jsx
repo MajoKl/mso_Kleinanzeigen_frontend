@@ -201,7 +201,7 @@ function ProductDetail() {
           <div className="product-card-content">
             {console.log(product._id)}
             {product._id !== "" ? (
-              <Galleria images={product.pictures} />
+              <Galleria images={product.pictures} articleID={product._id} />
             ) : (
               "lol"
             )}
