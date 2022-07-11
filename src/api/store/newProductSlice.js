@@ -1,12 +1,28 @@
 //Redux
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+// import { onlecke } from "../../components/UploadData.jsx";
 //Api
 import { postBackend } from "../api.js";
+import axios from "axios";
 
-export const pushProduct = createAsyncThunk(
-  "/aaapi/me",
-  async (data) => await postBackend(data)
-);
+export const pushProduct = createAsyncThunk("/aaapi/me", async (data) => {
+  const pics = data.pic;
+
+  const a = await postBackend(data.product);
+
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_URL}/api/pictures/upload?article_id=${
+        a._id
+      }&name=${pics.name.split(".")[0]}`,
+      pics.data,
+      { withCredentials: true }
+    );
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 //Quelle: https://github.com/kuehnert/2021-informatik-pk + https://react-redux.js.org/ + https://redux-toolkit.js.org/introduction/getting-started
 const initialState = {
@@ -32,6 +48,7 @@ const initialState = {
   toast: {
     setToast: false,
   },
+  pic: null,
 };
 
 const newProductSlice = createSlice({
@@ -52,6 +69,10 @@ const newProductSlice = createSlice({
     onChangeToastMessage(state, action) {
       const { value, name } = action.payload;
       state.status[name] = value;
+    },
+    onPic(state, action) {
+      const { value } = action.payload;
+      state.pic = value;
     },
   },
 
@@ -84,6 +105,11 @@ const newProductSlice = createSlice({
   },
 });
 
-export const { onChange, onChangeStatus, onChangeToast, onChangeToastMessage } =
-  newProductSlice.actions;
+export const {
+  onChange,
+  onChangeStatus,
+  onChangeToast,
+  onChangeToastMessage,
+  onPic,
+} = newProductSlice.actions;
 export default newProductSlice.reducer;

@@ -35,6 +35,9 @@ function ProductFormik(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const newproduct = props.data;
+  const [picdick, setdick] = useState({});
+
+  const stf = (atf) => setdick(atf);
 
   useEffect(() => {
     // Quelle: Udemy-Kurs Abschnitt 8
@@ -123,7 +126,7 @@ function ProductFormik(props) {
 
     onSubmit: () => {
       return props.type !== "put"
-        ? dispatch(pushProduct(newproduct.product))
+        ? dispatch(pushProduct(newproduct))
         : setPutProduct(newproduct.product);
     },
   });
@@ -172,7 +175,6 @@ function ProductFormik(props) {
           <div className="field first">
             {/* Typ */}
             <div className="p-field-radiobutton p-grid">
-              {/* Hallo */}
               <div className="p-col">
                 <RadioButton
                   inputId="typ1"
@@ -419,9 +421,9 @@ function ProductFormik(props) {
                     Preiskategorie*
                   </label>
                 </span>
-                {getFormErrorMessage("basis_fornegotioations")}
               </div>
             </div>
+            {getFormErrorMessage("basis_fornegotioations")}
           </div>
           {/* Beschreibung */}
           <h2>Details</h2>

@@ -23,6 +23,7 @@ const initialState = {
       price: 0,
       discription: "",
       _id: "",
+      pictures: [],
     },
   },
   status: {
