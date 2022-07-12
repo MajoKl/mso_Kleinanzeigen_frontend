@@ -14,7 +14,9 @@ import Filterbar from "../../components/Filterbar";
 function Start() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const [options, setOptions] = useState("");
+  const [option1, setOption1] = useState("");
+  const [option2, setOption2] = useState("");
+  const [option3, setOption3] = useState("");
 
   useEffect(() => {
     if (user.user.name === "") {
@@ -22,12 +24,15 @@ function Start() {
     }
   }, []); // eslint-disable-line
 
-  const pull_data = (data) => {
-    setOptions(data);
+  const pull_option1 = (data) => {
+    setOption1(data);
   }
-// const onClick = () => {
-//   setOptions("Hallo");
-  // }
+  const pull_option2 = (data) => {
+    setOption2(data);
+  }
+  const pull_option3 = (data) => {
+    setOption3(data);
+  }
   return (
     <React.Fragment>
       {user.status.summary !== "success" ? null : (
@@ -35,14 +40,14 @@ function Start() {
           <h1>Willkommen zurück, {user.user.name}</h1>
           <hr />
           <br />
-          <h2>Deine neusten Anzeigen: {options}</h2>
+          <h2>Deine neusten Anzeigen: {option1 + option2 + option3}</h2>
           {/* <button onClick={onClick}>clickk</button> */}
           {/* <h3>
             Hier ist platz für ein Header, der Dropdowns hat, um Kategorien
             auszuwählen.
           </h3> */}
-          <Filterbar hallo={pull_data}/>
-          <Products searchoption="users/articles" otheroptions={options} user={user} />
+          <Filterbar option1={pull_option1} option2={pull_option2} option3={pull_option3} />
+          <Products searchoption="users/articles" otheroptions={option1} user={user} />
         </div>
       )}
     </React.Fragment>

@@ -10,13 +10,27 @@ import "../main.scss";
 import "../pages/product/newProducts/newproducts.scss";
 
 function Filterbar(props) {
-  // props.func('My name is Dean Winchester & this is my brother Sammie');
-  const [hallo, setHallo] = useState("");
-  const [pricing, setPricing] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [price, setPrice] = useState("");
+  const [pricing, setPricing] = useState([]);
+
   const [category, setCategory] = useState("");
-  props.hallo(hallo);
+  const [price, setPrice] = useState("");
+  const [type, setType] = useState("");
+  props.option1(category);
+  props.option2(price);
+  props.option3(type);
+
+  const types = [
+    {
+      name: "Ich biete"
+    },
+    {
+      name: "Ich suche"
+    },
+    {
+      name: "Ich tausche"
+    }
+  ];
 
   useEffect(() => {
     async function fetchAdditionalData() {
@@ -34,6 +48,7 @@ function Filterbar(props) {
   const onReset = () => {
     setCategory("");
     setPrice("");
+    setType("");
   }
 
   return (
@@ -59,11 +74,11 @@ function Filterbar(props) {
             <label
               htmlFor="categories"
             >
-              Kategorie*
+              Kategorie
             </label>
           </span>
         </div>
-        <div className="p-field fieldprice">
+        <div className="p-field fieldprice newproduct field">
           <span className="p-float-label">
             <Dropdown
               value={
@@ -84,7 +99,32 @@ function Filterbar(props) {
             <label
               htmlFor="basis_fornegotioations"
             >
-              Preiskategorie*
+              Preiskategorie
+            </label>
+          </span>
+        </div>
+        <div className="p-field fieldprice newproduct field">
+          <span className="p-float-label">
+            <Dropdown
+              value={
+                type !== ""
+                  ? {
+                    name: type
+                  }
+                  : null
+              }
+              options={types}
+              optionLabel="name"
+              className="block"
+              id="article_type"
+              onChange={(e) => {
+                setType(e.value.name);
+              }}
+            />
+            <label
+              htmlFor="article_type"
+            >
+              Anzeigetyp
             </label>
           </span>
         </div>

@@ -40,15 +40,16 @@ function Products(props) {
     setTimeout(() => {
       try {
         getInfoProduct();
-      } catch (error) {}
+      } catch (error) { }
       isMounted.current = true;
       dispatch(
         requestProducts(
           "/api/" +
-            props.searchoption +
-            "?skip=0&limit=" +
-            rows.current +
-            props.otheroptions
+          props.searchoption +
+          "?skip=0&limit=" +
+          rows.current +
+          "&options=" +
+          props.otheroptions
         )
       );
       setLoading(false);
@@ -87,7 +88,7 @@ function Products(props) {
     try {
       isstar === true ? deleteFavorites(id) : postFavorites(id);
       dispatch(addFavoriteorRemoveToUser(id));
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const onPage = (event) => {
@@ -100,12 +101,12 @@ function Products(props) {
       dispatch(
         requestProducts(
           "/api/" +
-            props.searchoption +
-            "?skip=" +
-            startIndex +
-            "&limit=" +
-            endIndex +
-            props.otheroptions
+          props.searchoption +
+          "?skip=" +
+          startIndex +
+          "&limit=" +
+          endIndex +
+          props.otheroptions
         )
       );
       setFirst(startIndex);
@@ -128,7 +129,7 @@ function Products(props) {
   };
 
   const renderListItem = (data) => {
-    
+
     let date = new Date(data.createdAt);
     return (
       <div className="p-col-12">
@@ -137,8 +138,8 @@ function Products(props) {
             onClick={() => onProductClick(data._id)}
             src={`data/images/${data.pictures[0]}`}
             onError={(e) =>
-              (e.target.src =
-                "../../../data/images/MSOKleinanzeigenLogoGrey.png")
+            (e.target.src =
+              "../../../data/images/MSOKleinanzeigenLogoGrey.png")
             }
             alt={data.Name}
           />
@@ -197,12 +198,12 @@ function Products(props) {
                 {data.basis_fornegotioations === "Zu Verschenken"
                   ? "Zu Verschenken"
                   : data.article_type === "Ich tausche"
-                  ? "Zum tauschen"
-                  : data.price !== 0
-                  ? data.price + "€"
-                  : ""}
+                    ? "Zum tauschen"
+                    : data.price !== 0
+                      ? data.price + "€"
+                      : ""}
                 {data.basis_fornegotioations === "Verhandlungsbasis" &&
-                data.price !== 0
+                  data.price !== 0
                   ? " VB"
                   : ""}
               </span>
@@ -255,8 +256,8 @@ function Products(props) {
             <img
               src={`data/images/${data.pictures[0]}`}
               onError={(e) =>
-                (e.target.src =
-                  "../../../data/images/MSOKleinanzeigenLogoGrey.png")
+              (e.target.src =
+                "../../../data/images/MSOKleinanzeigenLogoGrey.png")
               }
               alt={data.Name}
             />
@@ -283,12 +284,12 @@ function Products(props) {
               {data.basis_fornegotioations === "Zu Verschenken"
                 ? "Zu Verschenken"
                 : data.article_type === "Ich tausche"
-                ? "Zum tauschen"
-                : data.price !== 0
-                ? data.price + "€"
-                : ""}
+                  ? "Zum tauschen"
+                  : data.price !== 0
+                    ? data.price + "€"
+                    : ""}
               {data.basis_fornegotioations === "Verhandlungsbasis" &&
-              data.price !== 0
+                data.price !== 0
                 ? " VB"
                 : ""}
             </span>
@@ -355,7 +356,7 @@ function Products(props) {
               sticky="true"
             />
           ),
-          (<span>Hier sind noch keine Daten vorhanden.</span>))
+            (<span>Hier sind noch keine Daten vorhanden.</span>))
         ) : (
           <DataView
             value={products.products}
