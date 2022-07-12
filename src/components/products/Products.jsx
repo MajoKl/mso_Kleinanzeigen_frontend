@@ -53,7 +53,7 @@ function Products(props) {
       );
       setLoading(false);
     }, 1000);
-  }, []); // eslint-disable-line
+  }, [props.otheroptions]); // eslint-disable-line
 
   const getInfoProduct = async () => {
     const response = await axios.get(
