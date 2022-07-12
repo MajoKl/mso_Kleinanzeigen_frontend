@@ -38,7 +38,7 @@ function ProductDetail() {
     );
     setTimeout(() => {
       setProduct(response.data[0]);
-    }, 2000);
+    }, 10);
   };
 
   useEffect(() => {
