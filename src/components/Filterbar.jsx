@@ -53,87 +53,89 @@ function Filterbar(props) {
 
   return (
     <>
-      <h1>I am the Child Component!</h1>
-      <div className="p-grid p-fluid">
-        <div className="p-field fieldprice">
-          <span className="p-float-label">
-            <CascadeSelect
-              value={
-                category !== ""
-                  ? { name: category }
-                  : null
-              }
-              options={categories} //ist ein object array mit allen unterkategorien
-              optionLabel={"name"}
-              optionGroupLabel={"groupName"}
-              optionGroupChildren={["opt1", "opt2", "opt3"]}
-              id="categories"
-              className="block"
-              onChange={(e) => setCategory(e.value.name)}
+      <div className="card" style={{ marginBottom: "15px" }}>
+        <h3>Filter</h3>
+        <div className="p-grid p-fluid">
+          <div className="p-field fieldprice">
+            <span className="p-float-label">
+              <CascadeSelect
+                value={
+                  category !== ""
+                    ? { name: category }
+                    : null
+                }
+                options={categories} //ist ein object array mit allen unterkategorien
+                optionLabel={"name"}
+                optionGroupLabel={"groupName"}
+                optionGroupChildren={["opt1", "opt2", "opt3"]}
+                id="categories"
+                className="block"
+                onChange={(e) => setCategory(e.value.name)}
+              />
+              <label
+                htmlFor="categories"
+              >
+                Kategorie
+              </label>
+            </span>
+          </div>
+          <div className="p-field fieldprice newproduct field">
+            <span className="p-float-label">
+              <Dropdown
+                value={
+                  price !== ""
+                    ? {
+                      name: price
+                    }
+                    : null
+                }
+                options={pricing}
+                optionLabel="name"
+                className="block"
+                id="basis_fornegotioations"
+                onChange={(e) => {
+                  setPrice(e.value.name);
+                }}
+              />
+              <label
+                htmlFor="basis_fornegotioations"
+              >
+                Preiskategorie
+              </label>
+            </span>
+          </div>
+          <div className="p-field fieldprice newproduct field">
+            <span className="p-float-label">
+              <Dropdown
+                value={
+                  type !== ""
+                    ? {
+                      name: type
+                    }
+                    : null
+                }
+                options={types}
+                optionLabel="name"
+                className="block"
+                id="article_type"
+                onChange={(e) => {
+                  setType(e.value.name);
+                }}
+              />
+              <label
+                htmlFor="article_type"
+              >
+                Anzeigetyp
+              </label>
+            </span>
+          </div>
+          <div className="p-field fieldbutton">
+            <Button
+              label="Zurücksetzen"
+              className="p-button-raised p-button-warning submitbutton"
+              onClick={onReset}
             />
-            <label
-              htmlFor="categories"
-            >
-              Kategorie
-            </label>
-          </span>
-        </div>
-        <div className="p-field fieldprice newproduct field">
-          <span className="p-float-label">
-            <Dropdown
-              value={
-                price !== ""
-                  ? {
-                    name: price
-                  }
-                  : null
-              }
-              options={pricing}
-              optionLabel="name"
-              className="block"
-              id="basis_fornegotioations"
-              onChange={(e) => {
-                setPrice(e.value.name);
-              }}
-            />
-            <label
-              htmlFor="basis_fornegotioations"
-            >
-              Preiskategorie
-            </label>
-          </span>
-        </div>
-        <div className="p-field fieldprice newproduct field">
-          <span className="p-float-label">
-            <Dropdown
-              value={
-                type !== ""
-                  ? {
-                    name: type
-                  }
-                  : null
-              }
-              options={types}
-              optionLabel="name"
-              className="block"
-              id="article_type"
-              onChange={(e) => {
-                setType(e.value.name);
-              }}
-            />
-            <label
-              htmlFor="article_type"
-            >
-              Anzeigetyp
-            </label>
-          </span>
-        </div>
-        <div className="p-field fieldbutton">
-          <Button
-            label="Zurücksetzen"
-            className="p-button-raised p-button-warning submitbutton"
-            onClick={onReset}
-          />
+          </div>
         </div>
       </div>
     </>
