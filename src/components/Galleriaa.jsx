@@ -1,18 +1,17 @@
 //React
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+// import React, { useEffect, useRef, useState } from "react";
+// import { useDispatch, useSelector } from "react-redux";
 //Stylesheets
 import "../pages/product/productDetail/productDetail.scss";
 //Api_&_Store
-import axios from "axios";
+// import axios from "axios";
 //Primereact
 import { Galleria } from "primereact/galleria";
-import { legacy_createStore } from "redux";
 //Components
 
 //Quelle: https://www.primefaces.org/primereact/galleria/
 function Galleriaa({ images, articleID }) {
-  const [imagesss, setImages] = useState(null);
+  // const [imagesss, setImages] = useState(null);
   // const images = useSelector((state) => state.products.products);
   // const images = null; //props.pics;
   console.log(images);

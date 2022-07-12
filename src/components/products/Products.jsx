@@ -132,15 +132,22 @@ function Products(props) {
     return (
       <div className="p-col-12">
         <div className="product-list-item">
-          <img
-            onClick={() => onProductClick(data._id)}
-            src={`data/images/${data.pictures[0]}`}
-            onError={(e) =>
-              (e.target.src =
-                "../../../data/images/MSOKleinanzeigenLogoGrey.png")
-            }
-            alt={data.Name}
-          />
+          {data.pictures.length !== 0 ?
+              (
+                <img
+                  src={`${process.env.REACT_APP_API_URL}/api/ArticlePhotos/${data._id}/${data.pictures[0].name}`}
+                  onError={(e) =>
+                  (e.target.src =
+                    // "../../../data/images/MSOKleinanzeigenLogoGrey.png")
+                    "../../../data/images/shockedcat.jpeg")
+                  }
+                  alt={data.Name}
+              />) :
+              (
+                <img
+                src = {"../../../data/images/MSOKleinanzeigenLogoGrey.png"}
+              alt={data.Name}
+                />)}
           {/* </Link> */}
           <div
             className="product-list-detail"
@@ -251,14 +258,23 @@ function Products(props) {
             onClick={() => onProductClick(data._id)}
             className="product-grid-item-content"
           >
-            <img
-              src={`data/images/${data.pictures[0]}`}
-              onError={(e) =>
-                (e.target.src =
-                  "../../../data/images/MSOKleinanzeigenLogoGrey.png")
-              }
+            {data.pictures.length !== 0 ?
+              (
+                <img
+                  src={`${process.env.REACT_APP_API_URL}/api/ArticlePhotos/${data._id}/${data.pictures[0].name}`}
+                  onError={(e) =>
+                  (e.target.src =
+                    // "../../../data/images/MSOKleinanzeigenLogoGrey.png")
+                    "../../../data/images/shockedcat.jpeg")
+                  }
+                  alt={data.Name}
+              />) :
+              (
+                <img
+                src = {"../../../data/images/MSOKleinanzeigenLogoGrey.png"}
               alt={data.Name}
-            />
+                />)}
+            
             <div>
               {data.article_type === "Ich Suche" ? (
                 <span style={{ verticalAlign: "middle", color: "#e24c4c" }}>

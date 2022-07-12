@@ -1,10 +1,10 @@
 //React
-import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useRef, useState } from "react";
+// import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { onPic } from "../api/store/newProductSlice";
-
+//Axios
+// import axios from "axios";
 //Stylesheets
 import "../pages/product/newProducts/newproducts.scss";
 //Primeract
