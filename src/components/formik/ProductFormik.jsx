@@ -49,10 +49,10 @@ function ProductFormik(props) {
   const handleChange = (name, event) => {
     let value = "";
     name === "categories" ||
-    name === "price" ||
-    name === "discription" ||
-    name === "count" ||
-    name === "basis_fornegotioations"
+      name === "price" ||
+      name === "discription" ||
+      name === "count" ||
+      name === "basis_fornegotioations"
       ? (value = event)
       : (value = event.target.value);
     dispatch(onChange({ value, name: name }));
@@ -219,7 +219,7 @@ function ProductFormik(props) {
                     (classNames({
                       "p-invalid": isFormFieldValid("Name"),
                     }),
-                    "p-d-block block")
+                      "p-d-block block")
                   }
                 />
                 <label
@@ -260,8 +260,8 @@ function ProductFormik(props) {
                   value={
                     newproduct.product.categories
                       ? {
-                          name: newproduct.product.categories,
-                        }
+                        name: newproduct.product.categories,
+                      }
                       : null
                   }
                   options={categories} //ist ein object array mit allen unterkategorien
@@ -313,12 +313,12 @@ function ProductFormik(props) {
 
             {/* ISBN */}
             {newproduct.product.categories === "Schulbücher" ||
-            newproduct.product.categories === "Schullektüren" ||
-            newproduct.product.categories === "Fachliteratur" ||
-            newproduct.product.categories === "Freizeitbücher" ||
-            newproduct.product.categories === "Comics/Zeitschriften" ||
-            newproduct.product.categories === "Sonstiges" ||
-            newproduct.product.categories === "Bücher" ? (
+              newproduct.product.categories === "Schullektüren" ||
+              newproduct.product.categories === "Fachliteratur" ||
+              newproduct.product.categories === "Freizeitbücher" ||
+              newproduct.product.categories === "Comics/Zeitschriften" ||
+              newproduct.product.categories === "Sonstiges" ||
+              newproduct.product.categories === "Bücher" ? (
               <div className="p-field fieldcategory">
                 <span className="p-float-label">
                   <InputText
@@ -362,7 +362,7 @@ function ProductFormik(props) {
                 </label>
                 {newproduct.product.basis_fornegotioations ===
                   "Zu Verschenken" ||
-                newproduct.product.article_type === "Ich tausche" ? (
+                  newproduct.product.article_type === "Ich tausche" ? (
                   <InputNumber
                     disabled
                     inputId="price-help"
@@ -392,10 +392,10 @@ function ProductFormik(props) {
                   <Dropdown
                     value={
                       newproduct.product?.basis_fornegotioations[0] !==
-                      undefined
+                        undefined
                         ? {
-                            name: newproduct.product.basis_fornegotioations,
-                          }
+                          name: newproduct.product.basis_fornegotioations,
+                        }
                         : null
                     }
                     options={pricing}
