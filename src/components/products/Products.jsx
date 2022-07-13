@@ -9,6 +9,7 @@ import "./products.scss";
 import axios from "axios";
 import { deleteFavorites, postFavorites } from "../../api/api";
 import { requestProducts } from "../../api/store/productSlice";
+import { requestFavorites } from "../../api/store/favoriteSlice";
 import { addFavoriteorRemoveToUser } from "../../api/store/userSlice";
 //Primereact
 import { Button } from "primereact/button";
@@ -40,18 +41,29 @@ function Products(props) {
   useEffect(() => {
     setTimeout(() => {
       setLoading(true);
-      try {
-        if (props.filter) {
+      if (props.isFav) {
+        try {
           getInfoFilterProduct();
-        } else {
-          getInfoProduct();
+          dispatch(
+            requestProducts(requ.current)
+          );
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error) {
-        console.log(error);
+      } else {
+        try {
+          if (props.filter) {
+            getInfoFilterProduct();
+          } else {
+            getInfoProduct();
+          }
+        } catch (error) {
+          console.log(error);
+        }
+        makeRequest(0, rows.current);
+        isMounted.current = true;
+        setLoading(false);
       }
-      makeRequest(0, rows.current);
-      isMounted.current = true;
-      setLoading(false);
     }, 1000);
   }, [props.category, props.price, props.type, props.name]); // eslint-disable-line
 
@@ -171,21 +183,21 @@ function Products(props) {
       <div className="p-col-12">
         <div className="product-list-item">
           {data.pictures.length !== 0 ?
-              (
-                <img
-                  src={`${process.env.REACT_APP_API_URL}/api/ArticlePhotos/${data._id}/${data.pictures[0].name}`}
-                  onError={(e) =>
-                  (e.target.src =
-                    // "../../../data/images/MSOKleinanzeigenLogoGrey.png")
-                    "../../../data/images/shockedcat.jpeg")
-                  }
-                  alt={data.Name}
+            (
+              <img
+                src={`${process.env.REACT_APP_API_URL}/api/ArticlePhotos/${data._id}/${data.pictures[0].name}`}
+                onError={(e) =>
+                (e.target.src =
+                  // "../../../data/images/MSOKleinanzeigenLogoGrey.png")
+                  "../../../data/images/shockedcat.jpeg")
+                }
+                alt={data.Name}
               />) :
-              (
-                <img
-                src = {"../../../data/images/MSOKleinanzeigenLogoGrey.png"}
-              alt={data.Name}
-                />)}
+            (
+              <img
+                src={"../../../data/images/MSOKleinanzeigenLogoGrey.png"}
+                alt={data.Name}
+              />)}
           {/* </Link> */}
           <div
             className="product-list-detail"
@@ -306,13 +318,13 @@ function Products(props) {
                     "../../../data/images/shockedcat.jpeg")
                   }
                   alt={data.Name}
-              />) :
+                />) :
               (
                 <img
-                src = {"../../../data/images/MSOKleinanzeigenLogoGrey.png"}
-              alt={data.Name}
+                  src={"../../../data/images/MSOKleinanzeigenLogoGrey.png"}
+                  alt={data.Name}
                 />)}
-            
+
             <div>
               {data.article_type === "Ich Suche" ? (
                 <span style={{ verticalAlign: "middle", color: "#e24c4c" }}>

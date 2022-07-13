@@ -4,6 +4,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import productReducer from "./productSlice";
 import userReducer from "./userSlice";
 import newProductReducer from "./newProductSlice";
+import favoriteReducer from "./favoriteSlice";
 
 //Quelle: https://github.com/kuehnert/2021-informatik-pk
 
@@ -12,6 +13,7 @@ export const rootReducer = combineReducers({
   products: productReducer,
   user: userReducer,
   newProduct: newProductReducer,
+  productFavorite: favoriteReducer,
 });
 
 const store = configureStore({
