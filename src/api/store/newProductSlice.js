@@ -1,13 +1,19 @@
+//React
+// import React, { useRef, useEffect } from "react";
 //Redux
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 // import { onlecke } from "../../components/UploadData.jsx";
 //Api
 import { postBackend } from "../api.js";
 import axios from "axios";
+// import ToastMessages from "../../components/ToastMessages.jsx";
+
+// import { Toast } from "primereact/toast";
 
 export const pushProduct = createAsyncThunk("/aaapi/me", async (data) => {
   const pics = data.pic;
-
+  // const toast = useRef(null);
+  
   const a = await postBackend(data.product);
 
   try {
@@ -21,6 +27,15 @@ export const pushProduct = createAsyncThunk("/aaapi/me", async (data) => {
     console.log(response);
   } catch (error) {
     console.log(error);
+    // toast.current.show({
+    //   severity: "error",
+    //   summary: "summary",
+    //   detail: "detail",
+    //   life: 3000,
+    //   sticky: true,
+    // });
+    // <ToastMessages severity="error" summary="Picture Upload failed" detail="The pictures cannot send. Please update the product in another step." life="4000" />
+    // ToastMessages({ severity:"error", summary:"Picture Upload failed", detail:"The pictures cannot send. Please update the product in another step.", life:"4000" });
   }
 });
 

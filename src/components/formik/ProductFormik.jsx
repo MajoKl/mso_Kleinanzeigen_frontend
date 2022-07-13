@@ -35,9 +35,6 @@ function ProductFormik(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const newproduct = props.data;
-  const [picdick, setdick] = useState({});
-
-  const stf = (atf) => setdick(atf);
 
   useEffect(() => {
     // Quelle: Udemy-Kurs Abschnitt 8
