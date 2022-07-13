@@ -50,9 +50,10 @@ function Products(props) {
         console.log(error);
       }
       makeRequest(0, rows.current);
+      isMounted.current = true;
       setLoading(false);
     }, 1000);
-  }, [props.otheroptions]); // eslint-disable-line
+  }, [props.category, props.price, props.type]); // eslint-disable-line
 
   const getInfoProduct = async () => {
     const response = await axios.get(
@@ -68,24 +69,38 @@ function Products(props) {
     setTotalRecords(response.data.count);
   };
   const getInfoFilterProduct = async () => {
+    var s = "/api/users/articles";
+    if (props.category) {
+      s = s + "?categories=" + props.category;
+    }
+    if (props.price) {
+      s = s + "?price=" + props.price;
+    }
+    if (props.type) {
+      s = s + "?type=" + props.type;
+    }
     const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/api/users/articles?categories=${props.otheroptions}`,
+      `${process.env.REACT_APP_API_URL}${s}`,
       { withCredentials: true }
     );
-    setTotalRecords(response.data.count);
+    setTotalRecords(response.data.count);//FEHLER
   };
   const makeRequest = (startIndex, endIndex) => {
-    //Filter Request
     requ.current = "/api/" +
       props.searchoption +
       "?skip=" +
       startIndex +
       "&limit=" +
       endIndex;
-    if (props.otheroptions !== "") {
-      requ.current = requ.current + "&categories=" + props.otheroptions;
+    if (props.category) {
+      requ.current = requ.current + "&categories=" + props.category;
     }
-    // if (props.)
+    if (props.price) {
+      requ.current = requ.current + "&price=" + props.price;
+    }
+    if (props.type) {
+      requ.current = requ.current + "&type=" + props.type;
+    }
 
     try {
       dispatch(
@@ -118,10 +133,9 @@ function Products(props) {
   };
 
   const onPage = (event) => {
-    setLoading(true);
-
     //Setzen der neuen Daten wenn man auf die nächste Page klickt.
     setTimeout(() => {
+      setLoading(true);
       const startIndex = event.first;
       const endIndex = event.first + rows.current;
       makeRequest(startIndex, endIndex);

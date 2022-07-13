@@ -14,7 +14,7 @@ import Filterbar from "../../components/Filterbar";
 function Start() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const [option1, setOption1] = useState("");
+  const [option1, setOption1] = useState();
   const [option2, setOption2] = useState("");
   const [option3, setOption3] = useState("");
   const [filter, setFilter] = useState(false);
@@ -51,7 +51,7 @@ function Start() {
             auszuwählen.
           </h3> */}
           <Filterbar option1={pull_option1} option2={pull_option2} option3={pull_option3} filter={pull_filter} />
-          <Products searchoption="users/articles" otheroptions={option1} user={user} filter={filter} />
+          <Products searchoption="users/articles" user={user} filter={filter} category={option1} price={option2} type={option3} />
         </div>
       )}
     </React.Fragment>
