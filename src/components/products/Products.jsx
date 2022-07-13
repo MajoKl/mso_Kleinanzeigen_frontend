@@ -30,6 +30,7 @@ function Products(props) {
     { label: "Preis absteigend", value: "!price" },
     { label: "Preis aufsteigend", value: "price" },
   ];
+  const requ = useRef("");
   const rows = useRef(21);
   const isMounted = useRef(false);
   const products = useSelector((state) => state.products);
@@ -38,20 +39,33 @@ function Products(props) {
 
   useEffect(() => {
     setTimeout(() => {
-      try {
-        getInfoProduct();
-      } catch (error) { }
       isMounted.current = true;
-      dispatch(
-        requestProducts(
-          "/api/" +
+      if (props.filter) {
+        try {
+          getInfoFilterProduct();
+        } catch (error) {
+          console.log(error);
+        }
+        requ.current = "/api/" +
           props.searchoption +
           "?skip=0&limit=" +
-          rows.current +
-          "&options=" +
-          props.otheroptions
-        )
-      );
+          rows.current;
+        if (props.otheroptions !== "") {
+          requ.current = requ.current + "&categories=" + props.otheroptions;
+        }
+        // if (props.)
+      } else {
+        try {
+          getInfoProduct();
+        } catch (error) {
+          console.log(error);
+        }
+        requ.current = "/api/" +
+          props.searchoption +
+          "?skip=0&limit=" +
+          rows.current;
+      }
+      makeRequest();
       setLoading(false);
     }, 1000);
   }, [props.otheroptions]); // eslint-disable-line
@@ -69,6 +83,22 @@ function Products(props) {
     );
     setTotalRecords(response.data.count);
   };
+  const getInfoFilterProduct = async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/users/articles?categories=${props.otheroptions}`,
+      { withCredentials: true }
+    );
+    setTotalRecords(response.data.count);
+  };
+  const makeRequest = () => {
+    try {
+      dispatch(
+        requestProducts(requ.current)
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     if (isMounted.current) {

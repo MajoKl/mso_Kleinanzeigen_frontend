@@ -16,9 +16,11 @@ function Filterbar(props) {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [type, setType] = useState("");
+  const [filter, setFilter] = useState(false);
   props.option1(category);
   props.option2(price);
   props.option3(type);
+  props.filter(filter);
 
   const types = [
     {
@@ -49,6 +51,7 @@ function Filterbar(props) {
     setCategory("");
     setPrice("");
     setType("");
+    setFilter(false);
   }
 
   return (
@@ -70,7 +73,11 @@ function Filterbar(props) {
               optionGroupChildren={["opt1", "opt2", "opt3"]}
               id="categories"
               className="block"
-              onChange={(e) => setCategory(e.value.name)}
+              onChange={(e) => {
+                setCategory(e.value.name);
+                setFilter(true);
+              }
+              }
             />
             <label
               htmlFor="categories"
@@ -95,6 +102,7 @@ function Filterbar(props) {
               id="basis_fornegotioations"
               onChange={(e) => {
                 setPrice(e.value.name);
+                setFilter(true);
               }}
             />
             <label
@@ -120,6 +128,7 @@ function Filterbar(props) {
               id="article_type"
               onChange={(e) => {
                 setType(e.value.name);
+                setFilter(true);
               }}
             />
             <label
