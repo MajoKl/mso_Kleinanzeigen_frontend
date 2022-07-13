@@ -39,33 +39,17 @@ function Products(props) {
 
   useEffect(() => {
     setTimeout(() => {
-      isMounted.current = true;
-      if (props.filter) {
-        try {
+      setLoading(true);
+      try {
+        if (props.filter) {
           getInfoFilterProduct();
-        } catch (error) {
-          console.log(error);
-        }
-        requ.current = "/api/" +
-          props.searchoption +
-          "?skip=0&limit=" +
-          rows.current;
-        if (props.otheroptions !== "") {
-          requ.current = requ.current + "&categories=" + props.otheroptions;
-        }
-        // if (props.)
-      } else {
-        try {
+        } else {
           getInfoProduct();
-        } catch (error) {
-          console.log(error);
         }
-        requ.current = "/api/" +
-          props.searchoption +
-          "?skip=0&limit=" +
-          rows.current;
+      } catch (error) {
+        console.log(error);
       }
-      makeRequest();
+      makeRequest(0, rows.current);
       setLoading(false);
     }, 1000);
   }, [props.otheroptions]); // eslint-disable-line
@@ -90,7 +74,19 @@ function Products(props) {
     );
     setTotalRecords(response.data.count);
   };
-  const makeRequest = () => {
+  const makeRequest = (startIndex, endIndex) => {
+    //Filter Request
+    requ.current = "/api/" +
+      props.searchoption +
+      "?skip=" +
+      startIndex +
+      "&limit=" +
+      endIndex;
+    if (props.otheroptions !== "") {
+      requ.current = requ.current + "&categories=" + props.otheroptions;
+    }
+    // if (props.)
+
     try {
       dispatch(
         requestProducts(requ.current)
@@ -128,17 +124,7 @@ function Products(props) {
     setTimeout(() => {
       const startIndex = event.first;
       const endIndex = event.first + rows.current;
-      dispatch(
-        requestProducts(
-          "/api/" +
-          props.searchoption +
-          "?skip=" +
-          startIndex +
-          "&limit=" +
-          endIndex +
-          props.otheroptions
-        )
-      );
+      makeRequest(startIndex, endIndex);
       setFirst(startIndex);
       setLoading(false);
     }, 1000);
