@@ -53,7 +53,7 @@ function Products(props) {
       isMounted.current = true;
       setLoading(false);
     }, 1000);
-  }, [props.category, props.price, props.type]); // eslint-disable-line
+  }, [props.category, props.price, props.type, props.name]); // eslint-disable-line
 
   const getInfoProduct = async () => {
     const response = await axios.get(
@@ -79,11 +79,14 @@ function Products(props) {
     if (props.type) {
       s = s + "?type=" + props.type;
     }
+    if (props.name) {
+      s = s + "?name=" + props.name;
+    }
     const response = await axios.get(
       `${process.env.REACT_APP_API_URL}${s}`,
       { withCredentials: true }
     );
-    setTotalRecords(response.data.count);//FEHLER
+    setTotalRecords(response.data.count);//FEHLER????
   };
   const makeRequest = (startIndex, endIndex) => {
     requ.current = "/api/" +
@@ -100,6 +103,9 @@ function Products(props) {
     }
     if (props.type) {
       requ.current = requ.current + "&type=" + props.type;
+    }
+    if (props.name) {
+      requ.current = requ.current + "&name=" + props.name;
     }
 
     try {

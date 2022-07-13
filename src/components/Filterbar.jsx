@@ -2,6 +2,7 @@
 import { CascadeSelect } from "primereact/cascadeselect";
 import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
+import { InputText } from "primereact/inputtext";
 import axios from "axios";
 import React from 'react'
 import { useState, useEffect } from "react";
@@ -16,10 +17,13 @@ function Filterbar(props) {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [type, setType] = useState("");
+  const [ghostName, setGhostName] = useState("");
+  const [name, setName] = useState("");
   const [filter, setFilter] = useState(false);
   props.option1(category);
   props.option2(price);
   props.option3(type);
+  props.option4(name);
   props.filter(filter);
 
   const types = [
@@ -51,6 +55,8 @@ function Filterbar(props) {
     setCategory("");
     setPrice("");
     setType("");
+    setName("");
+    setGhostName("");
     setFilter(false);
   }
 
@@ -137,6 +143,31 @@ function Filterbar(props) {
               Anzeigetyp
             </label>
           </span>
+        </div>
+        <div className="p-field fieldprice filterbar">
+          <div className="p-inputgroup">
+            <span className="p-float-label">
+              <InputText
+                id="Name"
+                name="Name"
+                aria-describedby="name-help"
+                value={ghostName}
+                onChange={(e) => {
+                  setGhostName(e.target.value);
+                }}
+                className="block"
+              />
+              <label
+                htmlFor="Name"
+              >
+                Benutzername
+              </label>
+            </span>
+            <Button icon="pi pi-search" onClick={() => {
+              setName(ghostName);
+              setFilter(true);
+            }} />
+          </div>
         </div>
         <div className="p-field fieldprice filterbar lastchildbutton">
           <Button
