@@ -30,6 +30,7 @@ function Products(props) {
     { label: "Preis absteigend", value: "!price" },
     { label: "Preis aufsteigend", value: "price" },
   ];
+  const requ = useRef("");
   const rows = useRef(21);
   const isMounted = useRef(false);
   const products = useSelector((state) => state.products);
@@ -38,22 +39,21 @@ function Products(props) {
 
   useEffect(() => {
     setTimeout(() => {
+      setLoading(true);
       try {
-        getInfoProduct();
-      } catch (error) {}
+        if (props.filter) {
+          getInfoFilterProduct();
+        } else {
+          getInfoProduct();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      makeRequest(0, rows.current);
       isMounted.current = true;
-      dispatch(
-        requestProducts(
-          "/api/" +
-            props.searchoption +
-            "?skip=0&limit=" +
-            rows.current +
-            props.otheroptions
-        )
-      );
       setLoading(false);
     }, 1000);
-  }, []); // eslint-disable-line
+  }, [props.category, props.price, props.type, props.name]); // eslint-disable-line
 
   const getInfoProduct = async () => {
     const response = await axios.get(
@@ -68,6 +68,54 @@ function Products(props) {
     );
     setTotalRecords(response.data.count);
   };
+  const getInfoFilterProduct = async () => {
+    var s = "/api/users/articles";
+    if (props.category) {
+      s = s + "?categories=" + props.category;
+    }
+    if (props.price) {
+      s = s + "?price=" + props.price;
+    }
+    if (props.type) {
+      s = s + "?type=" + props.type;
+    }
+    if (props.name) {
+      s = s + "?name=" + props.name;
+    }
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}${s}`,
+      { withCredentials: true }
+    );
+    setTotalRecords(response.data.count);//FEHLER????
+  };
+  const makeRequest = (startIndex, endIndex) => {
+    requ.current = "/api/" +
+      props.searchoption +
+      "?skip=" +
+      startIndex +
+      "&limit=" +
+      endIndex;
+    if (props.category) {
+      requ.current = requ.current + "&categories=" + props.category;
+    }
+    if (props.price) {
+      requ.current = requ.current + "&price=" + props.price;
+    }
+    if (props.type) {
+      requ.current = requ.current + "&type=" + props.type;
+    }
+    if (props.name) {
+      requ.current = requ.current + "&name=" + props.name;
+    }
+
+    try {
+      dispatch(
+        requestProducts(requ.current)
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     if (isMounted.current) {
@@ -87,27 +135,16 @@ function Products(props) {
     try {
       isstar === true ? deleteFavorites(id) : postFavorites(id);
       dispatch(addFavoriteorRemoveToUser(id));
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const onPage = (event) => {
-    setLoading(true);
-
     //Setzen der neuen Daten wenn man auf die nächste Page klickt.
     setTimeout(() => {
+      setLoading(true);
       const startIndex = event.first;
       const endIndex = event.first + rows.current;
-      dispatch(
-        requestProducts(
-          "/api/" +
-            props.searchoption +
-            "?skip=" +
-            startIndex +
-            "&limit=" +
-            endIndex +
-            props.otheroptions
-        )
-      );
+      makeRequest(startIndex, endIndex);
       setFirst(startIndex);
       setLoading(false);
     }, 1000);
@@ -128,6 +165,7 @@ function Products(props) {
   };
 
   const renderListItem = (data) => {
+
     let date = new Date(data.createdAt);
     return (
       <div className="p-col-12">
@@ -136,8 +174,8 @@ function Products(props) {
             onClick={() => onProductClick(data._id)}
             src={`data/images/${data.pictures[0]}`}
             onError={(e) =>
-              (e.target.src =
-                "../../../data/images/MSOKleinanzeigenLogoGrey.png")
+            (e.target.src =
+              "../../../data/images/MSOKleinanzeigenLogoGrey.png")
             }
             alt={data.Name}
           />
@@ -196,12 +234,12 @@ function Products(props) {
                 {data.basis_fornegotioations === "Zu Verschenken"
                   ? "Zu Verschenken"
                   : data.article_type === "Ich tausche"
-                  ? "Zum tauschen"
-                  : data.price !== 0
-                  ? data.price + "€"
-                  : ""}
+                    ? "Zum tauschen"
+                    : data.price !== 0
+                      ? data.price + "€"
+                      : ""}
                 {data.basis_fornegotioations === "Verhandlungsbasis" &&
-                data.price !== 0
+                  data.price !== 0
                   ? " VB"
                   : ""}
               </span>
@@ -254,8 +292,8 @@ function Products(props) {
             <img
               src={`data/images/${data.pictures[0]}`}
               onError={(e) =>
-                (e.target.src =
-                  "../../../data/images/MSOKleinanzeigenLogoGrey.png")
+              (e.target.src =
+                "../../../data/images/MSOKleinanzeigenLogoGrey.png")
               }
               alt={data.Name}
             />
@@ -282,12 +320,12 @@ function Products(props) {
               {data.basis_fornegotioations === "Zu Verschenken"
                 ? "Zu Verschenken"
                 : data.article_type === "Ich tausche"
-                ? "Zum tauschen"
-                : data.price !== 0
-                ? data.price + "€"
-                : ""}
+                  ? "Zum tauschen"
+                  : data.price !== 0
+                    ? data.price + "€"
+                    : ""}
               {data.basis_fornegotioations === "Verhandlungsbasis" &&
-              data.price !== 0
+                data.price !== 0
                 ? " VB"
                 : ""}
             </span>
@@ -354,7 +392,7 @@ function Products(props) {
               sticky="true"
             />
           ),
-          (<span>Hier sind noch keine Daten vorhanden.</span>))
+            (<span>Hier sind noch keine Daten vorhanden.</span>))
         ) : (
           <DataView
             value={products.products}
