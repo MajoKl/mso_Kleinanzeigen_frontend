@@ -9,6 +9,7 @@ import "./products.scss";
 import axios from "axios";
 import { deleteFavorites, postFavorites } from "../../api/api";
 import { requestProducts } from "../../api/store/productSlice";
+import { requestFavorites } from "../../api/store/favoriteSlice";
 import { addFavoriteorRemoveToUser } from "../../api/store/userSlice";
 //Primereact
 import { Button } from "primereact/button";
@@ -33,15 +34,16 @@ function Products(props) {
   const requ = useRef("");
   const rows = useRef(21);
   const isMounted = useRef(false);
-  const products = useSelector((state) => state.products);
   const user = useSelector((state) => state.user); // eslint-disable-line
+  const products = useSelector((state) => state.products);
+  const productsFavorite = useSelector((state) => state.productFavorite);
   const dispatch = useDispatch();
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(true);
       try {
-        if (props.filter) {
+        if (props.filter || props.isFav || props.isMe) {
           getInfoFilterProduct();
         } else {
           getInfoProduct();
@@ -82,11 +84,18 @@ function Products(props) {
     if (props.name) {
       s = s + "?name=" + props.name;
     }
+    if (props.isFav) {
+      s = "/api/me/favorites";
+    }
+    if (props.isMe) {
+      s = "/api/me/articles";
+    }
     const response = await axios.get(
       `${process.env.REACT_APP_API_URL}${s}`,
       { withCredentials: true }
     );
-    setTotalRecords(response.data.count);//FEHLER????
+    console.log(response.data.length);
+    setTotalRecords(response.data.length);
   };
   const makeRequest = (startIndex, endIndex) => {
     requ.current = "/api/" +
@@ -107,11 +116,16 @@ function Products(props) {
     if (props.name) {
       requ.current = requ.current + "&name=" + props.name;
     }
-
     try {
-      dispatch(
-        requestProducts(requ.current)
-      );
+      if (props.isFav) {
+        dispatch(
+          requestFavorites(requ.current)
+        );
+      } else {
+        dispatch(
+          requestProducts(requ.current)
+        );
+      }
     } catch (error) {
       console.log(error);
     }
@@ -399,35 +413,36 @@ function Products(props) {
   return (
     <div className="dataview">
       <div className="card">
-        {products.products.length === 0 ? (
-          ((
-            <ToastMessages
-              severity="error"
-              summary="Heavy Error"
-              detail="Request respons an empty Array. Please refresh"
-              life="0"
-              sticky="true"
+        {
+          productsFavorite.products.length === 0 || products.products.length === 0 ? (
+            ((
+              <ToastMessages
+                severity="error"
+                summary="Heavy Error"
+                detail="Request respons an empty Array. Please refresh"
+                life="0"
+                sticky="true"
+              />
+            ),
+              (<span>Hier sind noch keine Daten vorhanden.</span>))
+          ) : (
+            <DataView
+              value={props.isFav ? productsFavorite.products : products.products}
+              layout={layout}
+              header={header}
+              itemTemplate={itemTemplate}
+              lazy
+              paginator
+              paginatorPosition={"both"}
+              rows={rows.current}
+              totalRecords={totalRecords}
+              first={first}
+              onPage={onPage}
+              loading={loading}
+              sortOrder={sortOrder}
+              sortField={sortField}
             />
-          ),
-            (<span>Hier sind noch keine Daten vorhanden.</span>))
-        ) : (
-          <DataView
-            value={products.products}
-            layout={layout}
-            header={header}
-            itemTemplate={itemTemplate}
-            lazy
-            paginator
-            paginatorPosition={"both"}
-            rows={rows.current}
-            totalRecords={totalRecords}
-            first={first}
-            onPage={onPage}
-            loading={loading}
-            sortOrder={sortOrder}
-            sortField={sortField}
-          />
-        )}
+          )}
       </div>
     </div>
   );
