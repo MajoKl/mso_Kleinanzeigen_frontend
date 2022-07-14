@@ -26,7 +26,6 @@ function Products(props) {
   const [sortKey, setSortKey] = useState(null);
   const [sortOrder, setSortOrder] = useState(null);
   const [sortField, setSortField] = useState(null);
-  const [print, setPrint] = useState(false);
   const sortOptions = [
     { label: "Preis absteigend", value: "!price" },
     { label: "Preis aufsteigend", value: "price" },
@@ -131,13 +130,6 @@ function Products(props) {
       }
     } catch (error) {
       console.log(error);
-    }
-    if (productsFavorite.products.length !== 0) {
-      setPrint(true);
-    } else if (products.products.length !== 0) {
-      setPrint(true);
-    } else {
-      setPrint(false);
     }
   }
 
@@ -426,7 +418,7 @@ function Products(props) {
     <div className="dataview">
       <div className="card">
         {
-          print === false ? (
+          totalRecords === 0 ? (
             ((
               <ToastMessages
                 severity="error"
