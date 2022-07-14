@@ -12,18 +12,23 @@ import axios from "axios";
 
 //Quelle: https://axios-http.com/docs/intro + Postman Dokumentation API-Requests vom Backend
 export async function getBackend(path) {
-  const response = await axios.get(
-    `${process.env.REACT_APP_API_URL}${path}`,
-    { withCredentials: true },
-    {
-      headers: {
-        "Access-Control-Allow-Origin":
-          "http://kleinanzeigen_api.jonaslbgtt.live:8080",
-      },
-    }
-  );
-  return await response.data;
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}${path}`,
+      { withCredentials: true },
+      {
+        headers: {
+          "Access-Control-Allow-Origin":
+            "http://kleinanzeigen_api.jonaslbgtt.live:8080",
+        },
+      }
+    );
+    return await response.data;
+  } catch (error) {
+    console.log(error);
+  }
 }
+
 
 export async function postBackend(data) {
   const response = await axios.post(
@@ -97,20 +102,20 @@ export async function deleteFavorites(id) {
   }
 }
 
-export async function getInfoProduct() {
-  try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/api/articles/info`,
-      { withCredentials: true }
-      // {
-      //   headers: {
-      //     "Access-Control-Allow-Origin":
-      //       "http://kleinanzeigen_api.jonaslbgtt.live:8080",
-      //   },
-      // }
-    );
-    return await response.data.count;
-  } catch (error) {
-    console.log(error);
-  }
-}
+// export async function getInfoProduct() {
+//   try {
+//     const response = await axios.get(
+//       `${process.env.REACT_APP_API_URL}/api/articles/info`,
+//       { withCredentials: true }
+//       // {
+//       //   headers: {
+//       //     "Access-Control-Allow-Origin":
+//       //       "http://kleinanzeigen_api.jonaslbgtt.live:8080",
+//       //   },
+//       // }
+//     );
+//     return await response.data.count;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }

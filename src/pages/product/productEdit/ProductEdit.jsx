@@ -99,8 +99,8 @@ function ProductEdit() {
   useEffect(() => {
     return newproduct.toast.setToast === true
       ? (setTimeout(() => {
-          dispatch(onChangeToast(false));
-        }, newproduct.status.life),
+        dispatch(onChangeToast(false));
+      }, newproduct.status.life),
         toast.current.show({
           severity: newproduct.status.severity,
           summary: newproduct.status.summary,
