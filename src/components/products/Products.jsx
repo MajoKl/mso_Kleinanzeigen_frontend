@@ -7,7 +7,7 @@ import "../../main.scss";
 import "./products.scss";
 //Api_&_Store
 import axios from "axios";
-import { deleteFavorites, postFavorites } from "../../api/api";
+import { deleteFavorites, getBackend, postFavorites } from "../../api/api";
 import { requestProducts } from "../../api/store/productSlice";
 import { requestFavorites } from "../../api/store/favoriteSlice";
 import { addFavoriteorRemoveToUser } from "../../api/store/userSlice";
@@ -58,17 +58,19 @@ function Products(props) {
   }, [props.category, props.price, props.type, props.name]); // eslint-disable-line
 
   const getInfoProduct = async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/api/articles/info`,
-      { withCredentials: true }
-      // {
-      //   headers: {
-      //     "Access-Control-Allow-Origin":
-      //       "http://kleinanzeigen_api.jonaslbgtt.live:8080",
-      //   },
-      // }
-    );
-    setTotalRecords(response.data.count);
+    const res = await getBackend("/api/articles/info");
+    setTotalRecords(res.count);
+    // const response = await axios.get(
+    //   `${process.env.REACT_APP_API_URL}/api/articles/info`,
+    //   { withCredentials: true }
+    //   // {
+    //   //   headers: {
+    //   //     "Access-Control-Allow-Origin":
+    //   //       "http://kleinanzeigen_api.jonaslbgtt.live:8080",
+    //   //   },
+    //   // }
+    // );
+    // setTotalRecords(response.data.count);
   };
   const getInfoFilterProduct = async () => {
     var s = "/api/users/articles";
@@ -90,12 +92,12 @@ function Products(props) {
     if (props.isMe) {
       s = "/api/me/articles";
     }
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}${s}`,
-      { withCredentials: true }
-    );
-    console.log(response.data.length);
-    setTotalRecords(response.data.length);
+    const response = await getBackend(s);
+    // const response = await axios.get(
+    //   `${process.env.REACT_APP_API_URL}${s}`,
+    //   { withCredentials: true }
+    // );
+    setTotalRecords(response.length);
   };
   const makeRequest = (startIndex, endIndex) => {
     requ.current = "/api/" +
