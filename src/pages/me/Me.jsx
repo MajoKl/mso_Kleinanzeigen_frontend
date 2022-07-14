@@ -10,6 +10,8 @@ import { requestUser } from "../../api/store/userSlice";
 import Products from "../../components/products/Products";
 import ToastMessages from "../../components/ToastMessages";
 import Infotable from "../../components/infotable/Infotable";
+import { Button } from "primereact/button";
+import { postBackendd } from "../../api/api";
 
 function Me() {
   const user = useSelector((state) => state.user);
@@ -29,6 +31,10 @@ function Me() {
       date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear()
     );
   };
+  const onLogOut = async () => {
+    const response = await postBackendd("/api/me/logout");
+    console.log(response.data);
+  }
   const InfotableData = [
     {
       icon: "pi pi-user",
@@ -98,6 +104,14 @@ function Me() {
           <div className="card me-card">
             <h2>Accountinformationen</h2>
             <Infotable data={InfotableData} />
+            <br />
+            <Button
+              label="Ausloggen"
+              icon="pi pi-door"
+              className="p-button-rounded p-button-danger"
+              style={{ width: "10%", marginLeft: "auto", marginRight: 0 }}
+              onClick={onLogOut}
+            />
           </div>
           <div className="card me-card">
             <h2>Deine mit Stern markierten Artikel</h2>

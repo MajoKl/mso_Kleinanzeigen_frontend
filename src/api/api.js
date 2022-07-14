@@ -90,6 +90,20 @@ export async function postFavorites(id) {
   );
   return await response.data;
 }
+export async function postBackendd(path) {
+  const response = await axios.post(
+    `${process.env.REACT_APP_API_URL}${path}`,
+    null,
+    { withCredentials: true }
+    // {
+    //   headers: {
+    //     "Access-Control-Allow-Origin":
+    //       "http://kleinanzeigen_api.jonaslbgtt.live:8080",
+    //   },
+    // }
+  );
+  return await response;
+}
 
 // export async function deleteFavorites(id) {
 //   try {
