@@ -188,6 +188,7 @@ function Products(props) {
             (
               <img
                 src={`${process.env.REACT_APP_API_URL}/api/ArticlePhotos/${data._id}/${data.pictures[0].name}`}
+                onClick={() => onProductClick(data._id)}//FEHLER! Funktioniert nicht richtig!
                 onError={(e) =>
                 (e.target.src =
                   // "../../../data/images/MSOKleinanzeigenLogoGrey.png")
