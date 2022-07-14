@@ -34,23 +34,14 @@ function Products(props) {
   const requ = useRef("");
   const rows = useRef(21);
   const isMounted = useRef(false);
-  const productsNormal = useSelector((state) => state.products);
-  const productsFavorite = useSelector((state) => state.productFavorite);
   const user = useSelector((state) => state.user); // eslint-disable-line
-  const [products, setProducts] = useState("");
+  const products = useSelector((state) => state.products);
+  const productsFavorite = useSelector((state) => state.productFavorite);
   const dispatch = useDispatch();
 
-  console.log(products);
-
   useEffect(() => {
-    if (props.isFav) {
-      setProducts(productsFavorite);
-    } else {
-      setProducts(productsNormal);
-    }
     setTimeout(() => {
       setLoading(true);
-      console.log(props.isFav);
       try {
         getInfoFilterProduct();
         makeRequest(0, rows.current);
@@ -130,12 +121,10 @@ function Products(props) {
     }
     try {
       if (props.isFav) {
-        console.log("Hiereed");
         dispatch(
           requestFavorites(requ.current)
         );
       } else {
-        console.log("Hiereed!!!!!!!!!!");
         dispatch(
           requestProducts(requ.current)
         );
@@ -426,35 +415,36 @@ function Products(props) {
   return (
     <div className="dataview">
       <div className="card">
-        {products.products.length === 0 ? (
-          ((
-            <ToastMessages
-              severity="error"
-              summary="Heavy Error"
-              detail="Request respons an empty Array. Please refresh"
-              life="0"
-              sticky="true"
+        {
+          productsFavorite.products.length === 0 || products.products.length === 0 ? (
+            ((
+              <ToastMessages
+                severity="error"
+                summary="Heavy Error"
+                detail="Request respons an empty Array. Please refresh"
+                life="0"
+                sticky="true"
+              />
+            ),
+              (<span>Hier sind noch keine Daten vorhanden.</span>))
+          ) : (
+            <DataView
+              value={props.isFav ? productsFavorite.products : products.products}
+              layout={layout}
+              header={header}
+              itemTemplate={itemTemplate}
+              lazy
+              paginator
+              paginatorPosition={"both"}
+              rows={rows.current}
+              totalRecords={totalRecords}
+              first={first}
+              onPage={onPage}
+              loading={loading}
+              sortOrder={sortOrder}
+              sortField={sortField}
             />
-          ),
-            (<span>Hier sind noch keine Daten vorhanden.</span>))
-        ) : (
-          <DataView
-            value={products.products}
-            layout={layout}
-            header={header}
-            itemTemplate={itemTemplate}
-            lazy
-            paginator
-            paginatorPosition={"both"}
-            rows={rows.current}
-            totalRecords={totalRecords}
-            first={first}
-            onPage={onPage}
-            loading={loading}
-            sortOrder={sortOrder}
-            sortField={sortField}
-          />
-        )}
+          )}
       </div>
     </div>
   );
