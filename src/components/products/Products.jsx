@@ -43,13 +43,7 @@ function Products(props) {
     setTimeout(() => {
       setLoading(true);
       try {
-        getInfoFilterProduct();
-        makeRequest(0, rows.current);
-      } catch (error) {
-        console.log(error);
-      }
-      try {
-        if (props.filter || props.isFav) {
+        if (props.filter || props.isFav || props.isMe) {
           getInfoFilterProduct();
         } else {
           getInfoProduct();
@@ -92,6 +86,9 @@ function Products(props) {
     }
     if (props.isFav) {
       s = "/api/me/favorites";
+    }
+    if (props.isMe) {
+      s = "/api/me/articles";
     }
     const response = await axios.get(
       `${process.env.REACT_APP_API_URL}${s}`,

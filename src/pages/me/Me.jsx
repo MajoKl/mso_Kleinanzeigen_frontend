@@ -105,7 +105,7 @@ function Me() {
           </div>
           <div className="card me-card">
             <h2>Deine erstellten Artikel</h2>
-            <Products searchoption="me/articles" otheroptions="" user={user} />
+            <Products searchoption="me/articles" otheroptions="" user={user} isMe={true} />
           </div>
         </div>
       )}
