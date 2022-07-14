@@ -34,36 +34,41 @@ function Products(props) {
   const requ = useRef("");
   const rows = useRef(21);
   const isMounted = useRef(false);
-  const products = useSelector((state) => state.products);
+  const productsNormal = useSelector((state) => state.products);
+  const productsFavorite = useSelector((state) => state.productFavorite);
   const user = useSelector((state) => state.user); // eslint-disable-line
+  const [products, setProducts] = useState("");
   const dispatch = useDispatch();
 
+  console.log(products);
+
   useEffect(() => {
+    if (props.isFav) {
+      setProducts(productsFavorite);
+    } else {
+      setProducts(productsNormal);
+    }
     setTimeout(() => {
       setLoading(true);
-      if (props.isFav) {
-        try {
-          getInfoFilterProduct();
-          dispatch(
-            requestProducts(requ.current)
-          );
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        try {
-          if (props.filter) {
-            getInfoFilterProduct();
-          } else {
-            getInfoProduct();
-          }
-        } catch (error) {
-          console.log(error);
-        }
+      console.log(props.isFav);
+      try {
+        getInfoFilterProduct();
         makeRequest(0, rows.current);
-        isMounted.current = true;
-        setLoading(false);
+      } catch (error) {
+        console.log(error);
       }
+      try {
+        if (props.filter || props.isFav) {
+          getInfoFilterProduct();
+        } else {
+          getInfoProduct();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      makeRequest(0, rows.current);
+      isMounted.current = true;
+      setLoading(false);
     }, 1000);
   }, [props.category, props.price, props.type, props.name]); // eslint-disable-line
 
@@ -94,11 +99,15 @@ function Products(props) {
     if (props.name) {
       s = s + "?name=" + props.name;
     }
+    if (props.isFav) {
+      s = "/api/me/favorites";
+    }
     const response = await axios.get(
       `${process.env.REACT_APP_API_URL}${s}`,
       { withCredentials: true }
     );
-    setTotalRecords(response.data.count);//FEHLER????
+    console.log(response.data.length);
+    setTotalRecords(response.data.length);
   };
   const makeRequest = (startIndex, endIndex) => {
     requ.current = "/api/" +
@@ -119,11 +128,18 @@ function Products(props) {
     if (props.name) {
       requ.current = requ.current + "&name=" + props.name;
     }
-
     try {
-      dispatch(
-        requestProducts(requ.current)
-      );
+      if (props.isFav) {
+        console.log("Hiereed");
+        dispatch(
+          requestFavorites(requ.current)
+        );
+      } else {
+        console.log("Hiereed!!!!!!!!!!");
+        dispatch(
+          requestProducts(requ.current)
+        );
+      }
     } catch (error) {
       console.log(error);
     }

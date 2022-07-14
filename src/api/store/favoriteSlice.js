@@ -5,7 +5,7 @@ import { getBackend } from "../api.js";
 // import { getProducts } from "../api.js";
 
 export const requestFavorites = createAsyncThunk(
-  "/api/me/articles/",
+  "/api/me/articless/",
   async (path) => await getBackend(path)
 );
 
@@ -73,10 +73,10 @@ const favoriteSlice = createSlice({
 
 export const {
   addTodo,
-  removeTodo,
-  toggleDone,
-  updateTitle,
-  editWorking,
-  loadFromStorage,
+  // removeTodo,
+  // toggleDone,
+  // updateTitle,
+  // editWorking,
+  // loadFromStorage,
 } = favoriteSlice.actions;
 export default favoriteSlice.reducer;
