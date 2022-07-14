@@ -101,11 +101,11 @@ function Me() {
           </div>
           <div className="card me-card">
             <h2>Deine mit Stern markierten Artikel</h2>
-            <Products searchoption="me/favorites" otheroptions="" user={user} />
+            <Products searchoption="me/favorites" otheroptions="" user={user} isFav={true} />
           </div>
           <div className="card me-card">
             <h2>Deine erstellten Artikel</h2>
-            <Products searchoption="me/articles" otheroptions="" user={user} />
+            <Products searchoption="me/articles" otheroptions="" user={user} isMe={true} />
           </div>
         </div>
       )}
