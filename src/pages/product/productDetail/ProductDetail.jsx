@@ -201,7 +201,7 @@ function ProductDetail() {
         offLabel="Aktiviert"
         onIcon="pi pi-eye-slash"
         offIcon="pi pi-eye"
-        className="p-button-rounded p-button-help"
+        className="p-button-rounded p-button-help togglePrivat"
         style={{ width: '10em' }}
       // aria-label="Confirmation"
       />
