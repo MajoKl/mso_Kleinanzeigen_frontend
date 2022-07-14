@@ -13,13 +13,12 @@ import axios from "axios";
 export const pushProduct = createAsyncThunk("/aaapi/me", async (data) => {
   const pics = data.pic;
   // const toast = useRef(null);
-  
+
   const a = await postBackend(data.product);
 
   try {
     const response = await axios.post(
-      `${process.env.REACT_APP_API_URL}/api/pictures/upload?article_id=${
-        a._id
+      `${process.env.REACT_APP_API_URL}/api/pictures/upload?article_id=${a._id
       }&name=${pics.name.split(".")[0]}`,
       pics.data,
       { withCredentials: true }

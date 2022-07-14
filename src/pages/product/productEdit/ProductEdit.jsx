@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import "../../../main.scss";
 import "../newProducts/newproducts.scss";
 //Api_&_Store
-import axios from "axios";
 import { onChange, onChangeToast } from "../../../api/store/newProductSlice";
 //Primereact
 import { Toast } from "primereact/toast";
 //Components
 import ProductFormik from "../../../components/formik/ProductFormik";
+import { getBackend } from "../../../api/api";
 
 function ProductEdit() {
   const [product, setProduct] = useState("");
@@ -22,22 +22,12 @@ function ProductEdit() {
   const { id } = useParams();
 
   useEffect(() => {
+    const requestBackend = async () => {
+      const response = await getBackend("/api/users/articles?article_id=" + id);
+      setProduct(response[0]);
+    };
     requestBackend();
   }, []); // eslint-disable-line
-
-  const requestBackend = async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/api/users/articles?article_id=${id}`,
-      { withCredentials: true },
-      {
-        headers: {
-          "Access-Control-Allow-Origin":
-            "http://kleinanzeigen_api.jonaslbgtt.live:8080",
-        },
-      }
-    );
-    setProduct(response.data[0]);
-  };
 
   useEffect(() => {
     return product !== "" ? setNewProductState() : null;

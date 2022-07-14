@@ -31,18 +31,22 @@ export async function getBackend(path) {
 
 
 export async function postBackend(data) {
-  const response = await axios.post(
-    `${process.env.REACT_APP_API_URL}/api/me/articles`,
-    data,
-    { withCredentials: true }
-    // {
-    //   headers: {
-    //     "Access-Control-Allow-Origin":
-    //       "http://kleinanzeigen_api.jonaslbgtt.live:8080",
-    //   },
-    // },
-  );
-  return await response.data;
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_URL}/api/me/articles`,
+      data,
+      { withCredentials: true }
+      // {
+      //   headers: {
+      //     "Access-Control-Allow-Origin":
+      //       "http://kleinanzeigen_api.jonaslbgtt.live:8080",
+      //   },
+      // },
+    );
+    return await response.data;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function putBackend(data) {
@@ -87,23 +91,41 @@ export async function postFavorites(id) {
   return await response.data;
 }
 
-export async function deleteFavorites(id) {
+// export async function deleteFavorites(id) {
+//   try {
+//     const response = await axios.delete(
+//       `${process.env.REACT_APP_API_URL}/api/me/favorites?favorites=${id}`,
+//       { withCredentials: true }
+//       // {
+//       //   headers: {
+//       //     "Access-Control-Allow-Origin":
+//       //       "http://kleinanzeigen_api.jonaslbgtt.live:8080",
+//       //   },
+//       // }
+//     );
+//     return await response.data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+export async function deleteBackend(path) {
   try {
     const response = await axios.delete(
-      `${process.env.REACT_APP_API_URL}/api/me/favorites?favorites=${id}`,
-      { withCredentials: true }
-      // {
-      //   headers: {
-      //     "Access-Control-Allow-Origin":
-      //       "http://kleinanzeigen_api.jonaslbgtt.live:8080",
-      //   },
-      // }
+      `${process.env.REACT_APP_API_URL}${path}`,
+      { withCredentials: true },
+      {
+        headers: {
+          "Access-Control-Allow-Origin":
+            "http://kleinanzeigen_api.jonaslbgtt.live:8080",
+        },
+      }
     );
     return await response.data;
   } catch (error) {
     console.log(error);
   }
 }
+
 
 // export async function getInfoProduct() {
 //   try {
