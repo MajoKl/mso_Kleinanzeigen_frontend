@@ -107,7 +107,7 @@ function Me() {
             <br />
             <Button
               label="Ausloggen"
-              icon="pi pi-door"
+              icon="pi pi-sign-out"
               className="p-button-rounded p-button-danger"
               style={{ width: "10%", marginLeft: "auto", marginRight: 0 }}
               onClick={onLogOut}
