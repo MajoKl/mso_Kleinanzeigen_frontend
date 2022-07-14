@@ -43,7 +43,10 @@ export async function postBackend(data) {
 export async function putBackend(data) {
   delete data.realName;
   delete data.owner;
-
+  delete data.createdAt;
+  delete data.updatedAt;
+  delete data.__v;
+  delete data.pictures;
   const response = await axios
     .put(
       `${process.env.REACT_APP_API_URL}/api/me/articles`,

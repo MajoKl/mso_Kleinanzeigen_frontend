@@ -13,7 +13,7 @@ import Infotable from "../../components/infotable/Infotable";
 
 function Me() {
   const user = useSelector((state) => state.user);
-
+  console.log(user);
   const dispatch = useDispatch();
 
   //Request UserData from Redux
@@ -48,7 +48,7 @@ function Me() {
     {
       icon: "pi pi-eye-slash",
       tag: "Privat",
-      value: user.user.grade === true ? "Ja" : "Nein",
+      value: user.user.private === true ? "Ja" : "Nein",
     },
     {
       icon: "pi pi-calendar",
