@@ -13,9 +13,11 @@ import { Toolbar } from "primereact/toolbar";
 import { Button } from "primereact/button";
 import { confirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
+import { ToggleButton } from 'primereact/togglebutton';
 //Components
 import Galleria from "../../../components/Galleriaa";
 import Infotable from "../../../components/infotable/Infotable";
+import { putBackend } from "../../../api/api";
 
 function ProductDetail() {
   const username = useSelector((state) => state.user.user.name);
@@ -108,15 +110,15 @@ function ProductDetail() {
   const setError = (data) => {
     return data !== '{"deletedCount":1}'
       ? toast.current.show({
-          severity: "error",
-          summary: "Error!",
-          detail:
-            "Request to Backend failed... Article can't be deleted. Please try again.",
-          life: 8000,
-        })
+        severity: "error",
+        summary: "Error!",
+        detail:
+          "Request to Backend failed... Article can't be deleted. Please try again.",
+        life: 8000,
+      })
       : (setTimeout(() => {
-          navigate("/");
-        }, 5000),
+        navigate("/");
+      }, 5000),
         toast.current.show({
           severity: "success",
           summary: "Fertig!",
@@ -127,6 +129,17 @@ function ProductDetail() {
 
   const onEditClick = () => {
     navigate("/product/edit/" + id);
+  };
+  const onPrivateClick = (toggle) => {
+    try {
+      setProduct(prevState => ({
+        ...prevState,
+        private: toggle
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+    putBackend({ _id: product._id, private: toggle });
   };
 
   const InfotableData = [
@@ -165,6 +178,11 @@ function ProductDetail() {
       tag: "Erstellt von",
       value: product.owner?.name,
     },
+    {
+      icon: "pi pi-eye-slash",
+      tag: "Deaktiviert",
+      value: product.private ? "Ja" : "Nein",
+    },
   ];
 
   const leftContents = (
@@ -176,6 +194,18 @@ function ProductDetail() {
         className="p-button-rounded p-button-help"
         onClick={onEditClick}
       />
+      <ToggleButton
+        checked={product.private}
+        onChange={(e) => onPrivateClick(e.value)}//wird zu true oder zu false
+        onLabel="Deaktiviert"
+        offLabel="Aktiviert"
+        onIcon="pi pi-eye-slash"
+        offIcon="pi pi-eye"
+        className="p-button-rounded p-button-help togglePrivat"
+        style={{ width: '10em' }}
+      // aria-label="Confirmation"
+      />
+
     </React.Fragment>
   );
 
@@ -234,7 +264,7 @@ function ProductDetail() {
             <Infotable data={InfotableData} />
           </div>
           {product !== "" ? (
-            username === product.owner.name ? (
+            username === product.owner?.name ? (
               <div className="product-card-content card">
                 <h2 className="product-headline">Aktionen</h2>
                 {/* Quelle: https://www.primefaces.org/primereact/toolbar/ */}

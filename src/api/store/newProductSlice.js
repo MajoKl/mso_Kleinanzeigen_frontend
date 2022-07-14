@@ -52,6 +52,7 @@ const initialState = {
     price: 0,
     discription: "",
     _id: "",
+    private: "",
   },
   status: {
     severity: "",
