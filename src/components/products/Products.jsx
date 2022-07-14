@@ -6,8 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "../../main.scss";
 import "./products.scss";
 //Api_&_Store
-import axios from "axios";
-import { deleteFavorites, getBackend, postFavorites } from "../../api/api";
+import { deleteBackend, getBackend, postFavorites } from "../../api/api";
 import { requestProducts } from "../../api/store/productSlice";
 import { requestFavorites } from "../../api/store/favoriteSlice";
 import { addFavoriteorRemoveToUser } from "../../api/store/userSlice";
@@ -27,6 +26,7 @@ function Products(props) {
   const [sortKey, setSortKey] = useState(null);
   const [sortOrder, setSortOrder] = useState(null);
   const [sortField, setSortField] = useState(null);
+  const [print, setPrint] = useState(false);
   const sortOptions = [
     { label: "Preis absteigend", value: "!price" },
     { label: "Preis aufsteigend", value: "price" },
@@ -97,6 +97,7 @@ function Products(props) {
     //   `${process.env.REACT_APP_API_URL}${s}`,
     //   { withCredentials: true }
     // );
+    console.log(response);
     setTotalRecords(response.length);
   };
   const makeRequest = (startIndex, endIndex) => {
@@ -131,6 +132,13 @@ function Products(props) {
     } catch (error) {
       console.log(error);
     }
+    if (productsFavorite.products.length !== 0) {
+      setPrint(true);
+    } else if (products.products.length !== 0) {
+      setPrint(true);
+    } else {
+      setPrint(false);
+    }
   }
 
   useEffect(() => {
@@ -149,9 +157,11 @@ function Products(props) {
   const onStarClick = (id) => {
     const isstar = props.user.user.favorites.includes(id);
     try {
-      isstar === true ? deleteFavorites(id) : postFavorites(id);
+      isstar === true ? deleteBackend("/api/me/favorites?favorites=" + id) : postFavorites(id);
       dispatch(addFavoriteorRemoveToUser(id));
-    } catch (error) { }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onPage = (event) => {
@@ -416,7 +426,7 @@ function Products(props) {
     <div className="dataview">
       <div className="card">
         {
-          productsFavorite.products.length === 0 || products.products.length === 0 ? (
+          print === false ? (
             ((
               <ToastMessages
                 severity="error"

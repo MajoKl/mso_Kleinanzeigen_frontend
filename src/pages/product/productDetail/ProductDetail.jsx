@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 //Stylesheets
 import "./productDetail.scss";
 //Api_&_Store
-import axios from "axios";
 import { requestUser } from "../../../api/store/userSlice";
 //Primereact
 import { Panel } from "primereact/panel";
@@ -17,7 +16,7 @@ import { ToggleButton } from 'primereact/togglebutton';
 //Components
 import Galleria from "../../../components/Galleriaa";
 import Infotable from "../../../components/infotable/Infotable";
-import { putBackend } from "../../../api/api";
+import { deleteBackend, getBackend, putBackend } from "../../../api/api";
 
 function ProductDetail() {
   const username = useSelector((state) => state.user.user.name);
@@ -27,23 +26,18 @@ function ProductDetail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const requestBackend = async () => {
-    const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/api/users/articles?article_id=${id}`,
-      { withCredentials: true },
-      {
-        headers: {
-          "Access-Control-Allow-Origin":
-            "http://kleinanzeigen_api.jonaslbgtt.live:8080",
-        },
-      }
-    );
-    setTimeout(() => {
-      setProduct(response.data[0]);
-    }, 10);
-  };
+  console.log(product);
 
   useEffect(() => {
+    const requestBackend = async () => {
+      const response = await getBackend("/api/users/articles?article_id=" + id);
+      console.log(response[0]);
+      if (response[0] === undefined) {
+        console.log("Request Failed");
+      } else {
+        setProduct(response[0]);
+      }
+    };
     requestBackend();
     if (username === "") {
       dispatch(requestUser("/api/me"));
@@ -77,54 +71,39 @@ function ProductDetail() {
       life: 3000,
     });
   };
-  const onDelete = () => {
-    requestDelete();
-  };
-  const requestDelete = () => {
-    const config = {
-      method: "delete",
-      url: `${process.env.REACT_APP_API_URL}/api/me/articles?article=${id}`,
-      withCredentials: true,
-      headers: {
-        headers: {
-          "Access-Control-Allow-Origin":
-            "http://kleinanzeigen_api.jonaslbgtt.live:8080",
-        },
-      },
-    };
-
-    axios(config)
-      .then((response) => {
-        setError(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
+  const onDelete = async () => {
+    try {
+      const response = await deleteBackend("/api/me/articles?article=" + id);
+      console.log(response);
+      if (JSON.stringify(response) === '{"deletedCount":1}') {
+        toast.current.show({
+          severity: "success",
+          summary: "Fertig!",
+          detail: "Die Anzeige wurde erfolgreich gelöscht.",
+          life: 4000,
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 5000);
+      } else {
         toast.current.show({
           severity: "error",
           summary: "Error!",
           detail:
             "Request to Backend failed... Article can't be deleted. Please try again.",
           life: 8000,
-        });
-      });
-  };
-  const setError = (data) => {
-    return data !== '{"deletedCount":1}'
-      ? toast.current.show({
+        })
+      }
+    } catch (error) {
+      console.log(error);
+      toast.current.show({
         severity: "error",
         summary: "Error!",
         detail:
           "Request to Backend failed... Article can't be deleted. Please try again.",
         life: 8000,
-      })
-      : (setTimeout(() => {
-        navigate("/");
-      }, 5000),
-        toast.current.show({
-          severity: "success",
-          summary: "Fertig!",
-          detail: "Die Anzeige wurde erfolgreich gelöscht.",
-          life: 4000,
-        }));
+      });
+    }
   };
 
   const onEditClick = () => {
@@ -223,57 +202,63 @@ function ProductDetail() {
 
   return (
     <React.Fragment>
-      <Toast ref={toast} />
-      <div className="container product-container">
-        <h1>{product.Name}</h1>
-        <hr />
-        <div className="product-card card">
-          <div className="product-card-content">
-            {console.log(product._id)}
-            {product._id !== "" ? (
-              <Galleria images={product.pictures} articleID={product._id} />
-            ) : (
-              "lol"
-            )}
-          </div>
-          <div className="product-card-content card">
-            <h2 className="product-headline">Informationen</h2>
-            <div className="product-info-head">
-              <div>
-                <span>{product.Name}</span>
+      {product === "" ? (
+        navigate("/404")
+      ) : (
+        <React.Fragment>
+          <Toast ref={toast} />
+          <div className="container product-container">
+            <h1>{product.Name}</h1>
+            <hr />
+            <div className="product-card card">
+              <div className="product-card-content">
+                {console.log(product._id)}
+                {product._id !== "" ? (
+                  <Galleria images={product.pictures} articleID={product._id} />
+                ) : (
+                  "lol"
+                )}
               </div>
-              <div>
-                <span className="product-price">
-                  {product.price === 0 ? "Zu Verschenken" : product.price + "€"}
-                  {product.basis_fornegotioations === "Verhandlungsbasis"
-                    ? " VB"
-                    : ""}
-                </span>
-              </div>
-            </div>
-            <br />
-            <br />
-            <Panel header="Beschreibung">
-              <div
-                className="content"
-                dangerouslySetInnerHTML={{ __html: product.discription }}
-              ></div>
-            </Panel>
-            <br />
-            <br />
-            <Infotable data={InfotableData} />
-          </div>
-          {product !== "" ? (
-            username === product.owner?.name ? (
               <div className="product-card-content card">
-                <h2 className="product-headline">Aktionen</h2>
-                {/* Quelle: https://www.primefaces.org/primereact/toolbar/ */}
-                <Toolbar left={leftContents} right={rightContents} />
+                <h2 className="product-headline">Informationen</h2>
+                <div className="product-info-head">
+                  <div>
+                    <span>{product.Name}</span>
+                  </div>
+                  <div>
+                    <span className="product-price">
+                      {product.price === 0 ? "Zu Verschenken" : product.price + "€"}
+                      {product.basis_fornegotioations === "Verhandlungsbasis"
+                        ? " VB"
+                        : ""}
+                    </span>
+                  </div>
+                </div>
+                <br />
+                <br />
+                <Panel header="Beschreibung">
+                  <div
+                    className="content"
+                    dangerouslySetInnerHTML={{ __html: product.discription }}
+                  ></div>
+                </Panel>
+                <br />
+                <br />
+                <Infotable data={InfotableData} />
               </div>
-            ) : null
-          ) : null}
-        </div>
-      </div>
+              {product !== "" ? (
+                username === product.owner?.name ? (
+                  <div className="product-card-content card">
+                    <h2 className="product-headline">Aktionen</h2>
+                    {/* Quelle: https://www.primefaces.org/primereact/toolbar/ */}
+                    <Toolbar left={leftContents} right={rightContents} />
+                  </div>
+                ) : null
+              ) : null}
+            </div>
+          </div>
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 }
